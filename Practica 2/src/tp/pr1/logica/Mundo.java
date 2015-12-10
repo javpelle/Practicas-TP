@@ -78,6 +78,7 @@ public class Mundo {
 		boolean insertada = false;
 		if (dentro(f, c) && superficie.celulaNula(f ,c)) {
 			superficie.insertarCelulaSimple(f ,c);
+			System.out.print("Celula simple creada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
 			insertada = true;
 		}
 		return insertada;
@@ -94,6 +95,7 @@ public class Mundo {
 		boolean insertada = false;
 		if (dentro(f, c) && superficie.celulaNula(f ,c)) {
 			superficie.insertarCelulaCompleja(f ,c);
+			System.out.print("Celula compleja creada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
 			insertada = true;
 		}
 		return insertada;
@@ -110,6 +112,7 @@ public class Mundo {
 		boolean eliminida = false;
 		if (dentro(f, c) && !superficie.celulaNula(f ,c)) {
 			superficie.eliminarCelula(f ,c);
+			System.out.print("Celula eliminada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
 			eliminida = true;
 		}
 		return eliminida;

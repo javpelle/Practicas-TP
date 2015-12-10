@@ -9,7 +9,7 @@ class ComandoPaso extends Comando {
 	
 	public Comando parsea(String[ ] cadenaComando) {
 		if(cadenaComando[0].equals("paso")) {
-			return new ComandoPaso();
+			return this;
 		} else {
 			return null;
 		}

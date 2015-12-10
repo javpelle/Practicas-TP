@@ -8,7 +8,7 @@ class ComandoVaciar extends Comando {
 	}
 	public Comando parsea(String[ ] cadenaComando) {
 		if(cadenaComando[0].equals("vaciar")) {
-			return new ComandoVaciar();
+			return this;
 		} else {
 			return null;
 		}

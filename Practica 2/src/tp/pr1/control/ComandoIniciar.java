@@ -10,7 +10,7 @@ class ComandoIniciar extends Comando {
 	
 	public Comando parsea(String[] cadenaComando) {
 		if(cadenaComando[0].equals("iniciar")) {
-			return new ComandoIniciar();
+			return this;
 		} else {
 			return null;
 		}

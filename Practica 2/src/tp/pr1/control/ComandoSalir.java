@@ -7,8 +7,8 @@ class ComandoSalir extends Comando {
 	}
 	
 	public Comando parsea(String[ ] cadenaComando) {
-		if(cadenaComando[0].equals("salir")) {
-			return new ComandoSalir();
+		if(cadenaComando[0].equals("salir") || cadenaComando[0].equals("exit")) {
+			return this;
 		} else {
 			return null;
 		}

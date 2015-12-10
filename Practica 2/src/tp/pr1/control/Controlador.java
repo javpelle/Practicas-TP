@@ -35,7 +35,7 @@ public class Controlador {
 			line = line.toLowerCase();
 			String[] words = line.split(" ");
 			Comando comando = ParserComandos.parseaComando(words);
-			if (comando!=null){
+			if (comando != null){
 				comando.ejecuta(this.mundo);
 				mundo.pintarMundo();
 				

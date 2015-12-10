@@ -15,11 +15,12 @@ class ComandoCrearCelulaCompleja  extends Comando {
 				 System.out.print("La celula no se puede insertar en la posicion seleccionada. \n");
 			 }
 		}
+		
 		public Comando parsea(String[] cadenaComando) {
 			if (cadenaComando[0].equals("crearcelulacompleja") && cadenaComando.length >= 3) {
-				int f = Integer.parseInt(cadenaComando[1]) - 1;
-				int c = Integer.parseInt(cadenaComando[2]) - 1;
-				return new ComandoCrearCelulaCompleja(f, c);
+				this.f = Integer.parseInt(cadenaComando[1]) - 1;
+				this.c = Integer.parseInt(cadenaComando[2]) - 1;
+				return this;
 			} else {
 				return null;
 			}

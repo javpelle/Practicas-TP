@@ -18,9 +18,9 @@ class ComandoEliminarCelula extends Comando {
 	}
 	public Comando parsea(String[] cadenaComando) {
 		if (cadenaComando[0].equals("eliminarcelula") && cadenaComando.length >= 3) {
-			int f = Integer.parseInt(cadenaComando[1]) - 1;
-			int c = Integer.parseInt(cadenaComando[2]) - 1;
-			return new ComandoEliminarCelula(f, c);
+			this.f = Integer.parseInt(cadenaComando[1]) - 1;
+			this.c = Integer.parseInt(cadenaComando[2]) - 1;
+			return this;
 		} else {
 			return null;
 		}

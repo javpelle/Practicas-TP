@@ -8,7 +8,7 @@ class ComandoAyuda extends Comando {
 	}
 	public Comando parsea(String[ ] cadenaComando) {
 		if(cadenaComando[0].equals("ayuda") || cadenaComando[0].equals("help")) {
-			return new ComandoAyuda();
+			return this;
 		} else {
 			return null;
 		}
