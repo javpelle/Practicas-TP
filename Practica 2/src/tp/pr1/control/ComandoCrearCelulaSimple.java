@@ -17,7 +17,7 @@ class ComandoCrearCelulaSimple extends Comando {
 		 }
 	}
 	public Comando parsea(String[] cadenaComando) {
-		if (cadenaComando[0].equals("crearcelulasimple")) {
+		if (cadenaComando[0].equals("crearcelulasimple") && cadenaComando.length >= 3) {
 			int f = Integer.parseInt(cadenaComando[1]) - 1;
 			int c = Integer.parseInt(cadenaComando[2]) - 1;
 			return new ComandoCrearCelulaSimple(f, c);
