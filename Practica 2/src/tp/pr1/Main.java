@@ -18,5 +18,6 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		Controlador ejecucion = new Controlador(mundo,in);
 		ejecucion.realizaSimulacion();
+		System.out.print("Adios!");
 	}
 }
