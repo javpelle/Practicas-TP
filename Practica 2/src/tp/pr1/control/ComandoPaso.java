@@ -6,9 +6,15 @@ class ComandoPaso extends Comando {
 	public void ejecuta(Mundo mundo) {
 		mundo.evoluciona();
 	}
+	
 	public Comando parsea(String[ ] cadenaComando) {
-		return null;
+		if(cadenaComando[0].equals("paso")) {
+			return new ComandoPaso();
+		} else {
+			return null;
+		}
 	}
+	
 	public String textoAyuda() {
 		return "PASO: Realiza un paso en la simulación.\n";
 	}

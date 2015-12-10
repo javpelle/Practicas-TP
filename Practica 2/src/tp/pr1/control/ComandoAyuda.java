@@ -4,12 +4,16 @@ import tp.pr1.logica.Mundo;
 
 class ComandoAyuda extends Comando {
 	public void ejecuta(Mundo mundo) {
-		mundo.esSimulacionTerminada();
+		System.out.print(ParserComandos.AyudaComandos());
 	}
 	public Comando parsea(String[ ] cadenaComando) {
-		return null;
+		if(cadenaComando[0].equals("ayuda") || cadenaComando[0].equals("help")) {
+			return new ComandoAyuda();
+		} else {
+			return null;
+		}
 	}
 	public String textoAyuda() {
-		return "AYUDA: Muestra esta ayuda.\n";
+		return "AYUDA / HELP: Muestra esta ayuda.\n";
 	}
 }

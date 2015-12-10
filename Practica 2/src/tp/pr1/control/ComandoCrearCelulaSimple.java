@@ -2,7 +2,7 @@ package tp.pr1.control;
 
 import tp.pr1.logica.Mundo;
 
-public class ComandoCrearCelulaSimple {
+class ComandoCrearCelulaSimple extends Comando {
 	private int f;
 	private int c;
 	
@@ -17,7 +17,13 @@ public class ComandoCrearCelulaSimple {
 		 }
 	}
 	public Comando parsea(String[] cadenaComando) {
-		return null;
+		if (cadenaComando[0].equals("crearcelulasimple")) {
+			int f = Integer.parseInt(cadenaComando[1]) - 1;
+			int c = Integer.parseInt(cadenaComando[2]) - 1;
+			return new ComandoCrearCelulaSimple(f, c);
+		} else {
+			return null;
+		}
 	}
 	public String textoAyuda() {
 		return "CREARCELULASIMPLE F C: crea una nueva celula simple en la posición (f,c) si es posible.\n" ;

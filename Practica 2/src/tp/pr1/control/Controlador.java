@@ -27,8 +27,21 @@ public class Controlador {
 	/**
 	 * Consta de un bucle que lee comandos e invoca distintos métodos en función de dichos comandos.
 	 */
-	public void realizaSimulacion() {		
-		Comando comando = ParserComandos.parseaComando(words);
-		if (comando!=null) comando.ejecuta(this.mundo);
+	public void realizaSimulacion() {
+		mundo.pintarMundo();
+		while (mundo.esSimulacionTerminada()) {
+			System.out.print("Comando > ");
+			String line = in.nextLine();
+			line = line.toLowerCase();
+			String[] words = line.split(" ");
+			Comando comando = ParserComandos.parseaComando(words);
+			if (comando!=null){
+				comando.ejecuta(this.mundo);
+				mundo.pintarMundo();
+				
+			} else {
+				System.out.print("El comando introducido no es válido. \n");
+			}
+		}	
 	}
 }

@@ -3,11 +3,17 @@ import tp.pr1.logica.Mundo;
 
 class ComandoSalir extends Comando {
 	public void ejecuta(Mundo mundo) {
-		mundo.esSimulacionTerminada();
+		mundo.setEsSimulacionTerminada();
 	}
+	
 	public Comando parsea(String[ ] cadenaComando) {
-		return null;
+		if(cadenaComando[0].equals("salir")) {
+			return new ComandoSalir();
+		} else {
+			return null;
+		}
 	}
+	
 	public String textoAyuda() {
 		return "SALIR: Cierra la aplicación.\n";
 	}

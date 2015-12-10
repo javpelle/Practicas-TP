@@ -130,9 +130,11 @@ public class Mundo {
 	}
 	
 	public boolean esSimulacionTerminada(){
-		simulacionTerminada = false;
 		return simulacionTerminada;
 	}
 	
-	public void 
+	public void setEsSimulacionTerminada(){
+		simulacionTerminada = false;
+	}
+
 }

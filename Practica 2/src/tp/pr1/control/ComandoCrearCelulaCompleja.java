@@ -1,7 +1,7 @@
 package tp.pr1.control;
 import tp.pr1.logica.Mundo;
 
-public class ComandoCrearCelulaCompleja  extends Comando {
+class ComandoCrearCelulaCompleja  extends Comando {
 		private int f;
 		private int c;
 		
@@ -16,7 +16,13 @@ public class ComandoCrearCelulaCompleja  extends Comando {
 			 }
 		}
 		public Comando parsea(String[] cadenaComando) {
-			return null;
+			if (cadenaComando[0].equals("crearcelulacompleja")) {
+				int f = Integer.parseInt(cadenaComando[1]) - 1;
+				int c = Integer.parseInt(cadenaComando[2]) - 1;
+				return new ComandoCrearCelulaCompleja(f, c);
+			} else {
+				return null;
+			}
 		}
 		public String textoAyuda() {
 			return "CREARCELULACOMPLEJA F C: crea una nueva celula compleja en la posición (f,c) si es posible.\n";
