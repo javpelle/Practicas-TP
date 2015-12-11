@@ -10,6 +10,9 @@ class ComandoPaso extends Comando {
 		mundo.evoluciona();
 	}
 	
+	/**
+	 * Comprueba si el array de string se corresponde con el comando, y lo devuelve en tal caso.Si no, devuelve null.
+	 */
 	public Comando parsea(String[ ] cadenaComando) {
 		if(cadenaComando[0].equals("paso")) {
 			return this;
