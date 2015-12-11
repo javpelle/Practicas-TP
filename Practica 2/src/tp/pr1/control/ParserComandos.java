@@ -3,9 +3,9 @@ package tp.pr1.control;
 public class ParserComandos {
 	private static Comando[] comandos = {
 		new ComandoAyuda(),
-		new ComandoCrearCelulaCompleja(0, 0),
-		new ComandoCrearCelulaSimple(0, 0),
-		new ComandoEliminarCelula(0, 0),
+		new ComandoCrearCelulaCompleja(),
+		new ComandoCrearCelulaSimple(),
+		new ComandoEliminarCelula(),
 		new ComandoIniciar(),
 		new ComandoPaso(),
 		new ComandoSalir(),

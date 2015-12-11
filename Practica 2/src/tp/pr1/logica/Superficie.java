@@ -65,21 +65,6 @@ public class Superficie {
 	}
 	
 	/**
-	 * Cada célula de la superficie reestablece su booleano que indica si ya ha sido
-	 * movida.
-	 */
-	public void restaurarMovimiento() {  
-		// Al final del turno, restaura el booleano de cada célula
-		for (int i = 0; i < this.filas; i++) {
-			for (int j = 0; j < this.columnas; j++){
-				if (superficie[i][j] != null) {
-					superficie[i][j].setRestaurar ();
-				} 
-			}
-		}		
-	}
-	
-	/**
 	 * Crea una nueva célula simple en la posición indicada.
 	 * @param f coordenada i
 	 * @param c coordenada j
@@ -160,24 +145,24 @@ public class Superficie {
 		return columnas - 1;
 	}
 	
-	
+	/**
+	 * Devolvemos si hay o no una célula en una celda
+	 * @param f coordenada f de la celda a estudiar
+	 * @param c coordenada c de la celda a estudiar
+	 * @return Devuelve true si la celda está vacia, false si hay celula
+	 */
 	public boolean celulaNula(int f, int c) {
 		return this.superficie[f][c] == null;
 	}
 	
-	public boolean getMovido(int f, int c) {
-		return this.superficie[f][c].getMovido();
-	}
-	
-	
-	public void setMovido(int f, int c) {
-		this.superficie[f][c].setMovido();
-	}
-	
+	/**
+	 * Devuelve si la celula es o no comestible
+	 * @param f coordenada f de la celula a estudiar
+	 * @param c coordenada c de la celula a estudiar
+	 * @return Devuelve true si es simple, false si es compleja.
+	 */
 	public boolean esComestible(int f, int c) {
 		return superficie[f][c].esComestible();
 	}
-	
-	
 }
 

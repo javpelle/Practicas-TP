@@ -4,6 +4,9 @@ import tp.pr1.logica.Mundo;
 
 class ComandoIniciar extends Comando {
 	
+	/**
+	 * Ejecuta la intruccion del mundo, iniciar mundo
+	 */
 	public void ejecuta(Mundo mundo) {
 		 mundo.iniciarMundo();
 	}
@@ -16,6 +19,9 @@ class ComandoIniciar extends Comando {
 		}
 	}
 	
+	/**
+	 * @return Devuelve un string con la ayuda
+	 */
 	public String textoAyuda() {
 		return "INICIAR: inicia una nueva simulación.\n";
 	}

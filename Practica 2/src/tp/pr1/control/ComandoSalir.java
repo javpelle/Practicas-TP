@@ -2,6 +2,10 @@ package tp.pr1.control;
 import tp.pr1.logica.Mundo;
 
 class ComandoSalir extends Comando {
+	
+	/**
+	 * Ejecuta la instruccion del mundo encargarda de finalizar la simulacion
+	 */
 	public void ejecuta(Mundo mundo) {
 		mundo.setEsSimulacionTerminada();
 	}
@@ -14,6 +18,9 @@ class ComandoSalir extends Comando {
 		}
 	}
 	
+	/**
+	 * @return Devuelve un string con la ayuda
+	 */
 	public String textoAyuda() {
 		return "SALIR: Cierra la aplicación.\n";
 	}

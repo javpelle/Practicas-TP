@@ -13,6 +13,10 @@ class ComandoAyuda extends Comando {
 			return null;
 		}
 	}
+	
+	/**
+	 * @return Devuelve un string con la ayuda
+	 */
 	public String textoAyuda() {
 		return "AYUDA / HELP: Muestra esta ayuda.\n";
 	}

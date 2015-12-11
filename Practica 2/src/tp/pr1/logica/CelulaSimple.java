@@ -7,8 +7,7 @@ class CelulaSimple extends Celula {
 	/**
 	 * Contructora de la clase CelulaSimple
 	 */
-	public CelulaSimple(){	
-		super();
+	public CelulaSimple() {
 		esComestible = true;
 		sinMovimientos = 0;
 		pasosDados = 0;
@@ -39,7 +38,6 @@ class CelulaSimple extends Celula {
 			}
 			//Si no ha muerto y no ha movido, aumentamos los pasos sin mover.
 		} else {
-			superficie.setMovido(f, c);
 			superficie.moverCelula(f, c, destino.getF(), destino.getC());
 			System.out.print("Movimiento de  (" + (f + 1) + "," + (c + 1) +") a (" +  (destino.getF() + 1) + "," + (destino.getC() + 1) +") \n");		
 			if (reproduccion()) {  

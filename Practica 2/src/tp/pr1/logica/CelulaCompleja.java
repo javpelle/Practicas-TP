@@ -1,14 +1,13 @@
 package tp.pr1.logica;
 
 class CelulaCompleja extends Celula {
-	static final int MAX_CELULAS_COMIDAS = 1;
+	static final int MAX_CELULAS_COMIDAS = 2;
 	private int celulasComidas;
 	
 	/**
 	 * Constructora de la clase CelulaSimple
 	 */
 	public CelulaCompleja() {
-		super();
 		esComestible = false;
 		celulasComidas = 0;
 	}
@@ -82,6 +81,9 @@ class CelulaCompleja extends Celula {
 		return celulasComidas;
 	}
 	
+	/**
+	 * Aumentamos en uno las celulas comidas
+	 */
 	public void setComidas() {
 		celulasComidas++;
 	}

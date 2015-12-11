@@ -13,6 +13,7 @@ public class Mundo {
 	private static final int CELULAS_INICIO = 4;
 	private Superficie superficie;
 	private boolean simulacionTerminada;
+	private boolean[][] booleanMatrix;
 	
 	/**
 	 * Constructora de la clase Mundo, inicializa la superficie con las dimensiones dadas
@@ -23,7 +24,13 @@ public class Mundo {
 		this.superficie = new Superficie(NF, NC);
 		for (int i = 0; i < CELULAS_INICIO; i++) {
 			superficie.nuevaCelula();	
-		}		
+		}
+		booleanMatrix = new boolean [NF][NC];
+		for (int i = 0; i < NF; i++) {
+			for (int j = 0; i < NC; i++) {
+				booleanMatrix[i][j] = false;
+			}
+		}
 	}
 	
 	/**
@@ -35,19 +42,29 @@ public class Mundo {
 	public void evoluciona() {
 		for (int i = 0; i < NF; i++) {
 			for (int j = 0; j < NC; j++) {
-				if (!superficie.celulaNula(i, j) && !superficie.getMovido(i, j)) {					
+				if (!superficie.celulaNula(i, j) && !booleanMatrix[i][j]) {					
 					Posicion p = superficie.ejecutaMovimiento(i, j);
 					if (p != null) {
-						superficie.setMovido(p.getF(), p.getC());
+						booleanMatrix[p.getF()][p.getC()] = true;
 					}
 				}
 			}
 		}
 		// Una vez acabada la ejecución restauramos los booleanos de las céulas que nos 
 		// indican si han sido movidas o no.
-		superficie.restaurarMovimiento();
+		restaurarMovimiento();
 	}
 	
+	/**
+	 * Cambia cada booleano de la matriz de booleanos a false;
+	 */
+	void restaurarMovimiento() {
+		for (int i = 0; i < NF; i++) {
+			for (int j = 0; j < NC; j++) {
+				booleanMatrix[i][j] = false;
+			}
+		}
+	}
 	
 	/**
 	 * Vacía el mundo, y lo vuelve a iniciar con un número de células
@@ -132,10 +149,17 @@ public class Mundo {
 		superficie.pintarSuperficie();
 	}
 	
+	/**
+	 * Devuelve si la simulacion ha sido o no terminada
+	 * @return Devuelve si la simulacion ha sido o no terminada
+	 */
 	public boolean esSimulacionTerminada(){
 		return simulacionTerminada;
 	}
 	
+	/**
+	 * Cambia simulacionTerminada a false
+	 */
 	public void setEsSimulacionTerminada(){
 		simulacionTerminada = false;
 	}

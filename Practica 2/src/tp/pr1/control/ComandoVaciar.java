@@ -3,6 +3,10 @@ package tp.pr1.control;
 import tp.pr1.logica.Mundo;
 
 class ComandoVaciar extends Comando {
+	
+	/**
+	 * Ejecuta la instruccion del mundo vaciar
+	 */
 	public void ejecuta(Mundo mundo) {
 		mundo.vaciar();
 	}
@@ -13,6 +17,10 @@ class ComandoVaciar extends Comando {
 			return null;
 		}
 	}
+	
+	/**
+	 * @return Devuelve un string con la ayuda
+	 */
 	public String textoAyuda() {
 		return "VACIAR: crea un mundo vacío.\n";
 	}
