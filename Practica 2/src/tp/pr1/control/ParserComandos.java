@@ -1,5 +1,10 @@
 package tp.pr1.control;
 
+/**
+ * Clase encargada de corresponer a los Strings introducidos por consola 
+ * con sus comandos correspondientes.
+ * Ademas muestra la ayuda.
+ */
 public class ParserComandos {
 	private static Comando[] comandos = {
 		new ComandoAyuda(),

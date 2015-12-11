@@ -1,5 +1,8 @@
 package tp.pr1.logica;
 
+/**
+ * Representa una celula compleja del mundo.
+ */
 class CelulaCompleja extends Celula {
 	static final int MAX_CELULAS_COMIDAS = 2;
 	private int celulasComidas;

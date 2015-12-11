@@ -1,9 +1,7 @@
 package tp.pr1.logica;
 
 /**
- * Clase que representa una célula del mundo. Consta de atributos privados que
- * contabilizan el número de turnos sin mover y el número de pasos dados de la
- * célula.
+ * Clase abstracta que representa una celula del mundo. 
  */
 abstract class Celula {
 	protected boolean esComestible;

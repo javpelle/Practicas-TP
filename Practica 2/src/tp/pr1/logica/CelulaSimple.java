@@ -1,5 +1,8 @@
 package tp.pr1.logica;
 
+/**
+ * Representa una celula simple del mundo
+ */
 class CelulaSimple extends Celula {
 	static final int MAX_PASOS_SIN_MOVER = 2;
 	static final int PASOS_REPRODUCCION = 5;
@@ -18,7 +21,6 @@ class CelulaSimple extends Celula {
 	 * @param f Fila en la que se encuentra la célula
 	 * @param c Columna en la que se encuentra la célula
 	 * @param superficie Tablero del mundo
-	 * @param esquina  Posición de la última celula del array
 	 * @return Devolvemos la posicion a la que movemos, o null en caso de que no se pueda mover
 	 */
 	public Posicion ejecutaMovimiento(int f, int c, Superficie superficie){
