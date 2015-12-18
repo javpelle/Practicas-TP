@@ -25,7 +25,7 @@ class CelulaSimple extends Celula {
 	 */
 	public Posicion ejecutaMovimiento(int f, int c, Superficie superficie){
 		Posicion p = new Posicion(f,c);
-		Posicion esquina = new Posicion(superficie.getFilas(), superficie.getColumnas());
+		Posicion esquina = new Posicion(superficie.getFilas() - 1, superficie.getColumnas() - 1);
 		Posicion destino = valida(p, esquina, superficie);
 		if (destino == null) {
 			setSinMovimientos();
@@ -43,9 +43,9 @@ class CelulaSimple extends Celula {
 			superficie.moverCelula(f, c, destino.getF(), destino.getC());
 			System.out.print("Movimiento de  (" + (f + 1) + "," + (c + 1) +") a (" +  (destino.getF() + 1) + "," + (destino.getC() + 1) +") \n");		
 			if (reproduccion()) {  
-				superficie.insertarCelulaSimple(c,f);
+				superficie.insertarCelulaSimple(f,c);
 				setRestaurarPasosDados();
-				System.out.print("Nueva celula en   (" + (c + 1) + "," + (f + 1) +") cuyo padre ha sido (" +  (destino.getF() + 1) + "," + (destino.getC() + 1) +") \n");
+				System.out.print("Nueva celula en   (" + (f + 1) + "," + (c + 1) +") cuyo padre ha sido (" +  (destino.getF() + 1) + "," + (destino.getC() + 1) +") \n");
 			} else {
 				// Aumentamos +1 los pasos dados por la célula.
 				setPasosDados();

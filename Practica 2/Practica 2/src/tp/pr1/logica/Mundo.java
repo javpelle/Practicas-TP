@@ -8,9 +8,9 @@ package tp.pr1.logica;
  * También se encarga entre otras cosas de crear o eliminar una célula en una posición dada.
  */
 public class Mundo {
-	private static final int NF = 4;
-	private static final int NC = 4;
-	private static final int CELULAS_INICIO = 4;
+	private static final int NF = 2;
+	private static final int NC = 2;
+	private static final int CELULAS_INICIO = 1;
 	private Superficie superficie;
 	private boolean simulacionTerminada;
 	private boolean[][] booleanMatrix;
