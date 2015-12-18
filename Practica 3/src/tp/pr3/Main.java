@@ -5,7 +5,7 @@ import tp.pr3.control.Controlador;
 import tp.pr3.logica.Mundo;
 
 /**
- * Es la clase que contiene el método main de la práctica. Crea Mundo y Controlador invocando a sus
+ * Ess la clase que contiene el método main de la práctica. Crea Mundo y Controlador invocando a sus
  * constructoras, e invoca al método realizaSimulacion() de la clase Controlador.
  */
 public class Main {
