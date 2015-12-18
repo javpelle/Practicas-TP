@@ -135,14 +135,14 @@ public class Superficie {
 	 * @return Devolvemos el número de filas de la superficie
 	 */
 	public int getFilas() {
-		return filas - 1;
+		return filas;
 	}
 	
 	/**
 	 * @return Devolvemos el número de columnas de las superficie
 	 */
 	public int getColumnas() {
-		return columnas - 1;
+		return columnas;
 	}
 	
 	/**
