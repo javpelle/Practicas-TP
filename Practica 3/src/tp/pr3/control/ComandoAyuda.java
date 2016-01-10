@@ -1,6 +1,5 @@
 package tp.pr3.control;
 
-import tp.pr3.logica.Mundo;	
 
 class ComandoAyuda extends Comando {
 	
@@ -8,7 +7,7 @@ class ComandoAyuda extends Comando {
 	/**
 	 * Muestra la ayuda
 	 */
-	public void ejecuta(Mundo mundo) {
+	public void ejecuta(Controlador controlador) {
 		System.out.print(ParserComandos.AyudaComandos());
 	}
 	

@@ -1,13 +1,12 @@
 package tp.pr3.control;
-import tp.pr3.logica.Mundo;
 
 class ComandoPaso extends Comando {
 	
 	/**
-	 * Ejecuta la instruccion del mundo encargada de avanzar un paso en la evolucion
+	 * Ejecuta la instruccion del controlador encargada de avanzar un paso en la evolucion
 	 */
-	public void ejecuta(Mundo mundo) {
-		mundo.evoluciona();
+	public void ejecuta(Controlador controlador) {
+		controlador.daUnPaso();
 	}
 	
 	/**

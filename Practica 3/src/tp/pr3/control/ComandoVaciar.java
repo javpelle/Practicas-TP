@@ -1,14 +1,13 @@
 package tp.pr3.control;
 
-import tp.pr3.logica.Mundo;
 
 class ComandoVaciar extends Comando {
 	
 	/**
 	 * Ejecuta la instruccion del mundo vaciar
 	 */
-	public void ejecuta(Mundo mundo) {
-		mundo.vaciar();
+	public void ejecuta(Controlador controlador) {
+		controlador.vaciarMundo();
 	}
 	
 	/**

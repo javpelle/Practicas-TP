@@ -1,13 +1,13 @@
 package tp.pr3.control;
-import tp.pr3.logica.Mundo;
+
 
 class ComandoSalir extends Comando {
 	
 	/**
-	 * Ejecuta la instruccion del mundo encargarda de finalizar la simulacion
+	 * Ejecuta la instruccion del controlador encargarda de finalizar la simulacion
 	 */
-	public void ejecuta(Mundo mundo) {
-		mundo.setEsSimulacionTerminada();
+	public void ejecuta(Controlador controlador) {
+		controlador.terminarSimulacion();
 	}
 	
 	/**

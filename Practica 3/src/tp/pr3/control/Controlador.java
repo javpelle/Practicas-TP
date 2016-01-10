@@ -10,6 +10,7 @@ import java.util.Scanner;
  * Por cada lectura de comando correcta se invoca el método correspondiente.
  */
 public class Controlador {
+	boolean simulacionTerminada;
 	private Mundo mundo;
 	private Scanner in;
 	
@@ -22,13 +23,14 @@ public class Controlador {
 	public Controlador(Mundo mundo, Scanner in){
 		this.mundo = mundo;
 		this.in = in;
+		this.simulacionTerminada = false;
 	}
 	
 	/**
 	 * Consta de un bucle que lee comandos e invoca distintos métodos en función de dichos comandos.
 	 */
 	public void realizaSimulacion() {
-		while (mundo.esSimulacionTerminada()) {
+		while (!simulacionTerminada) {
 			mundo.pintarMundo();
 			System.out.print("Comando > ");
 			String line = in.nextLine();
@@ -36,10 +38,29 @@ public class Controlador {
 			String[] words = line.split(" ");
 			Comando comando = ParserComandos.parseaComando(words);
 			if (comando != null){
-				comando.ejecuta(this.mundo);
+				comando.ejecuta(this);
 			} else {
 				System.out.print("El comando introducido no es válido. \n");
 			}
 		}	
 	}
+	
+	public void daUnPaso(){
+		mundo.evoluciona();
+	}
+	
+	public void terminarSimulacion(){
+		simulacionTerminada = true;
+	}
+	
+	public void eliminarCelula(int f,int c){
+		 if (!mundo.eliminarCelula(f, c)) {
+			 System.out.print("La celula no se puede eliminar de la posicion seleccionada. \n");
+		 }
+	}
+	
+	public void vaciarMundo(){
+		mundo.vaciar();
+	}
+	
 }

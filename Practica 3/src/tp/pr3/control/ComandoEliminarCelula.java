@@ -1,6 +1,5 @@
 package tp.pr3.control;
 
-import tp.pr3.logica.Mundo;
 
 class ComandoEliminarCelula extends Comando {
 	private int f;
@@ -9,10 +8,8 @@ class ComandoEliminarCelula extends Comando {
 	/**
 	 * Elimina una celula en (f,c)
 	 */
-	public void ejecuta(Mundo mundo) {
-		 if (!mundo.eliminarCelula(f, c)) {
-			 System.out.print("La celula no se puede eliminar de la posicion seleccionada. \n");
-		 }
+	public void ejecuta(Controlador controlador) {
+		controlador.eliminarCelula(f, c);
 	}
 	
 	/**
