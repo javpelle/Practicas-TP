@@ -47,21 +47,27 @@ public class Superficie {
 	}
 	
 	/**
-	 * Inserta una célula en una posición aleatoria.
+	 * Inserta una célula simple en una posición aleatoria.
 	 */
-	public void nuevaCelula() {  
+	public void nuevaCelulaSimple() {  
 		int aleatorioFila, aleatorioColumna;
 		do {
 			aleatorioFila = (int) (Math.random() * this.filas);
 			aleatorioColumna = (int) (Math.random() * this.columnas);
 		} while (this.superficie[aleatorioFila][aleatorioColumna] != null);
-		int aleatorioSimpleCompleja = (int) (Math.random() * 2);
-		if (aleatorioSimpleCompleja == 0) {
-			this.superficie[aleatorioFila][aleatorioColumna] = new CelulaCompleja();
-		} else {
-			this.superficie[aleatorioFila][aleatorioColumna] = new CelulaSimple();
-		}
-		
+		this.superficie[aleatorioFila][aleatorioColumna] = new CelulaSimple();		
+	}
+	
+	/**
+	 * Inserta una célula compleja en una posición aleatoria.
+	 */
+	public void nuevaCelulaCompleja() {
+		int aleatorioFila, aleatorioColumna;
+		do {
+			aleatorioFila = (int) (Math.random() * this.filas);
+			aleatorioColumna = (int) (Math.random() * this.columnas);
+		} while (this.superficie[aleatorioFila][aleatorioColumna] != null);
+		this.superficie[aleatorioFila][aleatorioColumna] = new CelulaCompleja();
 	}
 	
 	/**

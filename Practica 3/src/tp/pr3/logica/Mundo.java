@@ -17,36 +17,29 @@ public abstract class Mundo {
 	 * Constructora por defecto de la clase Mundo, inicializa la superficie a null 
 	 * y el número de columnas y filas a 0 
 	 */
-	public Mundo () {
+	public Mundo() {
 		this.filas = 0;
 		this.columnas = 0;
 		this.superficie = null;
-		
 	}
 	
 	/**
 	 * Constructora con parametros (filas y columnas)  de la clase Mundo 
 	 */
-	
-	public Mundo (int f, int c) {
+	public Mundo(int f, int c) {
 		this.filas = f;
 		this.columnas = c;
 		this.superficie = new Superficie(this.filas, this.columnas);
-		
 	}
 	
 	abstract void inicializaMundo();
-	
-	
-	
+		
 	/**
 	 * Avanza un paso en la evolución del Mundo, trata de mover cada célula a una posible
 	 * posición vecina vacía, asegurándose de mover cada célula una única vez por
 	 * ejecución del método. Además se encarga de la reproduciión o muerte de una célula si
 	 *  procediera.
-	 */
-	
-	
+	 */	
 	public void evoluciona() {
 		for (int i = 0; i < NF; i++) {
 			for (int j = 0; j < NC; j++) {
