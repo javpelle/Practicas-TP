@@ -1,5 +1,16 @@
 package tp.pr3.logica;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import tp.pr3.exceptions.IndicesFueraDeRango;
+import tp.pr3.exceptions.NumerosNegativos;
+import tp.pr3.exceptions.PosicionVacia;
+
 /**
  * Consta de un atributo private superficie de dimensiones establecidas por constantes y
  * es inicializada con un número de células también establecida por una constante.
@@ -21,18 +32,31 @@ public abstract class Mundo {
 		this.filas = 0;
 		this.columnas = 0;
 		this.superficie = null;
+		this.booleanMatrix = null;
 	}
 	
 	/**
 	 * Constructora con parametros (filas y columnas)  de la clase Mundo 
+	 * @throws NumerosNegativos 
 	 */
-	public Mundo(int f, int c) {
-		this.filas = f;
-		this.columnas = c;
-		this.superficie = new Superficie(this.filas, this.columnas);
+	public Mundo(int f, int c) throws NumerosNegativos {
+		if(f <= 0 || c <= 0) {
+			throw new NumerosNegativos();
+		} else {
+			this.filas = f;
+			this.columnas = c;
+			this.superficie = new Superficie(filas, columnas);
+			booleanMatrix = new boolean [this.filas][this.columnas];
+			for (int i = 0; i < this.filas; i++) {
+				for (int j = 0; i < this.columnas; i++) {
+					booleanMatrix[i][j] = false;
+				}
+			}
+		}
 	}
 	
-	abstract void inicializaMundo();
+	abstract public void inicializaMundo();
+	abstract public boolean esSimple();
 		
 	/**
 	 * Avanza un paso en la evolución del Mundo, trata de mover cada célula a una posible
@@ -41,8 +65,8 @@ public abstract class Mundo {
 	 *  procediera.
 	 */	
 	public void evoluciona() {
-		for (int i = 0; i < NF; i++) {
-			for (int j = 0; j < NC; j++) {
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
 				if (!superficie.celulaNula(i, j) && !booleanMatrix[i][j]) {					
 					Posicion p = superficie.ejecutaMovimiento(i, j);
 					if (p != null) {
@@ -60,8 +84,8 @@ public abstract class Mundo {
 	 * Cambia cada booleano de la matriz de booleanos a false;
 	 */
 	void restaurarMovimiento() {
-		for (int i = 0; i < NF; i++) {
-			for (int j = 0; j < NC; j++) {
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
 				booleanMatrix[i][j] = false;
 			}
 		}
@@ -76,8 +100,8 @@ public abstract class Mundo {
 	/**
 	 * @return true si dentro
 	 */
-	private static boolean dentro(int f, int c) {
-		return (f >= 0 && f < NF) && (c >= 0 && c < NC);
+	private boolean dentro(int f, int c) {
+		return (f >= 0 && f < filas) && (c >= 0 && c < columnas);
 	}
 	
 	/**
@@ -120,15 +144,18 @@ public abstract class Mundo {
 	 * @param f coordenada i del mundo de células.
 	 * @param c coordenada j del mundo de células.
 	 * @return Devolvemos true si logramos borrar la célula. False en otro caso.
+	 * @throws IndicesFueraDeRango 
+	 * @throws PosicionVacia 
 	 */
-	public boolean eliminarCelula (int f, int c) {
-		boolean eliminida = false;
-		if (dentro(f, c) && !superficie.celulaNula(f ,c)) {
+	public void eliminarCelula (int f, int c) throws IndicesFueraDeRango, PosicionVacia {
+		if (!dentro(f, c)) {
+			throw new IndicesFueraDeRango();
+		} else if (superficie.celulaNula(f ,c)) {
+			throw new PosicionVacia();
+		} else {
 			superficie.eliminarCelula(f ,c);
 			System.out.print("Celula eliminada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
-			eliminida = true;
 		}
-		return eliminida;
 	}
 	
 	/**
@@ -143,6 +170,11 @@ public abstract class Mundo {
 	 */
 	public void pintarMundo(){
 		superficie.pintarSuperficie();
+	}
+	
+	public void cargar(String nombreFichero){
+		
+			
 	}
 }
 	

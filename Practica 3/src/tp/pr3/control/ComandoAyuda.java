@@ -1,7 +1,7 @@
 package tp.pr3.control;
 
 
-class ComandoAyuda extends Comando {
+class ComandoAyuda implements Comando {
 	
 
 	/**

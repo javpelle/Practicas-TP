@@ -1,7 +1,7 @@
 package tp.pr3.control;
 
 
-class ComandoSalir extends Comando {
+class ComandoSalir implements Comando {
 	
 	/**
 	 * Ejecuta la instruccion del controlador encargarda de finalizar la simulacion

@@ -3,10 +3,12 @@ package tp.pr3.logica;
 /**
  * Representa una celula simple del mundo
  */
-class CelulaSimple extends Celula {
+class CelulaSimple implements Celula {
 	static final int MAX_PASOS_SIN_MOVER = 2;
 	static final int PASOS_REPRODUCCION = 5;
 	private int sinMovimientos, pasosDados;
+	private boolean esComestible = true;
+	
 	/**
 	 * Contructora de la clase CelulaSimple
 	 */

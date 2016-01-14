@@ -1,7 +1,7 @@
 package tp.pr3.control;
 
 
-class ComandoEliminarCelula extends Comando {
+class ComandoEliminarCelula implements Comando {
 	private int f;
 	private int c;
 	
@@ -21,7 +21,6 @@ class ComandoEliminarCelula extends Comando {
 				this.f = Integer.parseInt(cadenaComando[1]) - 1;
 				this.c = Integer.parseInt(cadenaComando[2]) - 1;
 			} catch (IllegalArgumentException e) {
-				System.out.println("Exception thrown: " + e);
 				return null;
 			}
 			return this;

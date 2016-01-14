@@ -1,15 +1,23 @@
 package tp.pr3.logica;
 
+import tp.pr3.exceptions.ErrorDeInicializacion;
+import tp.pr3.exceptions.NumerosNegativos;
+
 public class MundoComplejo extends Mundo {
 	private int sim;
 	private int com;
+	private boolean esSimple;
 	
-	public MundoComplejo (int f, int c, int sim, int com) {
+	public MundoComplejo (int f, int c, int sim, int com) throws ErrorDeInicializacion, NumerosNegativos {
 		super(f, c);
-		if (f*c> (sim+com)); // Hacer excepción
 		this.sim = sim;
 		this.com = com;
-		inicializaMundo();
+		esSimple = false;
+		if (f * c < (this.sim + this.com)) {
+			throw new ErrorDeInicializacion();
+		} else {
+			inicializaMundo();
+		}
 	}
 	
 	public void inicializaMundo(){
@@ -20,5 +28,9 @@ public class MundoComplejo extends Mundo {
 		for(int i = 0; i < com; i++) {
 			superficie.nuevaCelulaCompleja();
 		}
+	}
+	
+	public boolean esSimple(){
+		return esSimple;
 	}
 }

@@ -1,14 +1,14 @@
 package tp.pr3.control;
 
-import tp.pr3.logica.Mundo;
 
-class ComandoIniciar extends Comando {
+
+class ComandoIniciar implements Comando {
 	
 	/**
 	 * Ejecuta la intruccion del mundo, iniciar mundo
 	 */
-	public void ejecuta(Mundo mundo) {
-		 mundo.iniciarMundo();
+	public void ejecuta(Controlador controlador) {
+		controlador.iniciarMundo();
 	}
 	
 	/**

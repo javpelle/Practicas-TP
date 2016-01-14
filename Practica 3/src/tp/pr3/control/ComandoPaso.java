@@ -1,6 +1,6 @@
 package tp.pr3.control;
 
-class ComandoPaso extends Comando {
+class ComandoPaso implements Comando {
 	
 	/**
 	 * Ejecuta la instruccion del controlador encargada de avanzar un paso en la evolucion

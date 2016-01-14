@@ -3,9 +3,10 @@ package tp.pr3.logica;
 /**
  * Representa una celula compleja del mundo.
  */
-class CelulaCompleja extends Celula {
+class CelulaCompleja implements Celula {
 	static final int MAX_CELULAS_COMIDAS = 2;
 	private int celulasComidas;
+	private boolean esComestible;
 	
 	/**
 	 * Constructora de la clase CelulaSimple

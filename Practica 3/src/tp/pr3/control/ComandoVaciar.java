@@ -1,7 +1,7 @@
 package tp.pr3.control;
 
 
-class ComandoVaciar extends Comando {
+class ComandoVaciar implements Comando {
 	
 	/**
 	 * Ejecuta la instruccion del mundo vaciar

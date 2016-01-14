@@ -8,13 +8,13 @@ package tp.pr3.control;
 public class ParserComandos {
 	private static Comando[] comandos = {
 		new ComandoAyuda(),
-		new ComandoCrearCelulaCompleja(),
-		new ComandoCrearCelulaSimple(),
+		new ComandoCrearCelula(),
 		new ComandoEliminarCelula(),
 		new ComandoIniciar(),
 		new ComandoPaso(),
 		new ComandoSalir(),
 		new ComandoVaciar(),
+		new ComandoJugar(),
 	};
 	
 	/**
