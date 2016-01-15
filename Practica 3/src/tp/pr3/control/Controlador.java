@@ -1,8 +1,12 @@
 package tp.pr3.control;
 
 import tp.pr3.exceptions.ComandoError;
+import tp.pr3.exceptions.ErrorDeInicializacion;
+import tp.pr3.exceptions.FormatoNumericoIncorrecto;
 import tp.pr3.exceptions.IndicesFueraDeRango;
 import tp.pr3.exceptions.NumeroNoValido;
+import tp.pr3.exceptions.NumerosNegativos;
+import tp.pr3.exceptions.PosicionNoVacia;
 import tp.pr3.exceptions.PosicionVacia;
 import tp.pr3.logica.Mundo;
 
@@ -10,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -46,8 +51,8 @@ public class Controlador {
 			String line = in.nextLine();
 			line = line.toLowerCase();
 			String[] words = line.split(" ");
-			Comando comando = ParserComandos.parseaComando(words);
 			try {
+				Comando comando = ParserComandos.parseaComando(words);
 				if (comando != null) {
 				comando.ejecuta(this);
 				} else {
@@ -55,8 +60,13 @@ public class Controlador {
 				}
 			} catch(ComandoError e) {
 				System.out.println(e);
+			} catch (FormatoNumericoIncorrecto e) {
+				System.out.println(e);
+			} catch (ErrorDeInicializacion e){
+				System.out.println(e);
+			} catch (NumerosNegativos f) {
+				System.out.println(f);
 			}
-			
 		}	
 	}
 	
@@ -91,36 +101,29 @@ public class Controlador {
 	}
 	
 	public void nuevaCelula(int f, int c) {
-		// vemos si el mundo es simple o compuesto
-		if(this.mundo.esSimple()) {
-			this.mundo.nuevaCelulaSimple(f, c);			
-		} else {
-			String entero = simpleOComplejo();
-			if (entero == "2") {
-				this.mundo.nuevaCelulaCompleja(f, c);
-			} else if (entero == "1") {
-				this.mundo.nuevaCelulaSimple(f, c);
-			}
-		}
-	}
-	
-
-
-	private String simpleOComplejo() {
-		String celula;
-		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
 		try {
-			celula = in.nextLine();
-			if (celula != "1" && celula != "2") {
-				throw  new NumeroNoValido();
+			if(!mundo.dentro(f,c)) {
+				throw new IndicesFueraDeRango();
+			} else if (!mundo.celulaNula(f, c)) {
+				throw new PosicionNoVacia();
+			} else {
+				if(this.mundo.esSimple()) {
+					this.mundo.nuevaCelulaSimple(f, c);
+				} else {
+					int entero = simpleOComplejo();
+					if (entero == 2) {
+						this.mundo.nuevaCelulaCompleja(f, c);
+					} else if (entero == 1) {
+						this.mundo.nuevaCelulaSimple(f, c);
+					}
+				}
 			}
-		} catch (NumeroNoValido e){
-			System.out.println(e);
-			return "0";
+		} catch (IndicesFueraDeRango e) {
+			System.out.print(e);
+		} catch (PosicionNoVacia e) {
+			System.out.print(e);
 		}
-		return celula;		
 	}
-	
 
 
 	public void cargar(String archivo){
@@ -140,6 +143,7 @@ public class Controlador {
 		}
 	}
 	
-	public void guardar(String archivo){
+	public void guardar(String archivo) {
 		
 	}
+}

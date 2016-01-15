@@ -100,42 +100,28 @@ public abstract class Mundo {
 	/**
 	 * @return true si dentro
 	 */
-	private boolean dentro(int f, int c) {
+	public boolean dentro(int f, int c) {
 		return (f >= 0 && f < filas) && (c >= 0 && c < columnas);
 	}
 	
 	/**
-	 * Inserta una nueva célula simple en la posición (f, c) del array siempre y cuando
-	 * esa celda exista y en ese caso, esté libre.
+	 * Inserta una nueva célula simple en la posición (f, c) del array 
 	 * @param f coordenada i del mundo de células.
 	 * @param c coordenada j del mundo de células.
-	 * @return Devolvemos true si logramos insertar la célula. False en otro caso.
 	 */
-	public boolean nuevaCelulaSimple (int f, int c){
-		boolean insertada = false;
-		if (dentro(f, c) && superficie.celulaNula(f ,c)) {
+	public void nuevaCelulaSimple (int f, int c) {
 			superficie.insertarCelulaSimple(f ,c);
 			System.out.print("Celula simple creada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
-			insertada = true;
-		}
-		return insertada;
 	}
 	
 	/**
-	 * Inserta una nueva célula compleja en la posición (f, c) del array siempre y cuando
-	 * esa celda exista y en ese caso, esté libre.
+	 * Inserta una nueva célula compleja en la posición (f, c) del array 
 	 * @param f coordenada i del mundo de células.
-	 * @param c coordenada j del mundo de células.
-	 * @return Devolvemos true si logramos insertar la célula. False en otro caso.
+	 * @param c coordenada j del mundo de células. 
 	 */
-	public boolean nuevaCelulaCompleja (int f, int c){
-		boolean insertada = false;
-		if (dentro(f, c) && superficie.celulaNula(f ,c)) {
+	public void nuevaCelulaCompleja (int f, int c) {
 			superficie.insertarCelulaCompleja(f ,c);
 			System.out.print("Celula compleja creada en la posicion (" + (f + 1) + "," + (c + 1) + ")\n");
-			insertada = true;
-		}
-		return insertada;
 	}
 	
 	/**
@@ -175,6 +161,10 @@ public abstract class Mundo {
 	public void cargar(String nombreFichero){
 		
 			
+	}
+	
+	public boolean celulaNula(int f, int c) {
+		return superficie.celulaNula(f,c);
 	}
 }
 	

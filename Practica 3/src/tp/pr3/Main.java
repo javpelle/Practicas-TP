@@ -17,20 +17,16 @@ public class Main {
 	/**
 	 * Crea Mundo y Controlador e invoca a realizaSimulacion()
 	 * @param args
+	 * @throws NumerosNegativos 
 	 * @throws ComandoError 
 	 * @throws ErrorDeInicializacion 
 	 */
-	public static void main(String[] args) {
-		try {
-			Mundo mundo = new MundoComplejo(2,2,2,0);
-			Scanner in = new Scanner(System.in);
-			Controlador ejecucion = new Controlador(mundo,in);
-			ejecucion.realizaSimulacion();
-		} catch (ErrorDeInicializacion e) {
-			System.out.println(e);
-		} catch (NumerosNegativos f) {
-			System.out.println(f);
-		}
+	public static void main(String[] args) throws ErrorDeInicializacion, NumerosNegativos {
+		Mundo mundo = new MundoComplejo(2,2,2,0);
+		Scanner in = new Scanner(System.in);
+		Controlador ejecucion = new Controlador(mundo,in);
+		ejecucion.realizaSimulacion();
+		in.close();
 		System.out.print("Adios!");
 	}
 }

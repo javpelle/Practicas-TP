@@ -8,6 +8,7 @@ import tp.pr3.logica.MundoComplejo;
 import tp.pr3.logica.MundoSimple;
 
 class ComandoJugar implements Comando {
+	private boolean esMundoSimple;
 	private Mundo mundo;
 	private int filas;
 	private int columnas;
@@ -17,59 +18,46 @@ class ComandoJugar implements Comando {
 	
 	/**
 	 * crea una celula simple en (f,c)
+	 * @throws NumerosNegativos 
+	 * @throws ErrorDeInicializacion 
 	 */
-	public void ejecuta(Controlador controlador) {
-		 controlador.juega(this.mundo);
+	public void ejecuta(Controlador controlador) throws ErrorDeInicializacion, NumerosNegativos {
+		if (esMundoSimple) {
+			this.mundo = new MundoSimple(filas, columnas, sim);
+		} else {
+			this.mundo = new MundoComplejo(filas, columnas, sim, com);
+		}
+		 controlador.juega(this.mundo); 
 	}
 	
 	/**
 	 * Comprueba si el array de string se corresponde con el comando, lo ejecuta con (f - 1,c - 1) y lo devuelve en tal caso.Si no, devuelve null.
+	 * @throws FormatoNumericoIncorrecto 
+	 * @throws NumerosNegativos 
+	 * @throws ErrorDeInicializacion 
 	 */
-	public Comando parsea(String[] cadenaComando) {
+	public Comando parsea(String[] cadenaComando) throws FormatoNumericoIncorrecto {
 		if (cadenaComando[0].equals("jugar") && cadenaComando[1].equals("simple") && cadenaComando.length == 5) {
 			try {
-				try {
-					this.filas = Integer.parseInt(cadenaComando[2]);
-					this.columnas = Integer.parseInt(cadenaComando[3]);
-					this.sim = Integer.parseInt(cadenaComando[4]);
-				} catch (IllegalArgumentException e) {
-					throw new FormatoNumericoIncorrecto();
-				} try {
-					this.mundo = new MundoSimple(filas, columnas, sim);
-				} catch (ErrorDeInicializacion e){
-					System.out.println(e);
-				} catch (NumerosNegativos f) {
-					System.out.println(f);
-				}
-			} catch (FormatoNumericoIncorrecto e) {
-				System.out.println(e);
-				return null;
+				esMundoSimple = true;
+				this.filas = Integer.parseInt(cadenaComando[2]);
+				this.columnas = Integer.parseInt(cadenaComando[3]);
+				this.sim = Integer.parseInt(cadenaComando[4]);
+			} catch (NumberFormatException e) {
+				throw new FormatoNumericoIncorrecto();
 			}
 			return this;
-			
 		} else if (cadenaComando[0].equals("jugar") && cadenaComando[1].equals("complejo") && cadenaComando.length == 6) {
-			try {	
-				try {
-					this.filas = Integer.parseInt(cadenaComando[2]);
-					this.columnas = Integer.parseInt(cadenaComando[3]);
-					this.sim = Integer.parseInt(cadenaComando[4]);
-					this.com = Integer.parseInt(cadenaComando[5]);
-				} catch (IllegalArgumentException e) {
-					throw new FormatoNumericoIncorrecto();
-				} 
-				try {
-				this.mundo = new MundoComplejo(filas, columnas, sim, com);
-				} catch (ErrorDeInicializacion e) {
-					System.out.println(e);
-				} catch (NumerosNegativos f) {
-					System.out.println(f);
-				}
-			} catch (FormatoNumericoIncorrecto e) {
-				System.out.println(e);
-				return null;
+			try {
+				esMundoSimple = false;
+				this.filas = Integer.parseInt(cadenaComando[2]);
+				this.columnas = Integer.parseInt(cadenaComando[3]);
+				this.sim = Integer.parseInt(cadenaComando[4]);
+				this.com = Integer.parseInt(cadenaComando[5]);
+			} catch (IllegalArgumentException e) {
+				throw new FormatoNumericoIncorrecto();
 			}
 			return this;
-			
 		} else {
 			return null;
 		}
