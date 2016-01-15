@@ -4,20 +4,44 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import tp.pr3.exceptions.FormatoNumericoIncorrecto;
+import tp.pr3.exceptions.IndicesFueraDeRango;
 import tp.pr3.exceptions.NumeroNoValido;
+import tp.pr3.exceptions.PosicionNoVacia;
 
 
 class ComandoCrearCelula implements Comando {
 	private int f;
 	private int c;
+	private boolean esCelulaSimple;
 	
 	/**
 	 * crea una celula simple en (f,c)
 	 * @throws FormatoNumericoIncorrecto 
 	 */
 	public void ejecuta(Controlador controlador) {
-		
-		controlador.nuevaCelula(f,c);
+		try {
+			if(!controlador.getDentro(f,c)) {
+				throw new IndicesFueraDeRango();
+			} else if (!controlador.getCelulaNula(f, c)) {
+				throw new PosicionNoVacia();
+			} else {
+				if(controlador.getEsMundoSimple()) {
+					esCelulaSimple = true;
+				} else {
+					int entero = simpleOComplejo();
+					if (entero == 2) {
+						esCelulaSimple = false;
+					} else if (entero == 1) {
+						esCelulaSimple = true;
+					}
+				}
+			}
+			controlador.nuevaCelula(f,c,esCelulaSimple);
+		} catch (IndicesFueraDeRango e) {
+			System.out.print(e);
+		} catch (PosicionNoVacia e) {
+			System.out.print(e);
+		}
 	}
 	
 	/**

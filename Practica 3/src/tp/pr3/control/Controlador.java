@@ -100,28 +100,11 @@ public class Controlador {
 		this.mundo = mundo;
 	}
 	
-	public void nuevaCelula(int f, int c) {
-		try {
-			if(!mundo.dentro(f,c)) {
-				throw new IndicesFueraDeRango();
-			} else if (!mundo.celulaNula(f, c)) {
-				throw new PosicionNoVacia();
-			} else {
-				if(this.mundo.esSimple()) {
-					this.mundo.nuevaCelulaSimple(f, c);
-				} else {
-					int entero = simpleOComplejo();
-					if (entero == 2) {
-						this.mundo.nuevaCelulaCompleja(f, c);
-					} else if (entero == 1) {
-						this.mundo.nuevaCelulaSimple(f, c);
-					}
-				}
-			}
-		} catch (IndicesFueraDeRango e) {
-			System.out.print(e);
-		} catch (PosicionNoVacia e) {
-			System.out.print(e);
+	public void nuevaCelula(int f, int c, boolean esSimple) {
+		if (esSimple) {
+			mundo.nuevaCelulaSimple(f, c);
+		} else {
+			mundo.nuevaCelulaCompleja(f, c);
 		}
 	}
 
@@ -145,5 +128,17 @@ public class Controlador {
 	
 	public void guardar(String archivo) {
 		
+	}
+	
+	public boolean getEsMundoSimple() {
+		return mundo.esSimple();
+	}
+	
+	public boolean getDentro(int f, int c) {
+		return mundo.dentro(f, c);
+	}
+	
+	public boolean getCelulaNula(int f, int c) {
+		return mundo.celulaNula(f, c);
 	}
 }
