@@ -41,6 +41,10 @@ class ComandoCrearCelula implements Comando {
 			System.out.print(e);
 		} catch (PosicionNoVacia e) {
 			System.out.print(e);
+		} catch (FormatoNumericoIncorrecto e) {
+			System.out.print(e);
+		} catch (NumeroNoValido e) {
+			System.out.print(e);
 		}
 	}
 	
@@ -69,21 +73,22 @@ class ComandoCrearCelula implements Comando {
 		return "CREARCELULA F C: crea una nueva celula en la posicion (f,c) si es posible.\n" ;
 	}
 	
-	private int simpleOComplejo() { //FALTA sc.close()
+	private int simpleOComplejo() throws FormatoNumericoIncorrecto, NumeroNoValido { 
 		int celula;
 		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
+		Scanner sc = new Scanner(System.in);
 		try {
-			Scanner sc = new Scanner(System.in);
 			celula = sc.nextInt();
-			if (celula != 1 && celula != 2) {
-				throw  new NumeroNoValido();
-			}
-		} catch (NoSuchElementException | NumeroNoValido e){
-			System.out.println(e);
-			return 0;
+		} catch (NumberFormatException e) {
+			sc.nextLine();
+			sc.close();
+			throw new FormatoNumericoIncorrecto();
+		}
+		sc.nextLine();
+		sc.close();
+		if (celula != 1 && celula != 2) {	
+			throw new NumeroNoValido();
 		}
 		return celula;		
 	}
-
-
 }
