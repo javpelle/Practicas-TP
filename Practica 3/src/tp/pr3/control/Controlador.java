@@ -5,14 +5,19 @@ import tp.pr3.exceptions.ErrorDeInicializacion;
 import tp.pr3.exceptions.FormatoNumericoIncorrecto;
 import tp.pr3.exceptions.IndicesFueraDeRango;
 import tp.pr3.exceptions.NumerosNegativos;
+import tp.pr3.exceptions.PalabraIncorrecta;
 import tp.pr3.exceptions.PosicionVacia;
 import tp.pr3.logica.Mundo;
+import tp.pr3.logica.MundoComplejo;
+import tp.pr3.logica.MundoSimple;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Scanner;
 
 /**
@@ -107,20 +112,40 @@ public class Controlador {
 	}
 
 
-	public void cargar(String archivo){
+	public void cargar(String archivo) {
 		try {
-			File file = new File(archivo);
-			if (!file.exists()) {
+			File ficheroEntrada = new File(archivo);
+			if (!ficheroEntrada.exists()) {
 				throw new FileNotFoundException();
 			} else {
-				Scanner sc = new Scanner(file);
-				String complejidad = sc.nextLine();
+				Scanner entrada = new Scanner(ficheroEntrada);
+				String complejidad;
+				complejidad = entrada.nextLine();
+				int f = entrada.nextInt();
+				int c = entrada.nextInt();
+				Mundo mundoAux = null;
+				if (complejidad.equals("simple")) {
+					mundoAux = new MundoSimple(f,c,0);
+				} else if (complejidad.equals("complejo")) {
+					mundoAux = new MundoComplejo(f,c,0,0);
+				} else {
+					throw new PalabraIncorrecta();
+				}
+				mundo.cargar(entrada);
+				this.mundo = mundoAux;
 			}
-			
-		} catch (FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			System.out.print(e);
-		}  catch (IOException e){
+		} catch (IOException e) {
 			System.out.print(e);
+		} catch (PalabraIncorrecta e) {
+			System.out.print(e);
+		} catch (ErrorDeInicializacion e) {
+			System.out.print(e);
+		} catch (NumerosNegativos e) {
+			System.out.print(e);
+		} finally {
+			entrada.close();
 		}
 	}
 	

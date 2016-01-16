@@ -1,5 +1,7 @@
 package tp.pr3.logica;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -154,9 +156,9 @@ public abstract class Mundo {
 		superficie.pintarSuperficie();
 	}
 	
-	public void cargar(String nombreFichero){
+	public void cargar(BufferedReader entrada) throws IOException {
 		
-			
+		
 	}
 	
 	public void guardar(FileWriter salida) throws IOException {

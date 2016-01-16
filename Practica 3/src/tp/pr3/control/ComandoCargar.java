@@ -8,7 +8,7 @@ private String fichero;
 	}
 	
 	public Comando parsea(String[ ] cadenaComando) {
-		if (cadenaComando[0] == "cargar" && cadenaComando.length == 2) {
+		if (cadenaComando[0].equals("cargar") && cadenaComando.length == 2) {
 			fichero = cadenaComando[1];
 			return this;
 		} else {

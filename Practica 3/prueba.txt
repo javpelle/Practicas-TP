@@ -1,5 +1,0 @@
-complejo
-2
-2
-0 0 simple 0 0
-1 1 simple 0 0
