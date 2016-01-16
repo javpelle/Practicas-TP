@@ -1,6 +1,5 @@
 package tp.pr3.control;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import tp.pr3.exceptions.FormatoNumericoIncorrecto;
@@ -30,9 +29,9 @@ class ComandoCrearCelula implements Comando {
 				} else {
 					int entero = simpleOComplejo();
 					if (entero == 2) {
-						esCelulaSimple = false;
-					} else if (entero == 1) {
 						esCelulaSimple = true;
+					} else if (entero == 1) {
+						esCelulaSimple = false;
 					}
 				}
 			}
@@ -76,19 +75,15 @@ class ComandoCrearCelula implements Comando {
 	private int simpleOComplejo() throws FormatoNumericoIncorrecto, NumeroNoValido { 
 		int celula;
 		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
-		Scanner sc = new Scanner(System.in);
-		try {
+		Scanner sc = new Scanner(System.in); // Si se cierra este Scanner el otro deja de funcionar...	
+		if(sc.hasNextInt()) {
 			celula = sc.nextInt();
-		} catch (NumberFormatException e) {
-			sc.nextLine();
-			sc.close();
+		} else {
 			throw new FormatoNumericoIncorrecto();
 		}
-		sc.nextLine();
-		sc.close();
 		if (celula != 1 && celula != 2) {	
 			throw new NumeroNoValido();
 		}
-		return celula;		
+		return celula;
 	}
 }

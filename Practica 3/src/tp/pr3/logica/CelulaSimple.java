@@ -1,5 +1,8 @@
 package tp.pr3.logica;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Representa una celula simple del mundo
  */
@@ -151,6 +154,10 @@ class CelulaSimple implements Celula {
 	 */
 	public boolean muerte() {	
 		return MAX_PASOS_SIN_MOVER == this.sinMovimientos;
+	}
+	
+	public void guardar(FileWriter salida) throws IOException {
+		salida.write("simple " + pasosDados + " " + sinMovimientos + "\r\n");
 	}
 }
 

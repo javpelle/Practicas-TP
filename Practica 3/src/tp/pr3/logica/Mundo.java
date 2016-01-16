@@ -1,9 +1,5 @@
 package tp.pr3.logica;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -161,6 +157,17 @@ public abstract class Mundo {
 	public void cargar(String nombreFichero){
 		
 			
+	}
+	
+	public void guardar(FileWriter salida) throws IOException {
+		if (esSimple()) {
+			salida.write("simple\r\n");			
+		} else {
+			salida.write("complejo\r\n");
+		}
+		salida.write(this.filas + "\r\n");
+		salida.write(this.columnas + "\r\n");
+		superficie.guardar(salida);
 	}
 	
 	public boolean celulaNula(int f, int c) {

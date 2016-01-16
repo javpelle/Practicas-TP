@@ -19,6 +19,8 @@ public class ParserComandos {
 		new ComandoSalir(),
 		new ComandoVaciar(),
 		new ComandoJugar(),
+		new ComandoGuardar(),
+		new ComandoCargar()		
 	};
 	
 	/**

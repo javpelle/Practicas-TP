@@ -4,17 +4,15 @@ import tp.pr3.exceptions.ComandoError;
 import tp.pr3.exceptions.ErrorDeInicializacion;
 import tp.pr3.exceptions.FormatoNumericoIncorrecto;
 import tp.pr3.exceptions.IndicesFueraDeRango;
-import tp.pr3.exceptions.NumeroNoValido;
 import tp.pr3.exceptions.NumerosNegativos;
-import tp.pr3.exceptions.PosicionNoVacia;
 import tp.pr3.exceptions.PosicionVacia;
 import tp.pr3.logica.Mundo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -127,6 +125,14 @@ public class Controlador {
 	}
 	
 	public void guardar(String archivo) {
+		try {
+			File ficheroSalida = new File (archivo);
+			FileWriter salida = new FileWriter (ficheroSalida);
+			mundo.guardar(salida);
+			salida.close();
+		} catch (IOException e) {
+			System.out.print(e);
+		}
 		
 	}
 	

@@ -1,5 +1,8 @@
 package tp.pr3.logica;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Representa una celula compleja del mundo.
  */
@@ -98,6 +101,10 @@ class CelulaCompleja implements Celula {
 	 */
 	public boolean explosion() {
 		return celulasComidas == MAX_CELULAS_COMIDAS;
+	}
+	
+	public void guardar(FileWriter salida) throws IOException {
+		salida.write("compleja " + celulasComidas + "\r\n");
 	}
 }
 

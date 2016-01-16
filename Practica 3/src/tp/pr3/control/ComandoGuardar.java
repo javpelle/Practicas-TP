@@ -8,7 +8,7 @@ class ComandoGuardar implements Comando {
 	}
 	
 	public Comando parsea(String[ ] cadenaComando) {
-		if (cadenaComando[0] == "guardar" && cadenaComando.length == 2) {
+		if (cadenaComando[0].equals("guardar") && cadenaComando.length == 2) {
 			fichero = cadenaComando[1];
 			return this;
 		} else {

@@ -1,5 +1,8 @@
 package tp.pr3.logica;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Esta superficie cuenta con los atributos privados filas, columnas (enteros),
  * y una matriz de células.
@@ -169,6 +172,17 @@ public class Superficie {
 	 */
 	public boolean esComestible(int f, int c) {
 		return superficie[f][c].esComestible();
+	}
+	
+	public void guardar(FileWriter salida) throws IOException {
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
+				if (!celulaNula(i,j)) {
+					salida.write(i + " " + j + " ");
+					superficie[i][j].guardar(salida);
+				}
+			}
+		}
 	}
 }
 
