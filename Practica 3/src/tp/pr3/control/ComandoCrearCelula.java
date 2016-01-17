@@ -75,14 +75,16 @@ class ComandoCrearCelula implements Comando {
 	private int simpleOComplejo() throws FormatoNumericoIncorrecto, NumeroNoValido { 
 		int celula;
 		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
-		Scanner sc = new Scanner(System.in); // Si se cierra este Scanner el otro deja de funcionar...	
-		if(sc.hasNextInt()) {
-			celula = sc.nextInt();
-		} else {
-			throw new FormatoNumericoIncorrecto();
-		}
-		if (celula != 1 && celula != 2) {	
-			throw new NumeroNoValido();
+		Scanner simpleComplejo = new Scanner(System.in); // Si se cierra este Scanner el otro deja de funcionar...
+		try {
+			celula = Integer.parseInt(simpleComplejo.nextLine());
+			if (celula != 1 && celula != 2) {	
+				throw new NumeroNoValido();
+			}
+		} catch (NumberFormatException e) {
+			throw new FormatoNumericoIncorrecto();			
+		} finally {
+			simpleComplejo.close();
 		}
 		return celula;
 	}

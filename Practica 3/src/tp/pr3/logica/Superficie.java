@@ -2,6 +2,10 @@ package tp.pr3.logica;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+
+import tp.pr3.exceptions.IndicesFueraDeRango;
+import tp.pr3.exceptions.PalabraIncorrecta;
 
 /**
  * Esta superficie cuenta con los atributos privados filas, columnas (enteros),
@@ -174,6 +178,44 @@ public class Superficie {
 		return superficie[f][c].esComestible();
 	}
 	
+	public void cargar(Scanner entrada) throws PalabraIncorrecta, IndicesFueraDeRango {
+		while (entrada.hasNextLine()) {
+			String lineaEntrada = entrada.nextLine();
+			String[] lineaParseada = lineaEntrada.split(" ");
+			if (lineaParseada[2].equals("simple") && lineaParseada.length == 5) {
+				try {
+					int f = Integer.parseInt(lineaParseada[0]);
+					int c = Integer.parseInt(lineaParseada[1]);
+					int pasosDados = Integer.parseInt(lineaParseada[3]);
+					int sinMovimientos = Integer.parseInt(lineaParseada[4]);	
+					if (dentro(f,c)) {
+						superficie[f][c]= new CelulaSimple(pasosDados, sinMovimientos);
+					} else {
+						throw new IndicesFueraDeRango();
+					}
+				} catch (NumberFormatException e) {
+					throw new PalabraIncorrecta();
+				}
+			} else if (lineaParseada[2].equals("compleja") && lineaParseada.length == 4) {
+				try {
+					int f = Integer.parseInt(lineaParseada[0]);
+					int c = Integer.parseInt(lineaParseada[1]);
+					int celulasComidas = Integer.parseInt(lineaParseada[3]);
+						
+					if (dentro(f,c)) {
+						superficie[f][c]= new CelulaCompleja(celulasComidas);
+					} else {
+						throw new IndicesFueraDeRango();
+					}
+				} catch (NumberFormatException e) {
+					throw new PalabraIncorrecta();
+				}
+			} else {
+				throw new PalabraIncorrecta ();
+			}
+		}
+	}
+	
 	public void guardar(FileWriter salida) throws IOException {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
@@ -182,6 +224,14 @@ public class Superficie {
 					superficie[i][j].guardar(salida);
 				}
 			}
+		}
+	}
+	
+	public boolean dentro(int f, int c) {
+		if (f >= 0 && f < this.filas && c >= 0 && c < this.columnas) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

@@ -1,12 +1,12 @@
 package tp.pr3.logica;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import tp.pr3.exceptions.IndicesFueraDeRango;
 import tp.pr3.exceptions.NumerosNegativos;
+import tp.pr3.exceptions.PalabraIncorrecta;
 import tp.pr3.exceptions.PosicionVacia;
 
 /**
@@ -156,8 +156,8 @@ public abstract class Mundo {
 		superficie.pintarSuperficie();
 	}
 	
-	public void cargar(BufferedReader entrada) throws IOException {
-		
+	public void cargar(Scanner entrada) throws IOException, PalabraIncorrecta, IndicesFueraDeRango {
+		superficie.cargar(entrada);
 		
 	}
 	

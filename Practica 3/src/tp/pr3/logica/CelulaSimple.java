@@ -22,6 +22,17 @@ class CelulaSimple implements Celula {
 	}
 	
 	/**
+	 * Inicializamos una celula simple con sus atributos cargados de un fichero
+	 * @param sinMovimientos numero de turnos que la celula no se ha movido cargado del fichero
+	 * @param pasosDados numero de turnos de la celula cargado del fichero
+	 */
+	public CelulaSimple(int sinMovimientos, int pasosDados) {
+		esComestible = true;
+		this.sinMovimientos = sinMovimientos;
+		this.pasosDados = pasosDados;
+	}
+	
+	/**
 	 * Devolvemos la posicion a la que va a mover la célula simple
 	 * @param f Fila en la que se encuentra la célula
 	 * @param c Columna en la que se encuentra la célula

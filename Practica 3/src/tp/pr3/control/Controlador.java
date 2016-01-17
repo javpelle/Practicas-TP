@@ -11,13 +11,11 @@ import tp.pr3.logica.Mundo;
 import tp.pr3.logica.MundoComplejo;
 import tp.pr3.logica.MundoSimple;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -112,17 +110,23 @@ public class Controlador {
 	}
 
 
-	public void cargar(String archivo) {
+	public void cargar(String archivo)  {
+		File ficheroEntrada = new File(archivo);
+		Scanner entrada = null;
 		try {
-			File ficheroEntrada = new File(archivo);
 			if (!ficheroEntrada.exists()) {
 				throw new FileNotFoundException();
 			} else {
-				Scanner entrada = new Scanner(ficheroEntrada);
+				entrada = new Scanner(ficheroEntrada);
 				String complejidad;
 				complejidad = entrada.nextLine();
-				int f = entrada.nextInt();
-				int c = entrada.nextInt();
+				int f, c;
+				try {
+					f = Integer.parseInt(entrada.nextLine());
+					c = Integer.parseInt(entrada.nextLine());
+				} catch (NumberFormatException e) {
+					throw new PalabraIncorrecta ();
+				}				
 				Mundo mundoAux = null;
 				if (complejidad.equals("simple")) {
 					mundoAux = new MundoSimple(f,c,0);
@@ -131,21 +135,23 @@ public class Controlador {
 				} else {
 					throw new PalabraIncorrecta();
 				}
-				mundo.cargar(entrada);
+				mundoAux.cargar(entrada);
 				this.mundo = mundoAux;
 			}
 		} catch (FileNotFoundException e) {
-			System.out.print(e);
-		} catch (IOException e) {
-			System.out.print(e);
+			System.out.print(e + " Archivo no encontrado...\n");
+		} catch (IOException | NoSuchElementException e) {
+			System.out.print(e + ". Error en la lectura del archivo...\n");
 		} catch (PalabraIncorrecta e) {
 			System.out.print(e);
-		} catch (ErrorDeInicializacion e) {
+		} catch (ErrorDeInicializacion | NumerosNegativos e) {
 			System.out.print(e);
-		} catch (NumerosNegativos e) {
+		} catch (IndicesFueraDeRango e) {
 			System.out.print(e);
 		} finally {
-			entrada.close();
+			if (ficheroEntrada.exists()) {
+				entrada.close();
+			}
 		}
 	}
 	

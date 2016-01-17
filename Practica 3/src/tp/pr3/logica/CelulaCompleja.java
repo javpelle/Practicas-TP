@@ -20,6 +20,15 @@ class CelulaCompleja implements Celula {
 	}
 	
 	/**
+	 * Creamos una nueva celula compleja y cargamos sus atributos de un fichero.
+	 * @param celulasComidas numero de celulas comidas guardadas en el fichero
+	 */
+	public CelulaCompleja(int celulasComidas) {
+		esComestible = false;
+		this.celulasComidas = celulasComidas;
+	}
+	
+	/**
 	 * Devolvemos si la célula es comestible
 	 * @return devolvemos esComestible
 	 */
