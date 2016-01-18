@@ -4,8 +4,10 @@ import tp.pr3.exceptions.ComandoError;
 import tp.pr3.exceptions.ErrorDeInicializacion;
 import tp.pr3.exceptions.FormatoNumericoIncorrecto;
 import tp.pr3.exceptions.IndicesFueraDeRango;
+import tp.pr3.exceptions.NumeroNoValido;
 import tp.pr3.exceptions.NumerosNegativos;
 import tp.pr3.exceptions.PalabraIncorrecta;
+import tp.pr3.exceptions.PosicionNoVacia;
 import tp.pr3.exceptions.PosicionVacia;
 import tp.pr3.logica.Mundo;
 import tp.pr3.logica.MundoComplejo;
@@ -134,14 +136,34 @@ public class Controlador {
 	 * @param c Columna
 	 * @param esSimple Tipo de célula
 	 */
-	public void nuevaCelula(int f, int c, boolean esSimple) {
-		if (esSimple) {
-			mundo.nuevaCelulaSimple(f, c);
-		} else {
-			mundo.nuevaCelulaCompleja(f, c);
+	public void nuevaCelula(int f, int c) {
+		try {
+			if(!getDentro(f,c)) {
+				throw new IndicesFueraDeRango();
+			} else if (!getCelulaNula(f, c)) {
+				throw new PosicionNoVacia();
+			} else {
+				if(getEsMundoSimple()) {
+					mundo.nuevaCelulaSimple(f, c);
+				} else {
+					int entero = simpleOComplejo();
+					if (entero == 2) {
+						mundo.nuevaCelulaSimple(f, c);
+					} else if (entero == 1) {
+						mundo.nuevaCelulaCompleja(f, c);
+					}
+				}
+			}
+		} catch (IndicesFueraDeRango e) {
+			System.out.print(e);
+		} catch (PosicionNoVacia e) {
+			System.out.print(e);
+		} catch (FormatoNumericoIncorrecto e) {
+			System.out.print(e);
+		} catch (NumeroNoValido e) {
+			System.out.print(e);
 		}
 	}
-	
 	/**
 	 * Se carga el mundo del archivo en el atributo mundo del controlador
 	 * @param archivo Archivo de texto donde se encuentra la información del mundo a cargar
@@ -239,5 +261,25 @@ public class Controlador {
 	
 	public boolean getCelulaNula(int f, int c) {
 		return mundo.celulaNula(f, c);
+	}
+	
+	private int simpleOComplejo() throws FormatoNumericoIncorrecto, NumeroNoValido {
+		// IMPORTANTE: NOTA PARA EL PROFESOR/A
+		// El profesor Manuel nos comentó que era mejor leer si elegíamos una celula
+		// simple o compleja desde el propio ComandoCrearCelula.
+		// Esto nos dio numerosos problemas como crear un nuevo Scanner que no podiamos
+		// cerrar. Ademas todos los comandos se leen desde esta clase, por lo que final-
+		// mente hemos decidido dejar aquí este método.
+		int celula;
+		System.out.print("De que tipo: Compleja (1) o Simple (2): ");
+		try {
+			celula = Integer.parseInt(in.nextLine());
+			if (celula != 1 && celula != 2) {	
+				throw new NumeroNoValido();
+			}
+		} catch (NumberFormatException e) {
+			throw new FormatoNumericoIncorrecto();			
+		} 
+		return celula;
 	}
 }
