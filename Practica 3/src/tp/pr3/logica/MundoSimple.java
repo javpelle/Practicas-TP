@@ -7,6 +7,15 @@ public class MundoSimple extends Mundo {
 	private int sim;
 	private boolean esSimple;
 	
+	/**
+	 * Constructora del mundo simple
+	 * @param f Filas
+	 * @param c Columnas
+	 * @param sim Numero de celulas
+	 * @throws ErrorDeInicializacion
+	 * @throws NumerosNegativos
+	 */
+	
 	public MundoSimple (int f, int c, int sim) throws ErrorDeInicializacion, NumerosNegativos {
 		super(f, c);
 		esSimple = true;
@@ -18,12 +27,20 @@ public class MundoSimple extends Mundo {
 		}
 	}
 	
+	/** 
+	 * LLena el mundo con el numero indicado de celulas (simples)
+	 */
+	
 	public void inicializaMundo(){
 		superficie.vaciar();
 		for(int i = 0; i < sim; i++) {
 			superficie.nuevaCelulaSimple();
 		}
 	}
+	
+	/**
+	 * Devuelve true, ya que se trata de un mundo simple
+	 */
 
 	public boolean esSimple(){
 		return esSimple;

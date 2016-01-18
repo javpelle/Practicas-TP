@@ -71,13 +71,27 @@ public class Controlador {
 		}	
 	}
 	
+	/**
+	 * Ejecta un paso del mundo
+	 */
+	
 	public void daUnPaso(){
 		mundo.evoluciona();
 	}
 	
+	/**
+	 * Se cierra el programa
+	 */
+	
 	public void terminarSimulacion(){
 		simulacionTerminada = true;
 	}
+	
+	/**
+	 * Elimina la celula en la fila y columna correspondiente
+	 * @param f fila
+	 * @param c columna
+	 */
 	
 	public void eliminarCelula(int f,int c) {
 		try {
@@ -89,18 +103,37 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Vacia el mundo del controlador
+	 */
+	
 	public void vaciarMundo(){
 		mundo.vaciar();
 	}
+	
+	/**
+	 * Inicializa el mundo con unos valors por defecto definidos en el método main
+	 */
 	
 	public void iniciarMundo(){
 		mundo.inicializaMundo();
 	}
 	
+	/**
+	 * Establece como mundo del controlador el recibido por parametro
+	 * @param mundo Mundo especificado por el usuario 
+	 */
+	
 	public void juega(Mundo mundo){
 		this.mundo = mundo;
 	}
 	
+	/**
+	 * Se crea en el mundo una nueva celula en la fila y columna correspondiente
+	 * @param f Fila
+	 * @param c Columna
+	 * @param esSimple Tipo de célula
+	 */
 	public void nuevaCelula(int f, int c, boolean esSimple) {
 		if (esSimple) {
 			mundo.nuevaCelulaSimple(f, c);
@@ -108,6 +141,11 @@ public class Controlador {
 			mundo.nuevaCelulaCompleja(f, c);
 		}
 	}
+	
+	/**
+	 * Se carga el mundo del archivo en el atributo mundo del controlador
+	 * @param archivo Archivo de texto donde se encuentra la información del mundo a cargar
+	 */
 
 
 	public void cargar(String archivo)  {
@@ -155,6 +193,11 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Se guarda en un archivo el mundo actual de controlador
+	 * @param archivo Arhivo de texto donde se desea almacenar la informacion del mundo
+	 */
+	
 	public void guardar(String archivo) {
 		try {
 			File ficheroSalida = new File (archivo);
@@ -167,13 +210,32 @@ public class Controlador {
 		
 	}
 	
+	/**
+	 * Indíca qué tipo de mundo tiene controlador
+	 * @return True si el mundo es Simple. False en caso contrario.
+	 */
+	
 	public boolean getEsMundoSimple() {
 		return mundo.esSimple();
 	}
 	
+	/**
+	 * Comprueba si la posición (f,c) es válida
+	 * @param f Fila 
+	 * @param c Columna
+	 * @return True si la posición es válida.False si no
+	 */
+	
 	public boolean getDentro(int f, int c) {
 		return mundo.dentro(f, c);
 	}
+	
+	/**
+	 * Comprueba si hay una celula en la posición indicada
+	 * @param f Fila
+	 * @param c Columna 
+	 * @return True si no hay celula.False en caso contrario.
+	 */
 	
 	public boolean getCelulaNula(int f, int c) {
 		return mundo.celulaNula(f, c);

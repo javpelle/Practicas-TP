@@ -72,6 +72,12 @@ class ComandoCrearCelula implements Comando {
 		return "CREARCELULA F C: crea una nueva celula en la posicion (f,c) si es posible.\n" ;
 	}
 	
+	
+	/**
+	 * Permite seleccionar el tipo de celula que se quiere introducir en función del mundo
+	 * @return Devuelve 1(Simple)o 2(Compleja) 
+	 */
+	
 	private int simpleOComplejo() throws FormatoNumericoIncorrecto, NumeroNoValido { 
 		int celula;
 		System.out.print("De que tipo: Compleja (1) o Simple (2): ");

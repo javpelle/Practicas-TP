@@ -156,10 +156,24 @@ public abstract class Mundo {
 		superficie.pintarSuperficie();
 	}
 	
+	/**
+	 * LLama al método cargar de la superficie
+	 * @param entrada Scanner de lectura
+	 * @throws IOException
+	 * @throws PalabraIncorrecta
+	 * @throws IndicesFueraDeRango
+	 */
+	
 	public void cargar(Scanner entrada) throws IOException, PalabraIncorrecta, IndicesFueraDeRango {
 		superficie.cargar(entrada);
 		
 	}
+	
+	/**
+	 * Escribe en el arhivo la información principal del mundo (filas, columnas, tipo de Mundo)
+	 * @param salida 
+	 * @throws IOException
+	 */
 	
 	public void guardar(FileWriter salida) throws IOException {
 		if (esSimple()) {
@@ -171,6 +185,13 @@ public abstract class Mundo {
 		salida.write(this.columnas + "\r\n");
 		superficie.guardar(salida);
 	}
+	
+	/**
+	 * Indica si hay o no una célula en la posición indicada
+	 * @param f Fila
+	 * @param c Columna
+	 * @return True si la posición está vacia. False en caso contrario
+	 */
 	
 	public boolean celulaNula(int f, int c) {
 		return superficie.celulaNula(f,c);

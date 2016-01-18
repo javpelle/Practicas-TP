@@ -178,6 +178,14 @@ public class Superficie {
 		return superficie[f][c].esComestible();
 	}
 	
+	/**
+	 * Cargar la superficie con la información proporcionada por el fichero
+	 * @param entrada Scanner de lectura de datos del fichero de cargado
+	 * @throws PalabraIncorrecta
+	 * @throws IndicesFueraDeRango
+	 */
+	
+	
 	public void cargar(Scanner entrada) throws PalabraIncorrecta, IndicesFueraDeRango {
 		while (entrada.hasNextLine()) {
 			String lineaEntrada = entrada.nextLine();
@@ -216,6 +224,12 @@ public class Superficie {
 		}
 	}
 	
+	/**
+	 * Guarda la superficie, celula a celula, en el fichero de salida deseado
+	 * @param salida Fichero de salida en el que se quiere guardar
+	 * @throws IOException
+	 */
+	
 	public void guardar(FileWriter salida) throws IOException {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
@@ -226,6 +240,13 @@ public class Superficie {
 			}
 		}
 	}
+	
+	/**
+	 * Indica si la posición deseada existe o no en la superfice del mundo actual
+	 * @param f Filas
+	 * @param c Columnas
+	 * @return True si la posición existe. False en caso contrario
+	 */
 	
 	public boolean dentro(int f, int c) {
 		if (f >= 0 && f < this.filas && c >= 0 && c < this.columnas) {

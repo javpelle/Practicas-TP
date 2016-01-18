@@ -166,7 +166,9 @@ class CelulaSimple implements Celula {
 	public boolean muerte() {	
 		return MAX_PASOS_SIN_MOVER == this.sinMovimientos;
 	}
-	
+	/**
+	 * Escribe en el fichero de salida la información correspondiente de la célula simple
+	 */
 	public void guardar(FileWriter salida) throws IOException {
 		salida.write("simple " + pasosDados + " " + sinMovimientos + "\r\n");
 	}

@@ -8,6 +8,16 @@ public class MundoComplejo extends Mundo {
 	private int com;
 	private boolean esSimple;
 	
+	/**
+	 * Constructora del mundo complejo
+	 * @param f Filas
+	 * @param c Columnas
+	 * @param sim Numero de celulas simples
+	 * @param com Numero de celulas complejas
+	 * @throws ErrorDeInicializacion
+	 * @throws NumerosNegativos
+	 */
+	
 	public MundoComplejo (int f, int c, int sim, int com) throws ErrorDeInicializacion, NumerosNegativos {
 		super(f, c);
 		this.sim = sim;
@@ -20,6 +30,10 @@ public class MundoComplejo extends Mundo {
 		}
 	}
 	
+	/**
+	 * LLena el mundo con el numero indicado de celulas simples y complejas
+	 */
+	
 	public void inicializaMundo(){
 		superficie.vaciar();
 		for(int i = 0; i < sim; i++) {
@@ -29,6 +43,10 @@ public class MundoComplejo extends Mundo {
 			superficie.nuevaCelulaCompleja();
 		}
 	}
+	
+	/**
+	 * Devuelve False, ya que el mundo no es complejo
+	 */
 	
 	public boolean esSimple(){
 		return esSimple;
