@@ -89,9 +89,7 @@ class ComandoCrearCelula implements Comando {
 			}
 		} catch (NumberFormatException e) {
 			throw new FormatoNumericoIncorrecto();			
-		} finally {
-			simpleComplejo.close();
-		}
+		} 
 		return celula;
 	}
 }
