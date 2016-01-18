@@ -112,6 +112,10 @@ class CelulaCompleja implements Celula {
 		return celulasComidas == MAX_CELULAS_COMIDAS;
 	}
 	
+	/**
+	 * Escribe en el fichero de salida el numero de celulasComidads por la célula compleja
+	 */
+	
 	public void guardar(FileWriter salida) throws IOException {
 		salida.write("compleja " + celulasComidas + "\r\n");
 	}

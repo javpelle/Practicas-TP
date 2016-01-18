@@ -17,5 +17,10 @@ public interface Comando {
 	 * @return si consigue interpretarlo, devuelve un comando configurado listo para ejecutar
 	 */
 	public abstract Comando parsea(String[ ] cadenaComando) throws FormatoNumericoIncorrecto;
+	
+	/**
+	 * Muestra un texto con la ayuda de cada comando
+	 * @return
+	 */
 	public abstract String textoAyuda();
 }
