@@ -13,8 +13,8 @@ int main() {
 	int solMax = 0;
 	int col = 0;
 	int sol = 0;
-	int satisMaxTemporal;
-	int satisMinTemporal;
+	int satisMaxTemporal=0;
+	int satisMinTemporal=0;
 	int maxSatis, minSatis;
 	bool usadas[100];
 
@@ -72,6 +72,7 @@ void vueltaAtrás(int S[100][100], int B[100][100], int tam, int & sol, int & sol
 				if (sol > solMax) {
 					solMax = sol;
 				}
+				sol -= B[i][col];
 			}
 		}
 
