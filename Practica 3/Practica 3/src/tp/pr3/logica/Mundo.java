@@ -11,10 +11,10 @@ import tp.pr3.exceptions.PosicionVacia;
 
 /**
  * Consta de un atributo private superficie de dimensiones establecidas por constantes y
- * es inicializada con un número de células también establecida por una constante.
- * Se encarga de avanzar un paso en la evolución del mundo de células: Está al cuidado de
- * que las células, se muevan, reproduzcan o mueran si procede.
- * También se encarga entre otras cosas de crear o eliminar una célula en una posición dada.
+ * es inicializada con un nï¿½mero de cï¿½lulas tambiï¿½n establecida por una constante.
+ * Se encarga de avanzar un paso en la evoluciï¿½n del mundo de cï¿½lulas: Estï¿½ al cuidado de
+ * que las cï¿½lulas, se muevan, reproduzcan o mueran si procede.
+ * Tambiï¿½n se encarga entre otras cosas de crear o eliminar una cï¿½lula en una posiciï¿½n dada.
  */
 public abstract class Mundo {
 	protected Superficie superficie;
@@ -24,7 +24,7 @@ public abstract class Mundo {
 	
 	/**
 	 * Constructora por defecto de la clase Mundo, inicializa la superficie a null 
-	 * y el número de columnas y filas a 0 
+	 * y el nï¿½mero de columnas y filas a 0 
 	 */
 	public Mundo() {
 		this.filas = 0;
@@ -46,7 +46,7 @@ public abstract class Mundo {
 			this.superficie = new Superficie(filas, columnas);
 			booleanMatrix = new boolean [this.filas][this.columnas];
 			for (int i = 0; i < this.filas; i++) {
-				for (int j = 0; i < this.columnas; i++) {
+				for (int j = 0; j < this.columnas; j++) {
 					booleanMatrix[i][j] = false;
 				}
 			}
@@ -57,9 +57,9 @@ public abstract class Mundo {
 	abstract public boolean esSimple();
 		
 	/**
-	 * Avanza un paso en la evolución del Mundo, trata de mover cada célula a una posible
-	 * posición vecina vacía, asegurándose de mover cada célula una única vez por
-	 * ejecución del método. Además se encarga de la reproduciión o muerte de una célula si
+	 * Avanza un paso en la evoluciï¿½n del Mundo, trata de mover cada cï¿½lula a una posible
+	 * posiciï¿½n vecina vacï¿½a, asegurï¿½ndose de mover cada cï¿½lula una ï¿½nica vez por
+	 * ejecuciï¿½n del mï¿½todo. Ademï¿½s se encarga de la reproduciiï¿½n o muerte de una cï¿½lula si
 	 *  procediera.
 	 */	
 	public void evoluciona() {
@@ -73,7 +73,7 @@ public abstract class Mundo {
 				}
 			}
 		}
-		// Una vez acabada la ejecución restauramos los booleanos de las céulas que nos 
+		// Una vez acabada la ejecuciï¿½n restauramos los booleanos de las cï¿½ulas que nos 
 		// indican si han sido movidas o no.
 		restaurarMovimiento();
 	}
@@ -90,7 +90,7 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Vacía el mundo, y lo vuelve a iniciar con un número de células
+	 * Vacï¿½a el mundo, y lo vuelve a iniciar con un nï¿½mero de cï¿½lulas
 	 * dado por la constante inicial.
 	 */
 
@@ -103,9 +103,9 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Inserta una nueva célula simple en la posición (f, c) del array 
-	 * @param f coordenada i del mundo de células.
-	 * @param c coordenada j del mundo de células.
+	 * Inserta una nueva cï¿½lula simple en la posiciï¿½n (f, c) del array 
+	 * @param f coordenada i del mundo de cï¿½lulas.
+	 * @param c coordenada j del mundo de cï¿½lulas.
 	 */
 	public void nuevaCelulaSimple (int f, int c) {
 			superficie.insertarCelulaSimple(f ,c);
@@ -113,9 +113,9 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Inserta una nueva célula compleja en la posición (f, c) del array 
-	 * @param f coordenada i del mundo de células.
-	 * @param c coordenada j del mundo de células. 
+	 * Inserta una nueva cï¿½lula compleja en la posiciï¿½n (f, c) del array 
+	 * @param f coordenada i del mundo de cï¿½lulas.
+	 * @param c coordenada j del mundo de cï¿½lulas. 
 	 */
 	public void nuevaCelulaCompleja (int f, int c) {
 			superficie.insertarCelulaCompleja(f ,c);
@@ -123,11 +123,11 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Elimina una  célula en la posición (f, c) del array siempre y cuando
-	 * esa celda exista y en ese caso, esté ocupada.
-	 * @param f coordenada i del mundo de células.
-	 * @param c coordenada j del mundo de células.
-	 * @return Devolvemos true si logramos borrar la célula. False en otro caso.
+	 * Elimina una  cï¿½lula en la posiciï¿½n (f, c) del array siempre y cuando
+	 * esa celda exista y en ese caso, estï¿½ ocupada.
+	 * @param f coordenada i del mundo de cï¿½lulas.
+	 * @param c coordenada j del mundo de cï¿½lulas.
+	 * @return Devolvemos true si logramos borrar la cï¿½lula. False en otro caso.
 	 * @throws IndicesFueraDeRango 
 	 * @throws PosicionVacia 
 	 */
@@ -143,7 +143,7 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Vacía el mundo.
+	 * Vacï¿½a el mundo.
 	 */
 	public void vaciar() {
 		superficie.vaciar();
@@ -157,7 +157,7 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * LLama al método cargar de la superficie
+	 * LLama al mï¿½todo cargar de la superficie
 	 * @param entrada Scanner de lectura
 	 * @throws IOException
 	 * @throws PalabraIncorrecta
@@ -170,7 +170,7 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Escribe en el arhivo la información principal del mundo (filas, columnas, tipo de Mundo)
+	 * Escribe en el arhivo la informaciï¿½n principal del mundo (filas, columnas, tipo de Mundo)
 	 * @param salida 
 	 * @throws IOException
 	 */
@@ -187,10 +187,10 @@ public abstract class Mundo {
 	}
 	
 	/**
-	 * Indica si hay o no una célula en la posición indicada
+	 * Indica si hay o no una cï¿½lula en la posiciï¿½n indicada
 	 * @param f Fila
 	 * @param c Columna
-	 * @return True si la posición está vacia. False en caso contrario
+	 * @return True si la posiciï¿½n estï¿½ vacia. False en caso contrario
 	 */
 	
 	public boolean celulaNula(int f, int c) {
