@@ -12,6 +12,7 @@ import tp.pr3.exceptions.PosicionVacia;
 import tp.pr3.logica.Mundo;
 import tp.pr3.logica.MundoComplejo;
 import tp.pr3.logica.MundoSimple;
+import tp.pr3.ventanas.HolaMundoSwing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,8 +49,15 @@ public class Controlador {
 	 * @throws ComandoError 
 	 */
 	public void realizaSimulacion() {
+		HolaMundoSwing ventana=new HolaMundoSwing(" ");
 		while (!simulacionTerminada) {
-			mundo.pintarMundo();
+			
+			ventana.cambiar(mundo.toString());
+			ventana.setBounds(0,0,500,500);
+			ventana.setVisible(true);
+			ventana.setResizable(true);
+			
+			
 			System.out.print("Comando > ");
 			String line = in.nextLine();
 			line = line.toLowerCase();

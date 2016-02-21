@@ -119,29 +119,31 @@ public class Superficie {
 	/**
 	 * Muestra la superficie por consola.
 	 */
-	public void pintarSuperficie() {
-		System.out.print("\n");
-		System.out.print("    ");
-		for (int i = 1; i <= this.columnas; i++) System.out.print(i + "      ");
-		System.out.print("\n");
+	public String toString() {		
+		String devolver = "<html><body><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		for (int i = 1; i <= this.columnas; i++) {
+			devolver = devolver + (i + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+		}
+		devolver += ("<br>");
 		for (int i = 0; i < this.filas; i++) {
-			System.out.print(i + 1);
+			devolver +=(i + 1);
 			for (int j = 0; j < this.columnas; j++) {
 				if (this.superficie[i][j] != null) {
 					if(this.superficie[i][j].esComestible()){
-						System.out.print("   X   ");
+						devolver +=("&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;");
 					} else {
-						System.out.print("   *   ");
+						devolver +=("&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;");
 					}
 			
 				}
 				else {
-					System.out.print( "   -   ");
+					devolver +=("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
 				}
 			}
-			System.out.print("\n"); 
+			devolver +=("<br>"); 
 		}
-		System.out.print("\n");
+		devolver +=("<br></body></html>");
+		return devolver;
 	}
 	
 	/**

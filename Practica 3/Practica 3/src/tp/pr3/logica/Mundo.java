@@ -152,8 +152,8 @@ public abstract class Mundo {
 	/**
 	 * Muestra la superfice por consola.
 	 */
-	public void pintarMundo(){
-		superficie.pintarSuperficie();
+	public String toString(){
+		return superficie.toString();
 	}
 	
 	/**
