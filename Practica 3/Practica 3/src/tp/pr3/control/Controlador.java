@@ -50,13 +50,11 @@ public class Controlador {
 	 */
 	public void realizaSimulacion() {
 		HolaMundoSwing ventana=new HolaMundoSwing(" ");
-		while (!simulacionTerminada) {
-			
+		while (!simulacionTerminada) {	
 			ventana.cambiar(mundo.toString());
-			ventana.setBounds(0,0,500,500);
+			ventana.setBounds(0,0,1200,1000);
 			ventana.setVisible(true);
 			ventana.setResizable(true);
-			
 			
 			System.out.print("Comando > ");
 			String line = in.nextLine();
