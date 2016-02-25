@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdexcept>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -18,63 +19,61 @@ namespace patch
 
 class Hora {
 public:
+	Hora(){};
+
 	Hora(int hora, int minuto, int segundo) {
 		_hora = hora;
 		_minuto = minuto;
 		_segundo = segundo;
+		if (0 < _hora || _hora > 23 || 0 < _minuto || _minuto > 59 || 0 < _segundo || _segundo > 59) {
+				throw invalid_argument("Error");
+		}
 	}
 
-		string toString() const {
-			// devuelve la hora
-			string horaString = "";
-			if (_hora / 10 == 0) {
-				horaString = horaString + "0" + patch::to_string(_hora) + ":";
-			} else {
-				horaString += patch::to_string(_hora) + ":";
-			}
-			if (_minuto / 10 == 0) {
-				horaString = horaString + "0" + patch::to_string(_minuto) + ":";
-			}
-			else {
-				horaString += patch::to_string(_minuto) + ":";
-			}
-			if (_segundo / 10 == 0) {
-				horaString = horaString + "0" + patch::to_string(_segundo);
-			}
-			else {
-				horaString += patch::to_string(_segundo);
-			}
-			return horaString;			
+	bool Hora::operator <(const Hora &p2) const {
+		if (_hora < p2._hora) {
+			return true;
 		}
-
-		friend bool operator <(const Hora &p1, const Hora &p2) {
-			if (p1._hora < p2._hora) {
+		else if (_hora > p2._hora) {
+			return false;
+		}
+		else {
+			// Las horas coinciden.
+			if (_minuto < p2._minuto) {
 				return true;
 			}
-			else if (p1._hora > p2._hora) {
+			else if (_minuto > p2._minuto) {
 				return false;
 			}
 			else {
-				// Las horas coinciden.
-				if (p1._minuto < p2._minuto) {
+				// Coinciden horas y minutos
+				if (_segundo < p2._segundo) {
 					return true;
 				}
-				else if (p1._minuto > p2._minuto) {
-					return false;
-				}
 				else {
-					// Coinciden horas y minutos
-					if (p1._segundo < p2._segundo) {
-						return true;
-					}
-					else {
-						// Los segundos de esta hora son posteriores o iguales
-						return false;
-					}
+					// Los segundos de esta hora son posteriores o iguales
+					return false;
 				}
 			}
 		}
+	}
 	
+	friend ostream& operator << (ostream &o, const Hora &p) {
+		setfill('0');
+		o << setw(2) << p._hora << ":" << setw(2) << p._minuto << ":" << setw(2) << p._segundo;
+		return o;
+	}
+	friend istream& operator >> (istream &o, Hora &p) {
+		o >> p._hora;
+		o.ignore();
+		o >> p._minuto;
+		o.ignore();
+		o >> p._segundo;
+		if (0 > p._hora || p._hora > 23 || 0 > p._minuto || p._minuto > 59 || 0 > p._segundo || p._segundo > 59) {
+			throw invalid_argument("Error");
+		}
+		return o;
+	}
 
 private:
 	int _hora;
@@ -104,42 +103,27 @@ void buscar(const vector <Hora> lista, const Hora buscado, int ini, int fin, int
 int main() {
 	int numFechas;
 	int casos;
+	vector <Hora> horarios;
+	Hora aux;
 	do {		
 		cin >> numFechas;
 		cin >> casos;
-		vector <Hora> horarios;
 		//Leemos el horario de trenes
-		for (int i = 0; i < numFechas; i++) {
-			int horaAux, minutoAux, segundoAux;
-			cin >> horaAux;
-			cin.ignore();
-			cin >> minutoAux;
-			cin.ignore();
-			cin >> segundoAux;
-			horarios.push_back(Hora(horaAux, minutoAux, segundoAux));
+		for (int i = 0; i < numFechas; i++) {	
+			cin >> aux;
+			horarios.push_back(aux);
 		}
 		// Comprobamos horarios
 		for (int i = 0; i < casos; i++) {
 			try {
-				int horaAux, minutoAux, segundoAux;
-				cin >> horaAux;
-				cin.ignore();
-				cin >> minutoAux;
-				cin.ignore();
-				cin >> segundoAux;
-				if (horaAux < 0 || horaAux > 23 || minutoAux < 0 || minutoAux > 59 || segundoAux < 0 || segundoAux > 59) {
-					throw (invalid_argument("ERROR"));
-				}
-				else {
-					// buscamos la hora
-					Hora aux(horaAux, minutoAux, segundoAux);
-					int p;
-					buscar(horarios, aux, 0, int(horarios.size()) - 1, p);
-					if (p == int(horarios.size())) {
-						cout << "NO" << endl;
-					} else {
-						cout << horarios[p].toString() << endl;
-					}
+				cin >> aux;
+				// buscamos la hora
+				int p;
+				buscar(horarios, aux, 0, int(horarios.size()) - 1, p);
+				if (p == int(horarios.size())) {
+					cout << "NO" << endl;
+				} else {
+					cout << horarios[p] << endl;
 				}
 			}
 			catch (invalid_argument e) {
@@ -149,6 +133,7 @@ int main() {
 		if (casos != 0 || numFechas != 0) {
 			cout << "---" << endl;
 		}
+		horarios.clear();
 	} while (casos != 0 || numFechas != 0);
 	return 0;
 }

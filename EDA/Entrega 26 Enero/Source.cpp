@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void vueltaAtras(int S[100][100], int B[100][100], int tam, int & sol, int & solMax, int col, bool usadas[100], int maxSatis, int minSatis);
+void vueltaAtras(int S[100][100], int B[100][100], const int & tam, int & sol, int & solMax, int col, bool usadas[100], int maxSatis, int minSatis);
 
 int main() {
 
@@ -60,7 +60,7 @@ int main() {
 	return 0;
 }
 
-void vueltaAtras(int S[100][100], int B[100][100], int tam, int & sol, int & solMax, int col, bool usadas[100], int maxSatis, int minSatis ) {
+void vueltaAtras(int S[100][100], int B[100][100], const int & tam, int & sol, int & solMax, int col, bool usadas[100], int maxSatis, int minSatis ) {
 	for (int i = 0; i < tam; i++){
 
 		
