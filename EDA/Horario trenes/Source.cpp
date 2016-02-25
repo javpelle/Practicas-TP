@@ -7,16 +7,6 @@
 
 using namespace std;
 
-namespace patch
-{
-	template < typename T > std::string to_string(const T& n)
-	{
-		std::ostringstream stm;
-		stm << n;
-		return stm.str();
-	}
-}
-
 class Hora {
 public:
 	Hora(){};
@@ -30,7 +20,7 @@ public:
 		}
 	}
 
-	bool Hora::operator <(const Hora &p2) const {
+	bool operator <(const Hora &p2) const {
 		if (_hora < p2._hora) {
 			return true;
 		}
@@ -59,7 +49,7 @@ public:
 	}
 	
 	friend ostream& operator << (ostream &o, const Hora &p) {
-		setfill('0');
+		cout << setfill('0');
 		o << setw(2) << p._hora << ":" << setw(2) << p._minuto << ":" << setw(2) << p._segundo;
 		return o;
 	}
