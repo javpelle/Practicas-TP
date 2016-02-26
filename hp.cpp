@@ -14,7 +14,7 @@ private:
 	int grado;
 public:
 	Polinomio(){};
-	
+
 	void leer() {
 		cin >> grado;
 		for (int i = 0; i <= grado; i++) {
@@ -24,7 +24,7 @@ public:
 
 	b resultado(const int & valor) {
 		b sol = 0;
-		int exponencial = 1;
+		long long int exponencial = 1;
 		for (int i = grado; i >= 0; i--) {
 			sol = sol + monomios[i] * exponencial;
 			exponencial = exponencial * valor;
@@ -33,18 +33,25 @@ public:
 	}
 };
 
+bool resuelveCaso() {
+	Polinomio<long long int> eda;
+	int valor;
+	if (!cin) {
+		// fin de la entrada
+		return false;
+	}
+	eda.leer();
+	do {
+		cin >> valor;
+		if (valor != 0) {
+			cout << (eda.resultado(valor)) << endl;
+		}
+	} while (valor != 0);
+		return true;
+}
+
 
 int main() {
-	Polinomio<int> eda;
-	int valor;
-	while (!cin) {
-		eda.leer();
-		do {
-			cin >> valor;
-			if (valor != 0) {
-				cout << int(eda.resultado(valor)) << endl;
-			}
-		} while (valor != 0);
-	}
+	while (resuelveCaso());
 	return 0;
 }
