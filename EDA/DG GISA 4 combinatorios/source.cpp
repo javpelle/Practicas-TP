@@ -9,7 +9,7 @@ long int combinatorio (const int &m, int n) {
 		// caso base
 		return 1;
 	} else {
-		long int combinatorioAnt = combinatorio(m, n - 1);
+		long int combinatorioAnt = combinatorio(m, n - 1)%1000007;
 		return (combinatorioAnt * (m + 1 - n)/n);
 	}
 }
@@ -23,7 +23,7 @@ int main() {
 		if (m - n < n) {
 			n = m - n;
 		}
-		cout << (combinatorio(m,n) % 1000007) << endl;
+		cout << (combinatorio(m,n)) << endl;
 	}
 	return 0;
 }

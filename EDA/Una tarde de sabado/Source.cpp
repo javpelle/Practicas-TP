@@ -122,6 +122,7 @@ public:
 	friend istream& operator >> (istream &o, Pelicula &p) {
 		Hora inicio, duracion;
 		o >> inicio >> duracion;
+		o.ignore();
 		getline(o, p.peli);
 		p.hora = inicio + duracion;
 		return o;
