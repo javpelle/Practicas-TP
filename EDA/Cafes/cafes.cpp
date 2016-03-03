@@ -134,8 +134,10 @@ int main() {
 				posicion = i;
 			}
 		}
-		Hora segundazos(segunditos);
-		cout << horarios[posicion] << " " << segundazos << endl;
+		if (numTrabajos != 0) {
+			Hora segundazos(segunditos);
+			cout << horarios[posicion] << " " << segundazos << endl;
+		}		
 		
 		horarios.clear();
 	} while (numTrabajos != 0);
