@@ -29,6 +29,11 @@ public class AtaxxRandomPlayer extends Player {
 		if (board.isFull()) {
 			throw new GameError("The board is full, cannot make a random move!!");
 		}
+		// quizas y solo quizas deberiamos llamar a la funcion que genera todos los movimientos posibles y elegir uno de esa lista
+		// pero para ello necesitamos un objeto AtaxxMove que no sé de donde sacarlo 
+		
+		List<GameMove> moves = validMoves(board, pieces, p);
+		
 
 		int rows = board.getRows();
 		int cols = board.getCols();
@@ -69,8 +74,8 @@ public class AtaxxRandomPlayer extends Player {
 	 *            Piece to place at ({@code row},{@code col}).
 	 * @return
 	 */
-	protected GameMove createMove(int row, int col, Piece p) {
-		return new AtaxxMove(row, col, p);
+	protected GameMove createMove(int origRow, int origCol, int row, int col, Piece p) {
+		return new AtaxxMove(origRow, origCol, row, col, p);
 	}
 
 }

@@ -39,6 +39,17 @@ public class AtaxxMove extends GameMove {
 	protected int col;
 
 	/**
+	 * The row where to place the origin piece
+	 */
+	protected int rowOrigin;
+	
+	/**
+	 * The column where to place the origin piece
+	 */
+	protected int colOrigin;
+	
+	
+	/**
 	 * This constructor should be used ONLY to get an instance of
 	 * {@link AtaxxMove} to generate game moves from strings by calling
 	 * {@link #fromString(String)}
@@ -49,13 +60,6 @@ public class AtaxxMove extends GameMove {
 	 * el metodo {@link #fromString(String)}
 	 * 
 	 */
-	
-	protected int rowOrigin;
-	
-	protected int colOrigin;
-	
-	
-
 	public AtaxxMove() {
 	}
 
@@ -92,8 +96,25 @@ public class AtaxxMove extends GameMove {
 	public void execute(Board board, List<Piece> pieces) {
 		if (board.getPosition(row, col) == null) {
 			board.setPosition(row, col, getPiece());
+			if (!distance()) {
+				// Si la casilla a la que se mueve la pieza no es contigua, entonces eliminamos la original.
+				board.setPosition(row, col, null);
+			}
 		} else {
 			throw new GameError("position (" + row + "," + col + ") is already occupied!");
+		}
+	}
+	
+	/**
+	 * Devuelve true si la ficha se ha movido a una casilla contigua (se duplica).
+	 * False si se ha desplazado a distancia 2 (se elimina la original)
+	 * @return
+	 */
+	private boolean distance() {
+		if (row - rowOrigin >= -1 && row - rowOrigin <= 1 && col - colOrigin >= -1 && col - colOrigin <= 1) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -108,15 +129,17 @@ public class AtaxxMove extends GameMove {
 	@Override
 	public GameMove fromString(Piece p, String str) {
 		String[] words = str.split(" ");
-		if (words.length != 2) {
+		if (words.length != 4) {
 			return null;
 		}
 
 		try {
-			int row, col;
+			int row, col, origRow, origCol;
 			row = Integer.parseInt(words[0]);
 			col = Integer.parseInt(words[1]);
-			return createMove(row, col, p);
+			origRow = Integer.parseInt(words[2]);
+			origCol = Integer.parseInt(words[1]);
+			return createMove(origRow, origCol, row, col, p);
 		} catch (NumberFormatException e) {
 			return null;
 		}
@@ -144,8 +167,8 @@ public class AtaxxMove extends GameMove {
 	 *            <p>
 	 *            Columna del nuevo movimiento.
 	 */
-	protected GameMove createMove(int row, int col, Piece p) {
-		return new AtaxxMove(row, col, p);
+	protected GameMove createMove(int origRow, int origCol, int row, int col, Piece p) {
+		return new AtaxxMove(origRow, origCol, row, col, p);
 	}
 
 	@Override
@@ -155,6 +178,7 @@ public class AtaxxMove extends GameMove {
 
 	@Override
 	public String toString() {
+		// En los ejemplos de pdf los movimientos no son "escritos" por pantalla
 		if (getPiece() == null) {
 			return help();
 		} else {
