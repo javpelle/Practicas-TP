@@ -78,81 +78,28 @@ public class AtaxxRules implements GameRules {
 	}
 
 	@Override
-	public Pair<State, Piece> updateState(Board board, List<Piece> playersPieces, Piece lastPlayer) {
-		Piece p;
-		boolean canMove = false;
-		
+	public Pair<State, Piece> updateState(Board board, List<Piece> playersPieces, Piece lastPlayer) {		
 		Piece actualPlayer = nextPlayer(board, playersPieces, lastPlayer);
-
 		
-		
-		for (int i = 0; i < dim && !canMove; i++) {
-			for (int j = 0;j < dim && !canMove; j++) {
-				if (board.getPosition(i,j).equals(actualPlayer)) {
-					//Comprobar
-				}
+		for (int i = 0; i < playersPieces.size(); i++) {
+			if (existsMove(board, actualPlayer)) {
+				return new Pair<State, Piece>(State.InPlay, actualPlayer);
 			}
+			actualPlayer = nextPlayer(board, playersPieces, actualPlayer);
+		}
+		
+		int[] contadores = new int[playersPieces.size()];
+		for (int i: contadores) {
+			contadores[i] = board.getPieceCount(playersPieces.get(i));
+		}
+		
+		for (int i: contadores) {
+			
 		}
 		
 		
-		
-		// check rows & cols
-		for (int i = 0; i < dim; i++) {
-			// row i
-			p = board.getPosition(i, 0);
-			if (p != null) {
-				j = 1;
-				while (j < dim && board.getPosition(i, j) == p)
-					j++;
-				if (j == dim)
-					return new Pair<State, Piece>(State.Won, p);
-			}
-
-			// col i
-			p = board.getPosition(0, i);
-			if (p != null) {
-				j = 1;
-				while (j < dim && board.getPosition(j, i) == p)
-					j++;
-				if (j == dim)
-					return new Pair<State, Piece>(State.Won, p);
-			}
-		}
-
-		// diagonal 1 - left-up to right-bottom
-		p = board.getPosition(0, 0);
-		if (p != null) {
-			j = 1;
-			while (j < dim && board.getPosition(j, j) == p) {
-				j++;
-			}
-			if (j == dim) {
-				return new Pair<State, Piece>(State.Won, p);
-			}
-		}
-
-		// diagonal 2 - left-bottom to right-up
-		p = board.getPosition(dim - 1, 0);
-		if (p != null) {
-			j = 1;
-			while (j < dim && board.getPosition(dim - j - 1, j) == p) {
-				j++;
-			}
-			if (j == dim) {
-				return new Pair<State, Piece>(State.Won, p);
-			}
-		}
-
-		if (board.isFull()) {
-			return new Pair<State, Piece>(State.Draw, null);
-		}
-
-		return gameInPlayResult;
+	
 	}
-	
-	
-	
-	
 	
 
 	@Override
@@ -168,22 +115,56 @@ public class AtaxxRules implements GameRules {
 
 	@Override
 	public List<GameMove> validMoves(Board board, List<Piece> playersPieces, Piece turn) {
-		List<GameMove> moves = new ArrayList<GameMove>();
-
-		for (int i = 0; i < board.getRows(); i++) {
-			for (int j = 0; j < board.getCols(); j++) {
-				if (board.getPosition(i, j) == null) {
-					moves.add(new AtaxxMove(i, j, turn));
+		List<GameMove> moves = generateMoves(board, turn, false);
+		return moves;
+	}
+	
+	/**
+	 * Busca un posible movimiento para el jugador. Si lo hay devuelve true. False en caso contrario
+	 * @param board
+	 * @param playersPieces
+	 * @param turn
+	 * @return
+	 */
+	private boolean existsMove(Board board, Piece turn) {
+		return  generateMoves(board, turn, true).size() != 0;
+	}
+	
+	/**
+	 * Busca uno o todos los movimientos posibles de un jugador
+	 * @param board
+	 * @param playersPieces
+	 * @param turn
+	 * @param onlyOne
+	 * @return
+	 */
+	private List<GameMove> generateMoves(Board board, Piece turn, boolean onlyOne) {
+		List<GameMove> moves = new ArrayList<GameMove>();		
+		for (int x = 0; x <board.getRows(); x++) {
+			for (int y = 0; y < board.getCols(); y++) {
+				if (board.getPosition(x, y).equals(turn)) {
+					vecinas(x, y, board, turn, onlyOne, moves);
+					if (moves.size() != 0 && onlyOne) {
+						// Si ya se ha introducido algún movimiento posible y solo
+						// necesitamos buscar uno, lo devolvemos
+						return moves;
+					}
 				}
 			}
 		}
 		return moves;
 	}
-	
-	
-	private List<GameMove> pito(Board board, List<Piece> playersPieces, Piece turn, boolean onlyOne) {
 		
-		List<GameMove> moves = new ArrayList<GameMove>();
+	/**
+	 * Busca una o todas las posiciones vecinas a las que puede mover una ficha en una posicion dada
+	 * @param x
+	 * @param y
+	 * @param board
+	 * @param turn
+	 * @param onlyOne
+	 * @param moves
+	 */
+	private void vecinas(int x, int y, Board board, Piece turn, boolean onlyOne, List<GameMove> moves) {
 		int deltas[][] = {
 				{-2,-2}, {-2,-1}, {-2,0}, {-2,1}, {-2,2},
 				{-1,-2}, {-1,-1}, {-1,0}, {-1,1}, {-1,2},
@@ -191,40 +172,24 @@ public class AtaxxRules implements GameRules {
 				{1,-2}, {1,-1}, {1,0}, {1,1}, {1,2},
 				{2,-2}, {2,-1}, {2,0}, {2,1}, {2,2}
 		};
-		
-		
-		for (int x = 0; x <board.getRows(); x++) {
-			for (int y = 0; y < board.getCols(); y++) {
-				if (board.getPosition(x, y).equals(turn)) {
-					for (int[] c: deltas)  {
-						if(esValida( c[0] + x, c[1] + y, board)) {
-							moves.add(new AtaxxMove(x, y, c[0] + x, c[1] + y, turn));
-							if(onlyOne) {
-								// Solo buscamos una posicion valida (asegura mover al usuario)
-								return moves;
-							}
-						}
-					}
-				}	
-			}
-		}
-		return moves;
-	}
-		
-	private List<GameMove> vecinas(int x, int y, Board board, Piece turn, boolean onlyOne) {
-		
 		for (int[] c: deltas)  {
 			if(esValida( c[0] + x, c[1] + y, board)) {
 				moves.add(new AtaxxMove(x, y, c[0] + x, c[1] + y, turn));
 				if(onlyOne) {
 					// Solo buscamos una posicion valida (asegura mover al usuario)
-					return moves;
+					break;
 				}
 			}
 		}
-		return moves;
 	}
-		
+	
+	/**
+	 * Comprueba si una posicion dada esta dentro del tablero y libre
+	 * @param i
+	 * @param j
+	 * @param board
+	 * @return
+	 */
 	private boolean esValida(int i, int j, Board board) {
 		if (i >= 0 && j >= 0 && i < board.getRows() && j < board.getCols()) {
 			if (board.getPosition(i,j) == null) {
@@ -233,6 +198,5 @@ public class AtaxxRules implements GameRules {
 		}
 		return false;
 	}
-	
 
 }
