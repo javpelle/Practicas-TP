@@ -93,12 +93,26 @@ public class AtaxxRules implements GameRules {
 			contadores[i] = board.getPieceCount(playersPieces.get(i));
 		}
 		
-		for (int i: contadores) {
-			
+		boolean empate = false;
+		int max = 0;
+		for (int i = 1; i < playersPieces.size(); i++) {
+			if (contadores[i] > contadores[max]) {
+				//mejor puntuacion
+				max = i;
+				empate = false;
+			} else if (contadores[i] == contadores[max]) {
+				// empate en el primer lugar
+				empate = true;
+			}
 		}
-		
-		
-	
+		if (empate) {
+			return new Pair<State, Piece>(State.Draw, null);
+		} else {
+			// no ha habido empate
+			return new Pair<State, Piece>(State.Won, playersPieces.get(max));
+		}
+		// Nota: Tal vez podrÃ­a devolverse una especie de ranking. Falta poner si solo uno de los jugadores tiene piezas.
+		// habria que usar get Piece count en cada turno supongo, pero deberiamos saber bien que hace
 	}
 	
 
@@ -145,7 +159,7 @@ public class AtaxxRules implements GameRules {
 				if (board.getPosition(x, y).equals(turn)) {
 					vecinas(x, y, board, turn, onlyOne, moves);
 					if (moves.size() != 0 && onlyOne) {
-						// Si ya se ha introducido algún movimiento posible y solo
+						// Si ya se ha introducido algï¿½n movimiento posible y solo
 						// necesitamos buscar uno, lo devolvemos
 						return moves;
 					}
