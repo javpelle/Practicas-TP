@@ -79,9 +79,23 @@ public class AtaxxRules implements GameRules {
 
 	@Override
 	public Pair<State, Piece> updateState(Board board, List<Piece> playersPieces, Piece lastPlayer) {
-		int j;
 		Piece p;
+		boolean canMove = false;
+		
+		Piece actualPlayer = nextPlayer(board, playersPieces, lastPlayer);
 
+		
+		
+		for (int i = 0; i < dim && !canMove; i++) {
+			for (int j = 0;j < dim && !canMove; j++) {
+				if (board.getPosition(i,j).equals(actualPlayer)) {
+					//Comprobar
+				}
+			}
+		}
+		
+		
+		
 		// check rows & cols
 		for (int i = 0; i < dim; i++) {
 			// row i
@@ -140,7 +154,6 @@ public class AtaxxRules implements GameRules {
 	
 	
 	
-	
 
 	@Override
 	public Piece nextPlayer(Board board, List<Piece> pieces, Piece lastPlayer) {
@@ -166,5 +179,60 @@ public class AtaxxRules implements GameRules {
 		}
 		return moves;
 	}
+	
+	
+	private List<GameMove> pito(Board board, List<Piece> playersPieces, Piece turn, boolean onlyOne) {
+		
+		List<GameMove> moves = new ArrayList<GameMove>();
+		int deltas[][] = {
+				{-2,-2}, {-2,-1}, {-2,0}, {-2,1}, {-2,2},
+				{-1,-2}, {-1,-1}, {-1,0}, {-1,1}, {-1,2},
+				{0,-2}, {0,-1}, {0,1}, {0,2},
+				{1,-2}, {1,-1}, {1,0}, {1,1}, {1,2},
+				{2,-2}, {2,-1}, {2,0}, {2,1}, {2,2}
+		};
+		
+		
+		for (int x = 0; x <board.getRows(); x++) {
+			for (int y = 0; y < board.getCols(); y++) {
+				if (board.getPosition(x, y).equals(turn)) {
+					for (int[] c: deltas)  {
+						if(esValida( c[0] + x, c[1] + y, board)) {
+							moves.add(new AtaxxMove(x, y, c[0] + x, c[1] + y, turn));
+							if(onlyOne) {
+								// Solo buscamos una posicion valida (asegura mover al usuario)
+								return moves;
+							}
+						}
+					}
+				}	
+			}
+		}
+		return moves;
+	}
+		
+	private List<GameMove> vecinas(int x, int y, Board board, Piece turn, boolean onlyOne) {
+		
+		for (int[] c: deltas)  {
+			if(esValida( c[0] + x, c[1] + y, board)) {
+				moves.add(new AtaxxMove(x, y, c[0] + x, c[1] + y, turn));
+				if(onlyOne) {
+					// Solo buscamos una posicion valida (asegura mover al usuario)
+					return moves;
+				}
+			}
+		}
+		return moves;
+	}
+		
+	private boolean esValida(int i, int j, Board board) {
+		if (i >= 0 && j >= 0 && i < board.getRows() && j < board.getCols()) {
+			if (board.getPosition(i,j) == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 }

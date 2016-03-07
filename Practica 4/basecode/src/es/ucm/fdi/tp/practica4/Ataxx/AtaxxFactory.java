@@ -37,7 +37,7 @@ public class AtaxxFactory implements GameFactory {
 
 	public AtaxxFactory(int dim) {
 		if (dim < 5 || dim%2 == 0) {
-			throw new GameError("Dimension must be at least 3: " + dim);
+			throw new GameError("Dimension must be at least 5 and an odd number: " + dim);
 		} else {
 			this.dim = dim;
 		}

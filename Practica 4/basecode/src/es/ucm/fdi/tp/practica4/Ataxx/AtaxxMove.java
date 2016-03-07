@@ -49,6 +49,12 @@ public class AtaxxMove extends GameMove {
 	 * el metodo {@link #fromString(String)}
 	 * 
 	 */
+	
+	protected int rowOrigin;
+	
+	protected int colOrigin;
+	
+	
 
 	public AtaxxMove() {
 	}
@@ -74,10 +80,12 @@ public class AtaxxMove extends GameMove {
 	 *            <p>
 	 *            Ficha a colocar en ({@code row},{@code col}).
 	 */
-	public AtaxxMove(int row, int col, Piece p) {
+	public AtaxxMove(int x, int y, int row, int col, Piece p) {
 		super(p);
 		this.row = row;
 		this.col = col;
+		this.rowOrigin = x;
+		this.colOrigin = y;
 	}
 
 	@Override
