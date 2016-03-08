@@ -190,6 +190,7 @@ public class AtaxxMove extends GameMove {
 	}
 	
 	private void transformarVecinas(Board board) {
+		Piece obstacle = new Piece ("*");
 		int contador = 0;
 		int deltas[][] = {
 			{-1,-1}, {-1,0}, {-1,1},
@@ -197,10 +198,10 @@ public class AtaxxMove extends GameMove {
 			{1,-1}, {1,0}, {1,1},
 		};
 		for (int[] c: deltas)  {
-			if(esValida(row + c[0], col + c[1], board) && board.getPosition(row + c[0], col + c[1]) != null) {
+			if(esValida(row + c[0], col + c[1], board) && board.getPosition(row + c[0], col + c[1]) != null && !board.getPosition(row + c[0], col + c[1]).equals(obstacle)) {
 				// Restamos uno al contador de la ficha transformada
 				board.setPieceCount(board.getPosition(row + c[0], col + c[1]),
-						board.getPieceCount(board.getPosition(row + c[0], col + c[1])) - 1);
+				board.getPieceCount(board.getPosition(row + c[0], col + c[1])) - 1);
 				// Sumamos uno al contador de las fichas nuevas
 				contador++;
 				board.setPosition(row + c[0], col + c[1], getPiece());

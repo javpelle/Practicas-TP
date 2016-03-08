@@ -536,7 +536,11 @@ public class Main {
 			break;
 			
 		case Ataxx:
-			gameFactory = new AtaxxFactory();
+			if (dimRows != null && dimCols != null && dimRows == dimCols) {
+				gameFactory = new AtaxxFactory(dimRows);
+			} else {
+				gameFactory = new AtaxxFactory();
+			}
 			break;
 		default:
 			throw new UnsupportedOperationException("Something went wrong! This program point should be unreachable!");

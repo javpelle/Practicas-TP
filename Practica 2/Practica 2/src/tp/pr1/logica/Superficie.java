@@ -23,7 +23,7 @@ public class Superficie {
 			for (int j = 0; j < nc; j++) {
 				this.superficie[i][j] = null; 
 			}
-		}
+		} 
 	}
 	
 	/**

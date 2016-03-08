@@ -4,6 +4,7 @@ package es.ucm.fdi.tp.practica4.Ataxx;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.ucm.fdi.tp.basecode.bgame.Utils;
 import es.ucm.fdi.tp.basecode.bgame.model.Board;
 import es.ucm.fdi.tp.basecode.bgame.model.FiniteRectBoard;
 import es.ucm.fdi.tp.basecode.bgame.model.GameError;
@@ -58,7 +59,7 @@ public class AtaxxRules implements GameRules {
 	}
 
 	@Override
-	public Board createBoard(List<Piece> pieces) {
+	public Board createBoard(List<Piece> pieces) {		
 		FiniteRectBoard tablero = new FiniteRectBoard(dim, dim);
 		// Player 1
 		tablero.setPosition(0 , 0, pieces.get(0));
@@ -80,6 +81,7 @@ public class AtaxxRules implements GameRules {
 			tablero.setPosition(dim - 1, dim / 2, pieces.get(3));
 			tablero.setPieceCount(pieces.get(3), 2);
 		}
+		rellenarObstaculos(tablero, 5);
 		return tablero;
 	}
 
@@ -255,5 +257,20 @@ public class AtaxxRules implements GameRules {
 			}
 		}
 		return winner;
+	}
+	
+	private void rellenarObstaculos(Board board, int numObstaculos) {
+		Piece obstacle = new Piece("*");
+		int fila, columna;
+		for(int k = 0; k < numObstaculos; k++) {
+			do {
+				fila = Utils.randomInt((board.getRows()/ 2) + 1);		
+				columna = Utils.randomInt(board.getCols()/ 2);
+			} while (board.getPosition(fila, columna) != null);
+			board.setPosition(fila, columna, obstacle);
+			board.setPosition(columna, dim - fila - 1, obstacle);
+			board.setPosition(dim - fila - 1, dim - columna - 1, obstacle);
+			board.setPosition(dim - columna - 1, fila, obstacle);
+		}
 	}
 }

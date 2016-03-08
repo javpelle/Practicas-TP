@@ -167,7 +167,7 @@ public class FiniteRectBoard extends BasicBoard {
 
 		int height = getRows();
 		int width = getCols();
-
+		
 		for (int r = 0; r < height; ++r) {
 
 			render.append("  +");
