@@ -24,6 +24,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.GameError;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.basecode.connectN.ConnectNFactory;
 import es.ucm.fdi.tp.basecode.ttt.TicTacToeFactory;
+import es.ucm.fdi.tp.practica4.Ataxx.AtaxxFactory;
 
 /**
  * This is the class with the main method for the board games application.
@@ -77,7 +78,8 @@ public class Main {
 	 * Juegos disponibles.
 	 */
 	enum GameInfo {
-		CONNECTN("cn", "ConnectN"), TicTacToe("ttt", "Tic-Tac-Toe"), AdvancedTicTacToe("attt", "Advanced Tic-Tac-Toe");
+		CONNECTN("cn", "ConnectN"), TicTacToe("ttt", "Tic-Tac-Toe"), 
+		AdvancedTicTacToe("attt", "Advanced Tic-Tac-Toe"), Ataxx("ataxx", "Ataxx");
 
 		private String id;
 		private String desc;
@@ -137,7 +139,7 @@ public class Main {
 	 * <p>
 	 * Juego por defecto.
 	 */
-	final private static GameInfo DEFAULT_GAME = GameInfo.CONNECTN;
+	final private static GameInfo DEFAULT_GAME = GameInfo.Ataxx;
 
 	/**
 	 * default view to use.
@@ -531,6 +533,10 @@ public class Main {
 			break;
 		case TicTacToe:
 			gameFactory = new TicTacToeFactory();
+			break;
+			
+		case Ataxx:
+			gameFactory = new AtaxxFactory();
 			break;
 		default:
 			throw new UnsupportedOperationException("Something went wrong! This program point should be unreachable!");

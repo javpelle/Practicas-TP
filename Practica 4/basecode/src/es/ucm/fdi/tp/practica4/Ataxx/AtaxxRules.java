@@ -59,7 +59,28 @@ public class AtaxxRules implements GameRules {
 
 	@Override
 	public Board createBoard(List<Piece> pieces) {
-		return new FiniteRectBoard(dim, dim);
+		FiniteRectBoard tablero = new FiniteRectBoard(dim, dim);
+		// Player 1
+		tablero.setPosition(0 , 0, pieces.get(0));
+		tablero.setPosition(dim - 1 , dim - 1, pieces.get(0));
+		tablero.setPieceCount(pieces.get(0), 2);
+		// Player 2
+		tablero.setPosition(0 , dim - 1, pieces.get(1));
+		tablero.setPosition(dim - 1 , 0, pieces.get(1));
+		tablero.setPieceCount(pieces.get(1), 2);
+		// Player 3
+		if (3 <= pieces.size()) {
+			tablero.setPosition(dim / 2 , 0, pieces.get(2));
+			tablero.setPosition(dim / 2 , dim - 1, pieces.get(2));
+			tablero.setPieceCount(pieces.get(2), 2);
+		}
+		// Player 4
+		if (4 == pieces.size()) {
+			tablero.setPosition(0, dim / 2, pieces.get(3));
+			tablero.setPosition(dim - 1, dim / 2, pieces.get(3));
+			tablero.setPieceCount(pieces.get(3), 2);
+		}
+		return tablero;
 	}
 
 	@Override
@@ -78,15 +99,15 @@ public class AtaxxRules implements GameRules {
 	}
 
 	@Override
-	public Pair<State, Piece> updateState(Board board, List<Piece> playersPieces, Piece lastPlayer) {		
-		Piece actualPlayer = nextPlayer(board, playersPieces, lastPlayer);
-		
-		for (int i = 0; i < playersPieces.size(); i++) {
-			if (existsMove(board, actualPlayer)) {
-				return new Pair<State, Piece>(State.InPlay, actualPlayer);
-			}
-			actualPlayer = nextPlayer(board, playersPieces, actualPlayer);
+	public Pair<State, Piece> updateState(Board board, List<Piece> playersPieces, Piece lastPlayer) {	
+		Piece posibleWinner = soloUnoConFichas(board, playersPieces);
+		if (posibleWinner != null) {
+			return new Pair<State, Piece>(State.Won, posibleWinner);
 		}
+		Piece actualPlayer = nextPlayer(board, playersPieces, lastPlayer);
+		if (actualPlayer != null) {
+			return new Pair<State, Piece>(State.InPlay, actualPlayer);
+		}		
 		
 		int[] contadores = new int[playersPieces.size()];
 		for (int i: contadores) {
@@ -119,7 +140,16 @@ public class AtaxxRules implements GameRules {
 	@Override
 	public Piece nextPlayer(Board board, List<Piece> pieces, Piece lastPlayer) {
 		int i = pieces.indexOf(lastPlayer);
-		return pieces.get((i + 1) % pieces.size());
+		Piece actualPlayer = pieces.get((i + 1) % pieces.size());
+		
+		for(int j = 0; j < pieces.size(); j++) {
+			if (existsMove(board, actualPlayer)) {
+				return actualPlayer;
+			} 
+			i = pieces.indexOf(actualPlayer );
+			actualPlayer = pieces.get((i + 1) % pieces.size());
+		}
+		return null;
 	}
 
 	@Override
@@ -141,7 +171,7 @@ public class AtaxxRules implements GameRules {
 	 * @return
 	 */
 	private boolean existsMove(Board board, Piece turn) {
-		return  generateMoves(board, turn, true).size() != 0;
+		return (board.getPieceCount(turn) != 0 && !generateMoves(board, turn, true).isEmpty());
 	}
 	
 	/**
@@ -156,9 +186,9 @@ public class AtaxxRules implements GameRules {
 		List<GameMove> moves = new ArrayList<GameMove>();		
 		for (int x = 0; x <board.getRows(); x++) {
 			for (int y = 0; y < board.getCols(); y++) {
-				if (board.getPosition(x, y).equals(turn)) {
+				if (board.getPosition(x, y) != null && board.getPosition(x, y).equals(turn)) {
 					vecinas(x, y, board, turn, onlyOne, moves);
-					if (moves.size() != 0 && onlyOne) {
+					if (!moves.isEmpty() && onlyOne) {
 						// Si ya se ha introducido alg�n movimiento posible y solo
 						// necesitamos buscar uno, lo devolvemos
 						return moves;
@@ -180,11 +210,11 @@ public class AtaxxRules implements GameRules {
 	 */
 	private void vecinas(int x, int y, Board board, Piece turn, boolean onlyOne, List<GameMove> moves) {
 		int deltas[][] = {
-				{-2,-2}, {-2,-1}, {-2,0}, {-2,1}, {-2,2},
-				{-1,-2}, {-1,-1}, {-1,0}, {-1,1}, {-1,2},
-				{0,-2}, {0,-1}, {0,1}, {0,2},
-				{1,-2}, {1,-1}, {1,0}, {1,1}, {1,2},
-				{2,-2}, {2,-1}, {2,0}, {2,1}, {2,2}
+			{-2,-2}, {-2,-1}, {-2,0}, {-2,1}, {-2,2},
+			{-1,-2}, {-1,-1}, {-1,0}, {-1,1}, {-1,2},
+			{0,-2}, {0,-1}, {0,1}, {0,2},
+			{1,-2}, {1,-1}, {1,0}, {1,1}, {1,2},
+			{2,-2}, {2,-1}, {2,0}, {2,1}, {2,2}
 		};
 		for (int[] c: deltas)  {
 			if(esValida( c[0] + x, c[1] + y, board)) {
@@ -212,5 +242,18 @@ public class AtaxxRules implements GameRules {
 		}
 		return false;
 	}
-
+	
+	private Piece soloUnoConFichas(Board board,List<Piece> pieces) {
+		Piece winner = null;
+		boolean ninguno = true;
+		for (Piece c : pieces) {
+			if (ninguno && board.getPieceCount(c) != 0) {
+				ninguno = false;
+				winner = c;
+			} else if (!ninguno && board.getPieceCount(c) != 0) {
+				return null;			
+			}
+		}
+		return winner;
+	}
 }

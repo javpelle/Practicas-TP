@@ -29,30 +29,14 @@ public class AtaxxRandomPlayer extends Player {
 		if (board.isFull()) {
 			throw new GameError("The board is full, cannot make a random move!!");
 		}
-		// quizas y solo quizas deberiamos llamar a la funcion que genera todos los movimientos posibles y elegir uno de esa lista
-		// pero para ello necesitamos un objeto AtaxxMove que no sé de donde sacarlo 
+		// quizas y solo quizas deberiamos llamar a la funcion que genera todos los movimientos 
+		// posibles y elegir uno de esa lista pero para ello necesitamos un objeto AtaxxMove que
+		// no se de donde sacarlo 
 		
-		List<GameMove> moves = validMoves(board, pieces, p);
+		List<GameMove> moves = rules.validMoves(board, pieces, p);
 		
-
-		int rows = board.getRows();
-		int cols = board.getCols();
-
-		// pick an initial random position
-		int currRow = Utils.randomInt(rows);
-		int currCol = Utils.randomInt(cols);
-
-		// start at (currRow,currColl) and look for the first empty position.
-		while (true) {
-			if (board.getPosition(currRow, currCol) == null) {
-				return createMove(currRow, currCol, p);
-			}
-			currCol = (currCol + 1) % cols;
-			if (currCol == 0) {
-				currRow = (currRow + 1) % rows;
-			}
-		}
-
+		int randomMove = Utils.randomInt(moves.size());
+		return moves.get(randomMove);
 	}
 
 	/**
