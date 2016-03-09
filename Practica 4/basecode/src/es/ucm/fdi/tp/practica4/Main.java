@@ -230,7 +230,12 @@ public class Main {
 	 * 
 	 */
 	private static Integer dimCols;
-
+	
+	/**
+	 * Number of obstacles on the board
+	 */
+	private static Integer obstacles;
+	
 	/**
 	 * The algorithm to be used by the automatic player. Not used so far, it is
 	 * always {@code null}.
@@ -621,6 +626,7 @@ public class Main {
 	 * Extrae la opcion help (-h) que imprime informacion de uso del programa en
 	 * la salida estandar.
 	 * 
+	 * 
 	 * @param line
 	 *            * CLI {@link CommandLine} object.
 	 * @param cmdLineOptions
@@ -634,7 +640,50 @@ public class Main {
 			System.exit(0);
 		}
 	}
+	
+	/**
+	 * Builds the obstacle (-o or --obstacle) CLI option.
+	 * 
+	 * <p>
+	 * Construye la opcion CLI -o.
+	 * 
+	 * @return CLI {@link {@link Option} for the obstacle option.
+	 *         <p>
+	 *         Objeto {@link Option} de esta opcion.
+	 */
 
+	private static Option constructObstacleOption() {
+		return new Option("o", "obstacle", true, 
+				"The number of obstacles on the board");
+	}
+
+	/**
+	 * Parses the obsatcle option (-o or --obstacle). It sets the value of the number
+	 * of obstacles on the board
+	 * 
+	 * <p>
+	 * Extrae la opcion obstacle (-o). Establece el numero de obtaculos en el tablero
+	 * 
+	 * 
+	 * @param line
+	 *            * CLI {@link CommandLine} object.
+	 * @param cmdLineOptions
+	 *            CLI {@link Options} object to print the usage information.
+	 * 
+	 */
+	private static void parseObstacleOption(CommandLine line, Options cmdLineOptions) {
+		String obsVal = line.getOptionValue("o");
+		if (obsVal != null) {
+			try {
+				obstacles = Integer.parseInt(obsVal);
+				if (obstacles > (dimRows * dimCols - 2 * pieces.size())) {
+					throw new ParseException("Invalid obstacles: " + obsVal + " obstacles must be < Dim x Dim ");
+			} catch (NumberFormatException e) {
+				throw new ParseException("Invalid dimension: " + obsVal);
+			}
+		}
+	}
+	
 	/**
 	 * Starts a game using a {@link ConsoleCtrl} which is not based on MVC. Is
 	 * used only for teaching the difference from the MVC one.

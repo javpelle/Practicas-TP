@@ -44,12 +44,18 @@ public class AtaxxRules implements GameRules {
 	protected final Pair<State, Piece> gameInPlayResult = new Pair<State, Piece>(State.InPlay, null);
 
 	private int dim;
+	private int obstacles;
 
-	public AtaxxRules(int dim) {
+	public AtaxxRules(int dim, int obstacles) {
 		if (dim < 5 || dim % 2 == 0) {
 			throw new GameError("Dimension must be at least 5 and odd number: " + dim);
 		} else {
 			this.dim = dim;
+		}
+		if (obstacles > (dim * dim) / 2 || obstacles % 4 != 0) {
+			throw new GameError("Dimension must be at least 5 and odd number: " + dim);
+		} else {
+			this.obstacles = obstacles;
 		}
 	}
 
