@@ -545,12 +545,21 @@ public class Main {
 		case Ataxx:
 			if (dimRows != null && dimCols != null && dimRows == dimCols) {
 				if (obstacles != null) {
+					// definidos obstaculos y dimension correcta
 					gameFactory = new AtaxxFactory(dimRows, obstacles);
 				} else {
+					// se ha definido dimension pero no numero de obstaculos
 					gameFactory = new AtaxxFactory(dimRows, 0);
 				}
 			} else {
-				gameFactory = new AtaxxFactory();
+				if (obstacles != null) {
+					// Se han definido obstaculos pero no dimension
+					gameFactory = new AtaxxFactory(7, obstacles);
+				} else {
+					// No se han definido ni obstaculos ni dimension
+					gameFactory = new AtaxxFactory();
+				}
+				
 			}
 			break;
 		default:

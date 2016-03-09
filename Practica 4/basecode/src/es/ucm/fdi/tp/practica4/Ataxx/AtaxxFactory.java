@@ -42,7 +42,7 @@ public class AtaxxFactory implements GameFactory {
 		} else {
 			this.dim = dim;
 		} if (obstacles > (dim * dim) / 2 || obstacles % 4 != 0) {
-			throw new GameError("The number of obstacles must be minor or equal than " + (dim * dim) / 2 + " and multiple of 4: " + dim);
+			throw new GameError("The number of obstacles must be minor or equal than " + (dim * dim) / 2 + " and multiple of 4: " + obstacles);
 		} else {
 			this.obstacles = obstacles;
 		}
