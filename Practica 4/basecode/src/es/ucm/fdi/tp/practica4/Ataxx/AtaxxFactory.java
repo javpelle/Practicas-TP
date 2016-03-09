@@ -30,22 +30,27 @@ import es.ucm.fdi.tp.basecode.bgame.views.GenericConsoleView;
 public class AtaxxFactory implements GameFactory {
 
 	private int dim;
+	private int obstacles;
 
 	public AtaxxFactory() {
-		this(7);
+		this(7, 0);
 	}
 
-	public AtaxxFactory(int dim) {
+	public AtaxxFactory(int dim, int obstacles) {
 		if (dim < 5 || dim%2 == 0) {
 			throw new GameError("Dimension must be at least 5 and an odd number: " + dim);
 		} else {
 			this.dim = dim;
+		} if (obstacles > (dim * dim) / 2 || obstacles % 4 != 0) {
+			throw new GameError("The number of obstacles must be minor or equal than " + (dim * dim) / 2 + " and multiple of 4: " + dim);
+		} else {
+			this.obstacles = obstacles;
 		}
 	}
 
 	@Override
 	public GameRules gameRules() {
-		return new AtaxxRules(dim);
+		return new AtaxxRules(dim, obstacles);
 	}
 
 	@Override

@@ -53,9 +53,9 @@ public class AtaxxRules implements GameRules {
 			this.dim = dim;
 		}
 		if (obstacles > (dim * dim) / 2 || obstacles % 4 != 0) {
-			throw new GameError("Dimension must be at least 5 and odd number: " + dim);
+			throw new GameError("The number of obstacles must be minor or equal than " + (dim * dim) / 2 + " and multiple of 4: " + dim);
 		} else {
-			this.obstacles = obstacles;
+			this.obstacles = obstacles / 4;
 		}
 	}
 
@@ -87,7 +87,7 @@ public class AtaxxRules implements GameRules {
 			tablero.setPosition(dim - 1, dim / 2, pieces.get(3));
 			tablero.setPieceCount(pieces.get(3), 2);
 		}
-		rellenarObstaculos(tablero, 5);
+		rellenarObstaculos(tablero);
 		return tablero;
 	}
 
@@ -265,10 +265,10 @@ public class AtaxxRules implements GameRules {
 		return winner;
 	}
 	
-	private void rellenarObstaculos(Board board, int numObstaculos) {
+	private void rellenarObstaculos(Board board) {
 		Piece obstacle = new Piece("*");
 		int fila, columna;
-		for(int k = 0; k < numObstaculos; k++) {
+		for(int k = 0; k < obstacles; k++) {
 			do {
 				fila = Utils.randomInt((board.getRows()/ 2) + 1);		
 				columna = Utils.randomInt(board.getCols()/ 2);

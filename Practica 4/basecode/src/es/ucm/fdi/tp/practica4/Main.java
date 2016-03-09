@@ -276,6 +276,7 @@ public class Main {
 																// --multiviews
 		cmdLineOptions.addOption(constructPlayersOption()); // -p or --players
 		cmdLineOptions.addOption(constructDimensionOption()); // -d or --dim
+		cmdLineOptions.addOption(constructObstacleOption()); // -o or  --obstacle
 
 		// parse the command line as provided in args
 		//
@@ -284,6 +285,7 @@ public class Main {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
 			parseDimOptionn(line);
+			parseObstacleOption(line);
 			parseGameOption(line);
 			parseViewOption(line);
 			parseMultiViewOption(line);
@@ -542,7 +544,11 @@ public class Main {
 			
 		case Ataxx:
 			if (dimRows != null && dimCols != null && dimRows == dimCols) {
-				gameFactory = new AtaxxFactory(dimRows);
+				if (obstacles != null) {
+					gameFactory = new AtaxxFactory(dimRows, obstacles);
+				} else {
+					gameFactory = new AtaxxFactory(dimRows, 0);
+				}
 			} else {
 				gameFactory = new AtaxxFactory();
 			}
@@ -667,19 +673,16 @@ public class Main {
 	 * 
 	 * @param line
 	 *            * CLI {@link CommandLine} object.
-	 * @param cmdLineOptions
-	 *            CLI {@link Options} object to print the usage information.
+	 * @throws ParseException 
 	 * 
 	 */
-	private static void parseObstacleOption(CommandLine line, Options cmdLineOptions) {
+	private static void parseObstacleOption(CommandLine line) throws ParseException {
 		String obsVal = line.getOptionValue("o");
 		if (obsVal != null) {
 			try {
 				obstacles = Integer.parseInt(obsVal);
-				if (obstacles > (dimRows * dimCols - 2 * pieces.size())) {
-					throw new ParseException("Invalid obstacles: " + obsVal + " obstacles must be < Dim x Dim ");
 			} catch (NumberFormatException e) {
-				throw new ParseException("Invalid dimension: " + obsVal);
+				throw new ParseException("Invalid number: " + obsVal);
 			}
 		}
 	}
@@ -741,7 +744,6 @@ public class Main {
 	public static void startGame() {
 		Game g = new Game(gameFactory.gameRules());
 		Controller c = null;
-
 		switch (view) {
 		case CONSOLE:
 			ArrayList<Player> players = new ArrayList<Player>();
@@ -770,7 +772,6 @@ public class Main {
 		default:
 			throw new UnsupportedOperationException("Something went wrong! This program point should be unreachable!");
 		}
-
 		c.start();
 	}
 
