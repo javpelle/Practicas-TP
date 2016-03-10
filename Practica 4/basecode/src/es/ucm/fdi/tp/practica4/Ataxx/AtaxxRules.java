@@ -118,8 +118,10 @@ public class AtaxxRules implements GameRules {
 		}		
 		
 		int[] contadores = new int[playersPieces.size()];
-		for (int i: contadores) {
-			contadores[i] = board.getPieceCount(playersPieces.get(i));
+		int j = 0;
+		for (Piece i: playersPieces) {
+			contadores[j] = board.getPieceCount(i);
+			j++;
 		}
 		
 		boolean empate = false;
