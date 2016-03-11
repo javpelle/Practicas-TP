@@ -118,10 +118,8 @@ public class AtaxxRules implements GameRules {
 		}		
 		
 		int[] contadores = new int[playersPieces.size()];
-		int j = 0;
-		for (Piece i: playersPieces) {
-			contadores[j] = board.getPieceCount(i);
-			j++;
+		for (int i = 0; i < playersPieces.size(); i++) {
+			contadores[i] = board.getPieceCount(playersPieces.get(i));
 		}
 		
 		boolean empate = false;
@@ -142,8 +140,6 @@ public class AtaxxRules implements GameRules {
 			// no ha habido empate
 			return new Pair<State, Piece>(State.Won, playersPieces.get(max));
 		}
-		// Nota: Tal vez podría devolverse una especie de ranking. Falta poner si solo uno de los jugadores tiene piezas.
-		// habria que usar get Piece count en cada turno supongo, pero deberiamos saber bien que hace
 	}
 	
 
@@ -175,22 +171,24 @@ public class AtaxxRules implements GameRules {
 	
 	/**
 	 * Busca un posible movimiento para el jugador. Si lo hay devuelve true. False en caso contrario
-	 * @param board
-	 * @param playersPieces
-	 * @param turn
-	 * @return
+	 * @param board tablero sobre el que se ejecuta el juego
+	 * @param playersPieces lista de jugadores
+	 * @param turn Pieza del jugador que tiene el turno.
+	 * @return la lista de movimientos posibles
 	 */
 	private boolean existsMove(Board board, Piece turn) {
+		// Si la pieza no tiene fichas nos ahorramos recorrer el tablero en busca de movimientos
+		// posibles para esa pieza.
 		return (board.getPieceCount(turn) != 0 && !generateMoves(board, turn, true).isEmpty());
 	}
 	
 	/**
 	 * Busca uno o todos los movimientos posibles de un jugador
-	 * @param board
-	 * @param playersPieces
-	 * @param turn
-	 * @param onlyOne
-	 * @return
+	 * @param board tablero sobre el que jugamos
+	 * @param playersPieces lista de jugadores
+	 * @param turn Pieza del jugador que tiene el turno
+	 * @param onlyOne booleano que indica si basta con generar un movimiento valido o todos
+	 * @return la lista de movimientos posibles
 	 */
 	private List<GameMove> generateMoves(Board board, Piece turn, boolean onlyOne) {
 		List<GameMove> moves = new ArrayList<GameMove>();		
@@ -211,12 +209,12 @@ public class AtaxxRules implements GameRules {
 		
 	/**
 	 * Busca una o todas las posiciones vecinas a las que puede mover una ficha en una posicion dada
-	 * @param x
-	 * @param y
-	 * @param board
-	 * @param turn
-	 * @param onlyOne
-	 * @param moves
+	 * @param x fila de la casilla 
+	 * @param y columna de la casilla
+	 * @param board tablero sobre el que se ejecuta el juego
+	 * @param turn pieza del jugador que tiene el turno
+	 * @param onlyOne booleano que indica si basta con generar una posicion valida o todas.
+	 * @param moves lista de movimientos posibles.
 	 */
 	private void vecinas(int x, int y, Board board, Piece turn, boolean onlyOne, List<GameMove> moves) {
 		int deltas[][] = {
@@ -239,10 +237,10 @@ public class AtaxxRules implements GameRules {
 	
 	/**
 	 * Comprueba si una posicion dada esta dentro del tablero y libre
-	 * @param i
-	 * @param j
-	 * @param board
-	 * @return
+	 * @param i coordenada x
+	 * @param j coordenada y
+	 * @param board tablero sobre el que estamos
+	 * @return true si la casilla es valida. False en otro caso
 	 */
 	private boolean esValida(int i, int j, Board board) {
 		if (i >= 0 && j >= 0 && i < board.getRows() && j < board.getCols()) {
@@ -253,6 +251,12 @@ public class AtaxxRules implements GameRules {
 		return false;
 	}
 	
+	/**
+	 * Compruba si solo un jugador tiene fichas
+	 * @param board Tablero sobre el que jugamos
+	 * @param pieces Lista de jugadores
+	 * @return Piece ganador si solo ese tiene piezas. Null en otro caso.
+	 */
 	private Piece soloUnoConFichas(Board board,List<Piece> pieces) {
 		Piece winner = null;
 		boolean ninguno = true;
@@ -267,6 +271,10 @@ public class AtaxxRules implements GameRules {
 		return winner;
 	}
 	
+	/**
+	 * Rellena el tablero con los obstaculos dados
+	 * @param board tablero sobre el que estamos jugando
+	 */
 	private void rellenarObstaculos(Board board) {
 		Piece obstacle = new Piece("*");
 		int fila, columna;

@@ -117,6 +117,11 @@ public class AtaxxMove extends GameMove {
 		return (row - rowOrigin >= -1 && row - rowOrigin <= 1 && col - colOrigin >= -1 && col - colOrigin <= 1);	
 	}
 	
+	/**
+	 * Devuelve true si la ficha se ha movido en un rango de casillas menor o igual que 2.
+	 * False en caso contrario.
+	 * @return
+	 */
 	private boolean distanciaLegal() {
 		return (row - rowOrigin >= -2 && row - rowOrigin <= 2 && col - colOrigin >= -2 && col - colOrigin <= 2);
 	}
@@ -189,6 +194,11 @@ public class AtaxxMove extends GameMove {
 		}
 	}
 	
+	/**
+	 * Vemos que posiciones vecinas a la posicion de destino pertenecen a 
+	 * jugadores rivales y las convertimos en piezas del jugador actual.
+	 * @param board tablero sobre el que trabajamos
+	 */
 	private void transformarVecinas(Board board) {
 		Piece obstacle = new Piece ("*");
 		int contador = 0;
@@ -210,6 +220,13 @@ public class AtaxxMove extends GameMove {
 		board.setPieceCount(getPiece(),	board.getPieceCount(getPiece()) + contador);
 	}
 	
+	/**
+	 * Comprueba que dadas unas coordenadas no se salgan del tablero
+	 * @param i coordenada x
+	 * @param j coordenada y
+	 * @param board tablero sobre el que jugamos
+	 * @return true si es una posicion dentro del tablero. False en otro caso.
+	 */
 	private boolean esValida(int i, int j, Board board) {
 		return (i >= 0 && j >= 0 && i < board.getRows() && j < board.getCols());	
 	}

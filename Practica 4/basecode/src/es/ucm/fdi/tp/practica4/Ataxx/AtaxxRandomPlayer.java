@@ -35,6 +35,8 @@ public class AtaxxRandomPlayer extends Player {
 		
 		List<GameMove> moves = rules.validMoves(board, pieces, p);
 		
+		// Generamos un aleatorio entre 0 y el tamaño de la lista que recoge todos los movimientos
+		// posibles menos uno y nos quedamos con dicho movimiento.
 		int randomMove = Utils.randomInt(moves.size());
 		return moves.get(randomMove);
 	}
