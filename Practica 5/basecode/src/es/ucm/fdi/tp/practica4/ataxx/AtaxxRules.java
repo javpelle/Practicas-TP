@@ -1,4 +1,4 @@
-package es.ucm.fdi.tp.practica4.Ataxx;
+package es.ucm.fdi.tp.practica4.ataxx;
 
 
 import java.util.ArrayList;
@@ -159,7 +159,7 @@ public class AtaxxRules implements GameRules {
 	}
 
 	@Override
-	public double evaluate(Board board, List<Piece> playersPieces, Piece turn) {
+	public double evaluate(Board board, List<Piece> playersPieces, Piece turn,Piece p) {
 		return 0;
 	}
 

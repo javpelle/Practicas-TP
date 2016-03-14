@@ -1,4 +1,4 @@
-package es.ucm.fdi.tp.practica4.Ataxx;
+package es.ucm.fdi.tp.practica4.ataxx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,8 @@ import es.ucm.fdi.tp.basecode.bgame.views.GenericConsoleView;
  * para la descripcion del juego.
  */
 public class AtaxxFactory implements GameFactory {
+	
+	private static final long serialVersionUID = 1L;
 
 	private int dim;
 	private int obstacles;
