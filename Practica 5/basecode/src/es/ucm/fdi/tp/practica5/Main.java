@@ -25,6 +25,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.basecode.connectn.ConnectNFactory;
 import es.ucm.fdi.tp.basecode.ttt.TicTacToeFactory;
 import es.ucm.fdi.tp.practica4.ataxx.AtaxxFactory;
+import es.ucm.fdi.tp.practica5.ataxx.AtaxxFactoryExt;
 
 /**
  * This is the class with the main method for the board games application.
@@ -546,18 +547,18 @@ public class Main {
 			if (dimRows != null && dimCols != null && dimRows == dimCols) {
 				if (obstacles != null) {
 					// definidos obstaculos y dimension correcta
-					gameFactory = new AtaxxFactory(dimRows, obstacles);
+					gameFactory = new AtaxxFactoryExt(dimRows, obstacles);
 				} else {
 					// se ha definido dimension pero no numero de obstaculos
-					gameFactory = new AtaxxFactory(dimRows, 0);
+					gameFactory = new AtaxxFactoryExt(dimRows, 0);
 				}
 			} else {
 				if (obstacles != null) {
 					// Se han definido obstaculos pero no dimension
-					gameFactory = new AtaxxFactory(7, obstacles);
+					gameFactory = new AtaxxFactoryExt(7, obstacles);
 				} else {
 					// No se han definido ni obstaculos ni dimension
-					gameFactory = new AtaxxFactory();
+					gameFactory = new AtaxxFactoryExt();
 				}
 				
 			}
@@ -753,9 +754,9 @@ public class Main {
 	public static void startGame() {
 		Game g = new Game(gameFactory.gameRules());
 		Controller c = null;
+		ArrayList<Player> players = new ArrayList<Player>();
 		switch (view) {
 		case CONSOLE:
-			ArrayList<Player> players = new ArrayList<Player>();
 			for (int i = 0; i < pieces.size(); i++) {
 				switch (playerModes.get(i)) {
 				case AI:
@@ -776,8 +777,25 @@ public class Main {
 			gameFactory.createConsoleView(g, c);
 			break;
 		case WINDOW:
-			throw new UnsupportedOperationException(
-					"Swing " + (multiviews ? "Multiviews" : "Views") + " are not supported yet! ");
+			for (int i = 0; i < pieces.size(); i++) {
+				switch (playerModes.get(i)) {
+				case AI:
+					players.add(gameFactory.createAIPlayer(aiPlayerAlg));
+					break;
+				case MANUAL:
+					players.add(gameFactory.createConsolePlayer());
+					break;
+				case RANDOM:
+					players.add(gameFactory.createRandomPlayer());
+					break;
+				default:
+					throw new UnsupportedOperationException(
+							"Something went wrong! This program point should be unreachable!");
+				}
+			}
+			c = new ConsoleCtrlMVC(g, pieces, players, new Scanner(System.in));
+			gameFactory.createSwingView(g, c, null, null, null);
+			break;
 		default:
 			throw new UnsupportedOperationException("Something went wrong! This program point should be unreachable!");
 		}

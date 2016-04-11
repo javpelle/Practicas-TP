@@ -6,10 +6,22 @@ import es.ucm.fdi.tp.basecode.bgame.model.GameObserver;
 import es.ucm.fdi.tp.basecode.bgame.model.Observable;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.practica4.ataxx.AtaxxFactory;
+import es.ucm.fdi.tp.practica5.swings.Swings;
+
+import javax.swing.JFrame;
 
 public class AtaxxFactoryExt extends AtaxxFactory {
-	public void createSwingView(final Observable<GameObserver> g, final Controller c, final Piece viewPiece,
-			Player random, Player ai) {
-		throw new UnsupportedOperationException("There is no swing view");
+	public AtaxxFactoryExt (int dimRows, int obstacles) {
+		super(dimRows, obstacles);
 	}
+	
+	public AtaxxFactoryExt () {
+		super();
+	}
+	public void createSwingView(final Observable<GameObserver> g, final Controller c,
+			final Piece viewPiece, Player random, Player ai) {
+		
+		
+		Swings ventana = new Swings("Ataxx");
+	}	
 }
