@@ -12,7 +12,7 @@ public class Status extends JPanel {
 	private JScrollPane p;
 	
 	public Status() {
-		super();
+		super(false);
 		this.txt = new JTextArea("Hola me llamo Javier Pellejero Ortega y no apruebo ni una xd ajaj",4,4);
 		this.p = new JScrollPane(txt);
 		this.txt.setLineWrap(true); 

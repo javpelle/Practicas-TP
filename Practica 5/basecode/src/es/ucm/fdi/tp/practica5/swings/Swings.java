@@ -12,28 +12,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Swings extends JFrame{
-	
-	private Status status;
-	private PlayerInfo playerInfo;
-	
+		
     public Swings(String game) {
     	
-        super(game);
-        this.status = new Status();
-        this.playerInfo = new PlayerInfo(0);
-        setSize(new Dimension(600, 400));  
-        setVisible(true);
-        setLayout(new BorderLayout());
+        super("Board Games: " + game);
        
-        JPanel izda = new JPanel();
-        JPanel dcha = new JPanel();
+        setSize(new Dimension(1200, 800));  
+        
+        setLayout(new GridLayout(1,0));
+       
+        LeftPanel izda = new LeftPanel();
+        RightPanel dcha = new RightPanel();
        
        // dcha.setLayout(new BoxLayout(status, BoxLayout.PAGE_AXIS));
         
-        dcha.add(status);
-        dcha.add(playerInfo);
-        add(izda, BorderLayout.CENTER);
-        add(dcha, BorderLayout.EAST);
+        add(izda);
+        add(dcha);
+        setVisible(true);
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
