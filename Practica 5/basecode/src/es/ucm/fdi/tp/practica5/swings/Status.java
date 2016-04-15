@@ -15,7 +15,8 @@ public class Status extends JPanel {
 	public Status() {
 		super(false);
 		setBorder(new TitledBorder("Status Messages"));
-		txt = new JTextArea("Hola me llamo Javier Pellejero Ortega bhsdbvsbdvbsy no apruebo ni una xd ajaj");
+		txt = new JTextArea("                   ");
+		txt.setEditable(false);
 		p = new JScrollPane(txt);
 		//this.txt.setLineWrap(true); 
 		//this.txt.setWrapStyleWord(true);

@@ -21,7 +21,7 @@ public class Swing extends JFrame{
         
         setLayout(new BorderLayout());
        
-        LeftPanel izda = new LeftPanel();
+        SwingBoard izda = new SwingBoard(40,40);
         RightPanel dcha = new RightPanel();
        
        // dcha.setLayout(new BoxLayout(status, BoxLayout.PAGE_AXIS));
