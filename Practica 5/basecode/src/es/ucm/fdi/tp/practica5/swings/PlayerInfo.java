@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -16,6 +17,7 @@ public class PlayerInfo extends JPanel {
 	
 	public PlayerInfo(int players) {
 		super();
+		setBorder(new TitledBorder("Player Information"));
 		info = new JTable(players, 3);
 		JTableHeader th = info.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
@@ -26,7 +28,7 @@ public class PlayerInfo extends JPanel {
 		tc = tcm.getColumn(2);
 		tc.setHeaderValue( "#Pieces" );
 		th.repaint();
-		this.p = new JScrollPane(info);
+		p = new JScrollPane(info);
         add(p);	
 	}
 }

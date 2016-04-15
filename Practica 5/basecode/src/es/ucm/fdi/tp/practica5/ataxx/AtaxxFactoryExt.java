@@ -6,7 +6,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.GameObserver;
 import es.ucm.fdi.tp.basecode.bgame.model.Observable;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.practica4.ataxx.AtaxxFactory;
-import es.ucm.fdi.tp.practica5.swings.Swings;
+import es.ucm.fdi.tp.practica5.swings.Swing;
 
 import javax.swing.JFrame;
 
@@ -22,6 +22,6 @@ public class AtaxxFactoryExt extends AtaxxFactory {
 			final Piece viewPiece, Player random, Player ai) {
 		
 		
-		Swings ventana = new Swings("Ataxx");
+		Swing ventana = new Swing("Ataxx");
 	}	
 }

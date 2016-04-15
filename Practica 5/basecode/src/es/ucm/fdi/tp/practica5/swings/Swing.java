@@ -11,23 +11,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Swings extends JFrame{
+public class Swing extends JFrame{
 		
-    public Swings(String game) {
+    public Swing(String game) {
     	
         super("Board Games: " + game);
        
         setSize(new Dimension(1200, 800));  
         
-        setLayout(new GridLayout(1,0));
+        setLayout(new BorderLayout());
        
         LeftPanel izda = new LeftPanel();
         RightPanel dcha = new RightPanel();
        
        // dcha.setLayout(new BoxLayout(status, BoxLayout.PAGE_AXIS));
         
-        add(izda);
-        add(dcha);
+        add(izda, BorderLayout.CENTER);
+        add(dcha, BorderLayout.EAST);
         setVisible(true);
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
