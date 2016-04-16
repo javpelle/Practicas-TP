@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import es.ucm.fdi.tp.basecode.bgame.control.Controller;
+
 public class RightPanel extends JPanel {
 	private Status status;
 	private PlayerInfo playerInfo;
@@ -12,11 +14,11 @@ public class RightPanel extends JPanel {
 	private AutomaticMoves automaticMoves;
 	private QuitAndRestart quitAndRestart;
 	
-	public RightPanel() {
+	public RightPanel(Controller c) {
 		super();
 		status = new Status();
         playerInfo = new PlayerInfo(0);
-        pieceColors = new PieceColors();
+        pieceColors = new PieceColors(c);
         playerModes = new PlayerModes();
         automaticMoves = new AutomaticMoves();
         quitAndRestart = new QuitAndRestart(false);

@@ -95,5 +95,9 @@ public class AtaxxFactory implements GameFactory {
 			Player random, Player ai) {
 		throw new UnsupportedOperationException("There is no swing view");
 	}
+	
+	public int getDim(){
+		return dim;
+	}
 
 }
