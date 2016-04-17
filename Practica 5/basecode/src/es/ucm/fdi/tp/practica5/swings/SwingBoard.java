@@ -17,7 +17,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 public class SwingBoard extends JPanel {
 	private PieceButton[][] backBoard;
 	
-	public SwingBoard(int dim,Board board, List<Piece> pieces ) {
+	public SwingBoard(int dim,Board board, List<Piece> pieces, Color[] colors) {
 		super();
 		setLayout(new GridLayout(dim,dim));
 		backBoard = new PieceButton[dim][dim];
@@ -27,7 +27,7 @@ public class SwingBoard extends JPanel {
 				if (board != null) {
 					Piece p = board.getPosition(i, j);
 					if (p != null) {
-						backBoard[i][j] = new PieceButton(new Color(pieces.indexOf(p)*1000), board.getPosition(i, j));
+						backBoard[i][j] = new PieceButton(colors[pieces.indexOf(p)], board.getPosition(i, j));
 						add(backBoard[i][j]);
 						}
 					else {

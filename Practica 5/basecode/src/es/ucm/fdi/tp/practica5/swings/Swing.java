@@ -1,5 +1,6 @@
 package es.ucm.fdi.tp.practica5.swings;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -22,14 +23,16 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 public class Swing extends JFrame implements GameObserver{
 	
 		private List<Piece> pieces;
+		private Color[] colors;
 		private Board board;
 		private Piece turn;
+		private Piece viewPiece;
 		
-    public Swing(String game, int dim, Controller c, Observable<GameObserver> g) {
-    	
-        super("Board Games: " + game);
+    public Swing(String game, int dim, Piece viewPiece, Controller c, Observable<GameObserver> g) {
+    	super("Board Games: " + game);   
+    	this.viewPiece = viewPiece;
         setSize(new Dimension(1200, 800));
-        g.addObserver(this);  
+        g.addObserver(this);
         setLayout(new BorderLayout());
        
        
@@ -38,8 +41,8 @@ public class Swing extends JFrame implements GameObserver{
 
     
     private void printBoard() {
-        SwingBoard izda = new SwingBoard (board.getCols(),board,pieces );
-        RightPanel dcha = new RightPanel();
+        SwingBoard izda = new SwingBoard (board.getCols(),board,pieces, colors);
+        RightPanel dcha = new RightPanel(pieces, viewPiece, board, colors);
         add(izda, BorderLayout.CENTER);
         add(dcha, BorderLayout.EAST);
         setVisible(true);       
@@ -56,6 +59,10 @@ public class Swing extends JFrame implements GameObserver{
 		this.board = board;
 		this.pieces = pieces;
 		this.turn = turn;
+		colors = new Color[pieces.size()];
+		for (int i = 0; i < pieces.size(); i++) {
+			colors[i]= new Color(pieces.indexOf(pieces.get(i))*5000);
+		}
 		printBoard();
 		
 	}

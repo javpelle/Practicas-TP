@@ -10,16 +10,16 @@ import javax.swing.border.TitledBorder;
 public class Status extends JPanel {
 	
 	private JTextArea txt;
-	private JScrollPane p;
 	
 	public Status() {
 		super(false);
 		setBorder(new TitledBorder("Status Messages"));
-		txt = new JTextArea("                   ");
+		txt = new JTextArea("                   \n" +
+				"              ");
 		txt.setEditable(false);
-		p = new JScrollPane(txt);
+		
 		//this.txt.setLineWrap(true); 
 		//this.txt.setWrapStyleWord(true);
-        add(p);		
+        add(new JScrollPane(txt));		
 	}
 }

@@ -1,10 +1,14 @@
 package es.ucm.fdi.tp.practica5.swings;
 
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import es.ucm.fdi.tp.basecode.bgame.control.Controller;
+import es.ucm.fdi.tp.basecode.bgame.model.Board;
+import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
 public class RightPanel extends JPanel {
 	private Status status;
@@ -14,11 +18,11 @@ public class RightPanel extends JPanel {
 	private AutomaticMoves automaticMoves;
 	private QuitAndRestart quitAndRestart;
 	
-	public RightPanel() {
+	public RightPanel(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors) {
 		super();
 		status = new Status();
-        playerInfo = new PlayerInfo(0);
-        pieceColors = new PieceColors();
+        playerInfo = new PlayerInfo(pieces, viewPiece, board);
+        pieceColors = new PieceColors(pieces);
         playerModes = new PlayerModes();
         automaticMoves = new AutomaticMoves();
         quitAndRestart = new QuitAndRestart(false);

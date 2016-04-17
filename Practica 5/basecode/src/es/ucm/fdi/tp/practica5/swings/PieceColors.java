@@ -3,6 +3,7 @@ package es.ucm.fdi.tp.practica5.swings;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -17,22 +18,19 @@ public class PieceColors extends JPanel {
 	private JButton chooseColor;
 	private JComboBox <Piece>playersList;   //JComboBox es un generico
 	
-	public PieceColors () {
+	public PieceColors (List<Piece> pieces) {
 		super();
 		setBorder(new TitledBorder("Piece Colors"));
 		playersList = new JComboBox <Piece>();
 		chooseColor = new JButton("ChooseColor");
 		add(playersList);
-		
-		
-		
 		add(chooseColor);
-		chooseColor.addActionListener(new ActionListener(){
+		chooseColor.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				Color c = JColorChooser.showDialog(getParent(), "Elige el color correspondiente", Color.BLACK);		
 				
-				}
-			}); 
+			}
+		}); 
 		
 	} 	
 }
