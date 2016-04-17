@@ -14,11 +14,11 @@ public class RightPanel extends JPanel {
 	private AutomaticMoves automaticMoves;
 	private QuitAndRestart quitAndRestart;
 	
-	public RightPanel(Controller c) {
+	public RightPanel() {
 		super();
 		status = new Status();
         playerInfo = new PlayerInfo(0);
-        pieceColors = new PieceColors(c);
+        pieceColors = new PieceColors();
         playerModes = new PlayerModes();
         automaticMoves = new AutomaticMoves();
         quitAndRestart = new QuitAndRestart(false);

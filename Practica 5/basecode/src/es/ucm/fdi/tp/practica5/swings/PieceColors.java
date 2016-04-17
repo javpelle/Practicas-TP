@@ -17,7 +17,7 @@ public class PieceColors extends JPanel {
 	private JButton chooseColor;
 	private JComboBox <Piece>playersList;   //JComboBox es un generico
 	
-	public PieceColors (Controller c) {
+	public PieceColors () {
 		super();
 		setBorder(new TitledBorder("Piece Colors"));
 		playersList = new JComboBox <Piece>();

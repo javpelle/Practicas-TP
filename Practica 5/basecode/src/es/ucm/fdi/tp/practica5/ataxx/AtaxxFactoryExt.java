@@ -20,9 +20,9 @@ public class AtaxxFactoryExt extends AtaxxFactory {
 	}
 	public void createSwingView(final Observable<GameObserver> g, final Controller c,
 			final Piece viewPiece, Player random, Player ai) {
-		if (viewPiece == null) {    //Generamos una sola ventana
-			Swing ventana = new Swing("Ataxx",getDim(),c);
-		}	
+			if (viewPiece == null) {    //Generamos una sola ventana
+			Swing ventana = new Swing("Ataxx",getDim(),c,g);
+			}	
 		}
 		
 }
