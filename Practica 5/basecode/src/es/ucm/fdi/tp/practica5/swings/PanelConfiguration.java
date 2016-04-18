@@ -1,16 +1,15 @@
 package es.ucm.fdi.tp.practica5.swings;
 
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import es.ucm.fdi.tp.basecode.bgame.control.Controller;
 import es.ucm.fdi.tp.basecode.bgame.model.Board;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
-public class RightPanel extends JPanel {
+public class PanelConfiguration extends JPanel {
 	private Status status;
 	private PlayerInfo playerInfo;
 	private PieceColors pieceColors;
@@ -18,16 +17,19 @@ public class RightPanel extends JPanel {
 	private AutomaticMoves automaticMoves;
 	private QuitAndRestart quitAndRestart;
 	
-	public RightPanel(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors) {
+	public PanelConfiguration(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors) {
 		super();
 		status = new Status();
         playerInfo = new PlayerInfo(pieces, viewPiece, board);
-        pieceColors = new PieceColors(pieces);
-        playerModes = new PlayerModes();
+        pieceColors = new PieceColors(pieces, colors);
+        playerModes = new PlayerModes(pieces);
         automaticMoves = new AutomaticMoves();
         quitAndRestart = new QuitAndRestart(false);
-        
-        setLayout(new GridLayout(0,1));
+        initComponents();
+	}
+
+	private void initComponents() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(status);
         add(playerInfo);
         add(pieceColors);
@@ -35,5 +37,4 @@ public class RightPanel extends JPanel {
         add(automaticMoves);
         add(quitAndRestart);
 	}
-
 }

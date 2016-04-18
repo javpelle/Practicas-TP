@@ -16,21 +16,33 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
 public class PieceColors extends JPanel {
 	private JButton chooseColor;
-	private JComboBox <Piece>playersList;   //JComboBox es un generico
+	private JComboBox <Piece>playersList;   // JComboBox es un generico
 	
-	public PieceColors (List<Piece> pieces) {
+	public PieceColors (List<Piece> pieces, Color[] colors) {
 		super();
 		setBorder(new TitledBorder("Piece Colors"));
 		playersList = new JComboBox <Piece>();
 		chooseColor = new JButton("ChooseColor");
+		playersList = new JComboBox();
+		for (int i = 0; i < pieces.size(); i++) {
+			playersList.addItem(pieces.get(i));
+		}
 		add(playersList);
 		add(chooseColor);
+		listenerPieceColors(pieces, colors);
+		
+		
+	} 	
+	private void listenerPieceColors(List<Piece> pieces, Color[] colors) {
 		chooseColor.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				Color c = JColorChooser.showDialog(getParent(), "Elige el color correspondiente", Color.BLACK);		
+				Piece p = (Piece) playersList.getSelectedItem();
+				if (c != null) {
+					colors[pieces.indexOf(p)] = c;
+				}
 				
 			}
-		}); 
-		
-	} 	
+		});
+	}
 }

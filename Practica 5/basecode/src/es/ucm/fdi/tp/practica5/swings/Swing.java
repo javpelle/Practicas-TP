@@ -42,10 +42,10 @@ public class Swing extends JFrame implements GameObserver{
     
     private void printBoard() {
         SwingBoard izda = new SwingBoard (board.getCols(),board,pieces, colors);
-        RightPanel dcha = new RightPanel(pieces, viewPiece, board, colors);
+        PanelConfiguration dcha = new PanelConfiguration(pieces, viewPiece, board, colors);
         add(izda, BorderLayout.CENTER);
         add(dcha, BorderLayout.EAST);
-        setVisible(true);       
+        setVisible(true);
     }
     
 	private void setLayout(FlowLayout flowLayout) {
@@ -61,7 +61,7 @@ public class Swing extends JFrame implements GameObserver{
 		this.turn = turn;
 		colors = new Color[pieces.size()];
 		for (int i = 0; i < pieces.size(); i++) {
-			colors[i]= new Color(pieces.indexOf(pieces.get(i))*5000);
+			colors[i]= new Color(pieces.indexOf(pieces.get(i))*5000 + 500);
 		}
 		printBoard();
 		

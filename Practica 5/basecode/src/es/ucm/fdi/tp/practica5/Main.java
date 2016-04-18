@@ -794,7 +794,13 @@ public class Main {
 				}
 			}
 			c = new ConsoleCtrlMVC(g, pieces, players, new Scanner(System.in));
-			gameFactory.createSwingView(g, c, null, null, null);
+			if (multiviews) {
+				for (int i = 0; i < pieces.size(); i++) {
+					gameFactory.createSwingView(g, c, pieces.get(i), null, null);
+				}
+			} else {
+				gameFactory.createSwingView(g, c, null, null, null);
+			}
 			break;
 		default:
 			throw new UnsupportedOperationException("Something went wrong! This program point should be unreachable!");

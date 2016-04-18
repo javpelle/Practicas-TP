@@ -1,5 +1,6 @@
 package es.ucm.fdi.tp.practica5.swings;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 
@@ -17,12 +18,13 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
 public class PlayerInfo extends JPanel {
 	private JTable info;
+	private Dimension preferred;
 	
 	public PlayerInfo(List<Piece> pieces, Piece viewPiece, Board board) {
-		super();
 		setBorder(new TitledBorder("Player Information"));
+		setLayout(new BorderLayout());
 		
-		String [] columnNames = { "Player", "Mode", "#Pieces"  };
+		String [] columnNames = { "Player", "Mode", "#Pieces"};
 		Object[][] data = new Object[pieces.size()][3];
 		for (int i = 0; i < pieces.size(); i++) {
 			data[i][0] = pieces.get(i).getId();
@@ -36,11 +38,16 @@ public class PlayerInfo extends JPanel {
 			data[i][2] = board.getPieceCount(pieces.get(i));
 		}
 		 info = new JTable(data,columnNames);
-		 info.setFillsViewportHeight(true);
 		 add(new JScrollPane(info));
 	}
 	
-	public boolean isCellEditable(int row, int col)
-    { return false; }
+	public boolean isCellEditable(int row, int col) {
+		return false;
+	}
 	
+	public Dimension getPreferredSize() {
+		preferred = super.getPreferredSize();
+		preferred.setSize(preferred.getWidth(), 200);
+		return preferred;
+	}
 }

@@ -23,7 +23,7 @@ public class AtaxxFactoryExt extends AtaxxFactory {
 			if (viewPiece == null) {    //Generamos una sola ventana
 				Swing ventana = new Swing("Ataxx", getDim(), null, c, g);
 			} else {
-				Swing ventana = new Swing("Ataxx" + "(" + viewPiece.getId() + ")", getDim(), viewPiece, c, g);
+				Swing ventana = new Swing("Ataxx" + " (" + viewPiece.getId() + ")", getDim(), viewPiece, c, g);
 			}
 		}
 		

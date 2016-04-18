@@ -26,16 +26,18 @@ public class SwingBoard extends JPanel {
 			for (int j = 0; j < dim; j++) {
 				if (board != null) {
 					Piece p = board.getPosition(i, j);
-					if (p != null) {
+					if (p != null && !p.getId().equals("*")) {
 						backBoard[i][j] = new PieceButton(colors[pieces.indexOf(p)], board.getPosition(i, j));
 						add(backBoard[i][j]);
-						}
-					else {
+					} else if (p != null) {
+						backBoard[i][j] = new PieceButton(Color.WHITE, board.getPosition(i, j));
+						add(backBoard[i][j]);
+					} else {
 						backBoard[i][j] = new PieceButton(Color.GRAY, null);
 						add(backBoard[i][j]);
 					}
 				}	
-			}
+			} 
 		}
 	}
 	
