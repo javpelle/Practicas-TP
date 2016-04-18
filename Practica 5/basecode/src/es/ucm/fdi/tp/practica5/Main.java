@@ -796,10 +796,10 @@ public class Main {
 			c = new ConsoleCtrlMVC(g, pieces, players, new Scanner(System.in));
 			if (multiviews) {
 				for (int i = 0; i < pieces.size(); i++) {
-					gameFactory.createSwingView(g, c, pieces.get(i), null, null);
+					gameFactory.createSwingView(g, c, pieces.get(i), gameFactory.createRandomPlayer(), gameFactory.createAIPlayer(aiPlayerAlg));
 				}
 			} else {
-				gameFactory.createSwingView(g, c, null, null, null);
+				gameFactory.createSwingView(g, c, null, gameFactory.createRandomPlayer(), gameFactory.createAIPlayer(aiPlayerAlg));
 			}
 			break;
 		default:

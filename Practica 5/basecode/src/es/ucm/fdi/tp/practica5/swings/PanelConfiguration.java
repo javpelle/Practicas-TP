@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import es.ucm.fdi.tp.basecode.bgame.model.Board;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
+import es.ucm.fdi.tp.practica5.swings.PieceColors.ColorChangedListener;
 
 public class PanelConfiguration extends JPanel {
 	private Status status;
@@ -17,11 +18,11 @@ public class PanelConfiguration extends JPanel {
 	private AutomaticMoves automaticMoves;
 	private QuitAndRestart quitAndRestart;
 	
-	public PanelConfiguration(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors) {
+	public PanelConfiguration(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors,  ColorChangedListener listener) {
 		super();
 		status = new Status();
-        playerInfo = new PlayerInfo(pieces, viewPiece, board);
-        pieceColors = new PieceColors(pieces, colors);
+        playerInfo = new PlayerInfo(pieces, viewPiece, board, colors);
+        pieceColors = new PieceColors(pieces, colors, listener);
         playerModes = new PlayerModes(pieces);
         automaticMoves = new AutomaticMoves();
         quitAndRestart = new QuitAndRestart(false);
@@ -36,5 +37,9 @@ public class PanelConfiguration extends JPanel {
         add(playerModes);
         add(automaticMoves);
         add(quitAndRestart);
+	}
+	
+	public void updatePlayerInfo(Color[] colors) {
+		playerInfo.setColors(colors);
 	}
 }

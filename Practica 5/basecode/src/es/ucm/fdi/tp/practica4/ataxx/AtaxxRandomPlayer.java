@@ -31,7 +31,7 @@ public class AtaxxRandomPlayer extends Player {
 		}
 		// quizas y solo quizas deberiamos llamar a la funcion que genera todos los movimientos 
 		// posibles y elegir uno de esa lista pero para ello necesitamos un objeto AtaxxMove que
-		// no se de donde sacarlo 
+		// no se de donde sacarlo nbn
 		
 		List<GameMove> moves = rules.validMoves(board, pieces, p);
 		

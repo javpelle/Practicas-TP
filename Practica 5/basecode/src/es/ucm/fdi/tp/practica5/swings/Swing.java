@@ -20,7 +20,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.GameObserver;
 import es.ucm.fdi.tp.basecode.bgame.model.Observable;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
-public class Swing extends JFrame implements GameObserver{
+public class Swing extends JFrame implements GameObserver {
 	
 		private List<Piece> pieces;
 		private Color[] colors;
@@ -35,14 +35,19 @@ public class Swing extends JFrame implements GameObserver{
         g.addObserver(this);
         setLayout(new BorderLayout());
        
-       
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     
     private void printBoard() {
-        SwingBoard izda = new SwingBoard (board.getCols(),board,pieces, colors);
-        PanelConfiguration dcha = new PanelConfiguration(pieces, viewPiece, board, colors);
+        final SwingBoard izda = new SwingBoard (board.getCols(),board,pieces, colors);
+        PanelConfiguration dcha = new PanelConfiguration(pieces, viewPiece, board, colors, new PieceColors.ColorChangedListener() {
+			
+			@Override
+			public void colorChanged() {
+				izda.update(board.getCols(), board, pieces, colors);
+			}
+		});
         add(izda, BorderLayout.CENTER);
         add(dcha, BorderLayout.EAST);
         setVisible(true);
@@ -64,7 +69,6 @@ public class Swing extends JFrame implements GameObserver{
 			colors[i]= new Color(pieces.indexOf(pieces.get(i))*5000 + 500);
 		}
 		printBoard();
-		
 	}
 
 	@Override
