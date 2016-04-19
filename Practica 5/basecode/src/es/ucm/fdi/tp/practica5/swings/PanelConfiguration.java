@@ -42,4 +42,9 @@ public class PanelConfiguration extends JPanel {
 	public void updatePlayerInfo(Color[] colors) {
 		playerInfo.setColors(colors);
 	}
+	
+	public void addTextToStatusInfo (String message) {
+		status.addText(message);
+	}
+	
 }

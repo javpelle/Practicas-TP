@@ -16,7 +16,7 @@ public class Status extends JPanel {
 	public Status() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder("Status Messages"));
-		txt = new JTextArea("Hechas, pues, estas prevenciones, no quiso aguardar más tiempo Hechas, pues, estas prevenciones, no quiso aguardar más tiempo Hechas, pues, estas prevenciones, no quiso aguardar más tiempo Hechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempoHechas, pues, estas prevenciones, no quiso aguardar más tiempo");
+		txt = new JTextArea();
 		txt.setEditable(false);
 		
 		//this.txt.setLineWrap(true); 
@@ -28,5 +28,9 @@ public class Status extends JPanel {
 		preferred = super.getPreferredSize();
 		preferred.setSize(500, 600);
 		return preferred;
+	}
+	
+	public void addText (String message){
+		txt.append(message + '\n');
 	}
 }

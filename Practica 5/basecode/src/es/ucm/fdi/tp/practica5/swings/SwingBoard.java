@@ -48,7 +48,6 @@ public class SwingBoard extends JPanel {
 						} else if (pieceSelected != null && !turn.equals(board.getPosition(row, col))) {
 							
 						}
-						System.out.print(row + "  " + col + "\n");
 					}
 				});
 			}
