@@ -31,7 +31,6 @@ public class PieceButton extends JLabel {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				listener.selectedLabel(row, col);
-				
 			}
 			});
 	}

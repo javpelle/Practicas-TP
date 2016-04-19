@@ -22,7 +22,9 @@ public class SwingBoard extends JPanel {
 	private Piece turno;
 	private PieceButton highlightCell;
 	
-	public SwingBoard(Board board, List<Piece> pieces, Color[] colors, Piece turn) {
+	
+	public SwingBoard(Board board, List<Piece> pieces, Color[] colors, Piece turn,
+			PieceButton.SelectedLabel listenerLabel ) {
 		super();
 		row = board.getRows();
 		col = board.getCols();
@@ -34,22 +36,7 @@ public class SwingBoard extends JPanel {
 		
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				backBoard[i][j] = new PieceButton(i,j, new PieceButton.SelectedLabel() {
-					
-					@Override
-					public void selectedLabel(int row, int col) {
-						if ((pieceSelected == null || pieceSelected.equals(turno)) && turn.equals(board.getPosition(row, col))) {
-							pieceSelected = board.getPosition(row, col);
-							if (highlightCell != null) {
-								highlightCell.setBorderColor(Color.black);
-							}
-							highlightCell = backBoard[row][col];
-							highlightCell.setBorderColor(Color.YELLOW);
-						} else if (pieceSelected != null && !turn.equals(board.getPosition(row, col))) {
-							
-						}
-					}
-				});
+				backBoard[i][j] = new PieceButton(i,j, listenerLabel);
 			}
 		}
 		update (board, pieces, colors);
@@ -73,3 +60,21 @@ public class SwingBoard extends JPanel {
 		}
 	}
 }
+
+
+new PieceButton.SelectedLabel() {
+	
+	@Override
+	public void selectedLabel(int row, int col) {
+		if ((pieceSelected == null || pieceSelected.equals(turno)) && turn.equals(board.getPosition(row, col))) {
+			pieceSelected = board.getPosition(row, col);
+			if (highlightCell != null) {
+				highlightCell.setBorderColor(Color.black);
+			}
+			highlightCell = backBoard[row][col];
+			highlightCell.setBorderColor(Color.YELLOW);
+		} else if (pieceSelected != null && !turn.equals(board.getPosition(row, col))) {
+			
+		}
+	}
+});

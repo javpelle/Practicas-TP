@@ -12,31 +12,32 @@ import es.ucm.fdi.tp.basecode.bgame.model.Observable;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.practica4.ataxx.AtaxxFactory;
 import es.ucm.fdi.tp.practica4.ataxx.AtaxxMove;
+import es.ucm.fdi.tp.practica5.bgame.control.GameFactoryExt;
 import es.ucm.fdi.tp.practica5.swings.Swing;
 import es.ucm.fdi.tp.practica5.swings.SwingPlayer;
 
 import javax.swing.JFrame;
 
-public class AtaxxFactoryExt extends AtaxxFactory {
+public class AtaxxFactoryExt extends AtaxxFactory implements GameFactoryExt {
+	
+	public AtaxxFactoryExt () {}
+	
 	public AtaxxFactoryExt (int dimRows, int obstacles) {
 		super(dimRows, obstacles);
 	}
-	
-	public AtaxxFactoryExt () {
-		super();
-	}
+
 	public void createSwingView(final Observable<GameObserver> g, final Controller c,
-			final Piece viewPiece, Player random, Player ai) {
-			if (viewPiece == null) {    //Generamos una sola ventana
-				Swing ventana = new Swing("Ataxx", getDim(), null, c, g);
-			} else {
-				Swing ventana = new Swing("Ataxx" + " (" + viewPiece.getId() + ")", getDim(), viewPiece, c, g);
-			}
+		final Piece viewPiece, Player random, Player ai) {
+		if (viewPiece == null) {    //Generamos una sola ventana
+			new Swing("Ataxx", null, c, g);
+		} else {
+			new Swing("Ataxx" + " (" + viewPiece.getId() + ")", viewPiece, c, g);
 		}
-		
-	public SwingPlayer createConsolePlayer() {
-		ArrayList<GameMove> possibleMoves = new ArrayList<GameMove>();
-		possibleMoves.add(new AtaxxMove());
+	}
+
+	@Override
+	public SwingPlayer createSwingPlayer() {
+		// TODO Auto-generated method stub
 		return new SwingPlayer();
 	}
 }

@@ -3,16 +3,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 
 import es.ucm.fdi.tp.basecode.bgame.control.Controller;
 import es.ucm.fdi.tp.basecode.bgame.model.Board;
@@ -23,17 +18,22 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
 public class Swing extends JFrame implements GameObserver {
 	
-		private List<Piece> pieces;
-		private Color[] colors;
-		private Board board;
-		private Piece turn;
-		private Piece viewPiece;
-		private SwingBoard izda;
-		private PanelConfiguration dcha;
-		
-    public Swing(String game, int dim, Piece viewPiece, Controller c, Observable<GameObserver> g) {
+	private static final long serialVersionUID = 1L;
+	// private Map<Piece, Color> colorPieces;
+
+	private List<Piece> pieces;
+	private Color[] colors;
+	private Board board;
+	private Piece turn;
+	private Piece viewPiece;
+	private SwingBoard izda;
+	private PanelConfiguration dcha;
+	private Controller c;
+	
+    public Swing(String game, Piece viewPiece, Controller c, Observable<GameObserver> g) {
     	super("Board Games: " + game);   
     	this.viewPiece = viewPiece;
+    	this.c = c;
         setSize(new Dimension(1200, 800));
         g.addObserver(this);
         setLayout(new BorderLayout());      
@@ -46,7 +46,8 @@ public class Swing extends JFrame implements GameObserver {
         dcha = new PanelConfiguration(pieces, viewPiece, board, colors, new PieceColors.ColorChangedListener() {
 			
 			@Override
-			public void colorChanged() {
+			public void colorChanged(Color c, Piece p) {
+				colors[pieces.indexOf(p)] = c;
 				izda.update(board, pieces, colors);
 			}
 		});
@@ -102,7 +103,7 @@ public class Swing extends JFrame implements GameObserver {
 	@Override
 	public void onError(String msg) {
 		JFrame error = new JFrame();
-		JOptionPane.showMessageDialog(error, msg);		
+		JOptionPane.showMessageDialog(error, msg);
 	}
 
 	

@@ -19,7 +19,7 @@ public class PieceColors extends JPanel {
 	private JComboBox <Piece>playersList;   // JComboBox es un generico
 	
 	public interface ColorChangedListener {
-		public void colorChanged();
+		public void colorChanged(Color c, Piece p);
 	}
 	
 	public PieceColors (List<Piece> pieces, Color[] colors, ColorChangedListener listener) {
@@ -27,24 +27,22 @@ public class PieceColors extends JPanel {
 		setBorder(new TitledBorder("Piece Colors"));
 		playersList = new JComboBox <Piece>();
 		chooseColor = new JButton("ChooseColor");
-		playersList = new JComboBox();
 		for (int i = 0; i < pieces.size(); i++) {
 			playersList.addItem(pieces.get(i));
 		}
 		add(playersList);
 		add(chooseColor);
-		listenerPieceColors(pieces, colors, listener);
+		listenerPieceColors(listener);
 		
 		
 	} 	
-	private void listenerPieceColors(final List<Piece> pieces, final Color[] colors, final ColorChangedListener listener) {
+	private void listenerPieceColors(final ColorChangedListener listener) {
 		chooseColor.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				Color c = JColorChooser.showDialog(getParent(), "Elige el color correspondiente", Color.BLACK);		
 				Piece p = (Piece) playersList.getSelectedItem();
-				if (c != null) {
-					colors[pieces.indexOf(p)] = c;			
-					listener.colorChanged();
+				if (c != null) {	
+					listener.colorChanged(c, p);
 				}
 			}
 		});
