@@ -19,7 +19,7 @@ public class PieceColors extends JPanel {
 	private JComboBox <Piece>playersList;   // JComboBox es un generico
 	
 	public interface ColorChangedListener {
-		void colorChanged();
+		public void colorChanged();
 	}
 	
 	public PieceColors (List<Piece> pieces, Color[] colors, ColorChangedListener listener) {

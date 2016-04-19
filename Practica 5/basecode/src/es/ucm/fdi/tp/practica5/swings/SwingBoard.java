@@ -15,24 +15,50 @@ import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
 
 public class SwingBoard extends JPanel {
+	private int row;
+	private int col;
 	private PieceButton[][] backBoard;
+	private Piece pieceSelected;
+	private Piece turno;
+	private PieceButton highlightCell;
 	
-	public SwingBoard(int dim,Board board, List<Piece> pieces, Color[] colors) {
+	public SwingBoard(Board board, List<Piece> pieces, Color[] colors, Piece turn) {
 		super();
-		setLayout(new GridLayout(dim,dim));
-		backBoard = new PieceButton[dim][dim];
+		row = board.getRows();
+		col = board.getCols();
+		setLayout(new GridLayout(row, col));
+		backBoard = new PieceButton[row][col];
+		pieceSelected = null;
+		highlightCell = null;
+		turno = turn;
 		
-		for (int i = 0; i < dim; i++) {
-			for (int j = 0; j < dim; j++) {
-				backBoard[i][j] = new PieceButton(i,j);
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				backBoard[i][j] = new PieceButton(i,j, new PieceButton.SelectedLabel() {
+					
+					@Override
+					public void selectedLabel(int row, int col) {
+						if ((pieceSelected == null || pieceSelected.equals(turno)) && turn.equals(board.getPosition(row, col))) {
+							pieceSelected = board.getPosition(row, col);
+							if (highlightCell != null) {
+								highlightCell.setBorderColor(Color.black);
+							}
+							highlightCell = backBoard[row][col];
+							highlightCell.setBorderColor(Color.YELLOW);
+						} else if (pieceSelected != null && !turn.equals(board.getPosition(row, col))) {
+							
+						}
+						System.out.print(row + "  " + col + "\n");
+					}
+				});
 			}
 		}
-		update (dim, board, pieces, colors);
+		update (board, pieces, colors);
 	}
 	
-	public void update(int dim,Board board, List<Piece> pieces, Color[] colors) {
-		for (int i = 0; i < dim; i++) {
-			for (int j = 0; j < dim; j++) {
+	public void update(Board board, List<Piece> pieces, Color[] colors) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
 				if (board != null) {
 					Piece p = board.getPosition(i, j);
 					if (p != null && !p.getId().equals("*")) {

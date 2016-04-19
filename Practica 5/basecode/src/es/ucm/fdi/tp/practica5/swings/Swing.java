@@ -40,12 +40,12 @@ public class Swing extends JFrame implements GameObserver {
 
     
     private void printBoard() {
-        final SwingBoard izda = new SwingBoard (board.getCols(),board,pieces, colors);
+        final SwingBoard izda = new SwingBoard (board,pieces, colors, turn);
         PanelConfiguration dcha = new PanelConfiguration(pieces, viewPiece, board, colors, new PieceColors.ColorChangedListener() {
 			
 			@Override
 			public void colorChanged() {
-				izda.update(board.getCols(), board, pieces, colors);
+				izda.update(board, pieces, colors);
 			}
 		});
         add(izda, BorderLayout.CENTER);
@@ -66,7 +66,7 @@ public class Swing extends JFrame implements GameObserver {
 		this.turn = turn;
 		colors = new Color[pieces.size()];
 		for (int i = 0; i < pieces.size(); i++) {
-			colors[i]= new Color(pieces.indexOf(pieces.get(i))*5000 + 500);
+			colors[i]= new Color(pieces.indexOf(pieces.get(i))*20000 + 500);
 		}
 		printBoard();
 	}
