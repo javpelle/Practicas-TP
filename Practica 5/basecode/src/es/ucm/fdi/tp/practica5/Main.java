@@ -1,7 +1,9 @@
 package es.ucm.fdi.tp.practica5;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.cli.CommandLine;
@@ -11,6 +13,9 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+
+
 
 
 
@@ -24,6 +29,7 @@ import es.ucm.fdi.tp.basecode.bgame.model.Game;
 import es.ucm.fdi.tp.basecode.bgame.model.GameError;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 import es.ucm.fdi.tp.practica5.bgame.control.GameFactoryExt;
+import es.ucm.fdi.tp.practica5.bgame.control.SwingCtrl;
 import es.ucm.fdi.tp.practica5.connectn.ConnectNFactoryExt;
 import es.ucm.fdi.tp.practica5.ttt.TicTacToeFactoryExt;
 import es.ucm.fdi.tp.practica5.ataxx.AtaxxFactoryExt;
@@ -112,7 +118,7 @@ public class Main {
 	 * <p>
 	 * Modos de juego.
 	 */
-	enum PlayerMode {
+	public enum PlayerMode {
 		MANUAL("m", "Manual"), RANDOM("r", "Random"), AI("a", "Automatics");
 
 		private String id;
@@ -149,7 +155,7 @@ public class Main {
 	 * <p>
 	 * Vista por defecto.
 	 */
-	final private static ViewInfo DEFAULT_VIEW = ViewInfo.CONSOLE;
+	final private static ViewInfo DEFAULT_VIEW = ViewInfo.WINDOW;
 
 	/**
 	 * Default player mode to use.
@@ -779,23 +785,12 @@ public class Main {
 			gameFactory.createConsoleView(g, c);
 			break;
 		case WINDOW:
+			Map<Piece, PlayerMode> piecesModes = new HashMap<Piece, PlayerMode>();
 			for (int i = 0; i < pieces.size(); i++) {
-				switch (playerModes.get(i)) {
-				case AI:
-					players.add(gameFactory.createAIPlayer(aiPlayerAlg));
-					break;
-				case MANUAL:
-					players.add(gameFactory.createSwingPlayer());
-					break;
-				case RANDOM:
-					players.add(gameFactory.createRandomPlayer());
-					break;
-				default:
-					throw new UnsupportedOperationException(
-							"Something went wrong! This program point should be unreachable!");
-				}
+				players.add(gameFactory.createSwingPlayer());
+				piecesModes.put(pieces.get(i), PlayerMode.MANUAL);
 			}
-			c = new ConsoleCtrlMVC(g, pieces, players, new Scanner(System.in));
+			c = new SwingCtrl(g, pieces, players, piecesModes);
 			if (multiviews) {
 				for (int i = 0; i < pieces.size(); i++) {
 					gameFactory.createSwingView(g, c, pieces.get(i), gameFactory.createRandomPlayer(), gameFactory.createAIPlayer(aiPlayerAlg));
@@ -828,3 +823,5 @@ public class Main {
 	}
 
 }
+
+//

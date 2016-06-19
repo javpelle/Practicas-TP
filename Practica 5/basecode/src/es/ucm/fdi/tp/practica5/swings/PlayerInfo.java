@@ -5,12 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.List;
-
-
-
-
-
-
+import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -19,21 +14,26 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import es.ucm.fdi.tp.basecode.bgame.model.Board;
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
+import es.ucm.fdi.tp.practica5.Main.PlayerMode;
+
 
 public class PlayerInfo extends JPanel {
 	private JTable info;
 	private Dimension preferred;
+	private Piece viewPiece;
+	private Map<Piece, PlayerMode> piecesModes;
 	
-	public PlayerInfo(List<Piece> pieces, Piece viewPiece, Board board, Color[] colors) {
+	public PlayerInfo(final List<Piece> pieces, Piece viewPiece, Board board,
+			final Map<Piece, Color> colorPieces, Map<Piece, PlayerMode> piecesModes) {
 		setBorder(new TitledBorder("Player Information"));
 		setLayout(new BorderLayout());
-		
+		this.piecesModes = piecesModes;
+		this.viewPiece = viewPiece;
 		String [] columnNames = { "Player", "Mode", "#Pieces"};
-		 info = new JTable(new MyTableModel(pieces, columnNames, board));
+		info = new JTable(new MyTableModel(pieces, columnNames, board));
 			info.setDefaultRenderer(String.class, new DefaultTableCellRenderer() {
 
 				@Override
@@ -42,7 +42,7 @@ public class PlayerInfo extends JPanel {
 						int row, int column) {
 					JComponent c = (JComponent)super.getTableCellRendererComponent(
 							table, value, isSelected, hasFocus, row, column);
-					c.setBackground(colors[row]);
+					c.setBackground(colorPieces.get(pieces.get(row)));
 					return c;
 				}
 				
@@ -93,10 +93,19 @@ public class PlayerInfo extends JPanel {
 		public Object getValueAt(int row, int col) {
 			switch(col) {
 			case 0: return pieces.get(row);
-			case 1: return "RANDOM";
+			case 1: 
+				if (viewPiece == null || viewPiece.equals(pieces.get(row))) {
+					return piecesModes.get(pieces.get(row)).getDesc();
+				} else {
+					return null;
+				}
 			default: return board.getPieceCount(pieces.get(row));
 			}		
 		}
 
+	}
+	
+	public void updateTable(){
+		info.updateUI();
 	}
 }

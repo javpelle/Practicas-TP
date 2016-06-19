@@ -1,7 +1,8 @@
 package es.ucm.fdi.tp.practica5.swings;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,24 +11,60 @@ import javax.swing.border.TitledBorder;
 
 import es.ucm.fdi.tp.basecode.bgame.model.Piece;
 
+/**
+ * Clase que contine los componentes necesarios para
+ * cambiar el modo de juego de una pieza
+ */
 public class PlayerModes extends JPanel {
 	
 	private JButton set;
 	private JComboBox <Piece> infoPieces;
 	private JComboBox <String> playerMode;
 	
-	public PlayerModes (List<Piece> pieces) {
+	/**
+	 * Constructora de la clase.
+	 * @param pieces Lista de piezas
+	 * @param viewPiece Pieza de la multiventana. Null si no es multiventana
+	 * @param listener Listener del boton Set
+	 */
+	public PlayerModes (List<Piece> pieces, Piece viewPiece, PlayerModeChangedListener listener) {
 		setBorder(new TitledBorder("Player Modes"));
 		set = new JButton ("set");
 		infoPieces = new JComboBox();
-		for (int i = 0; i < pieces.size(); i++) {
-			infoPieces.addItem(pieces.get(i));
+		if (viewPiece == null) {
+			// Estamos jugando en una sola ventana
+			for (int i = 0; i < pieces.size(); i++) {
+				infoPieces.addItem(pieces.get(i));
+			}
+		} else {
+			// Estamos jugando en multiventana
+			// El propietario de la ventana solo puede cambiar su metodo de juego
+			infoPieces.addItem(viewPiece);
 		}
+		
 		playerMode = new JComboBox();
 		playerMode.addItem("Manual");
 		playerMode.addItem("Random");
 		add(infoPieces);
 		add(playerMode);
 		add(set);
+		listenerPlayerModes(listener);
 	}
+	
+	/**
+	 * Interfaz que contine los metodos a llamar cuando son pulsados los botones
+	 */
+	public interface PlayerModeChangedListener {
+		public void playerModeChanged(Piece p, String mode);
+	}
+	
+	private void listenerPlayerModes(final PlayerModeChangedListener listener) {
+		set.addActionListener(new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				listener.playerModeChanged((Piece)infoPieces.getSelectedItem(), (String)playerMode.getSelectedItem());
+			}
+		});
+	}
+	
+	
 }

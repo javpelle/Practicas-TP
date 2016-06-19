@@ -1,27 +1,27 @@
 package es.ucm.fdi.tp.practica5.swings;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
-import es.ucm.fdi.tp.basecode.bgame.model.Piece;
-import es.ucm.fdi.tp.practica5.swings.PieceColors.ColorChangedListener;
-
+/**
+ * Clase que compone una celda del tablero
+ */
 public class PieceButton extends JLabel {
-	private Piece piece;
 	private Color color;
 	private int row;
 	private int col;
 	
-	public PieceButton (int row, int col, final SelectedLabel listener) {
-		piece = null;
+	/**
+	 * Contructora de la clase
+	 * @param row fila
+	 * @param col columna
+	 * @param listener Listener de la celda
+	 */
+	public PieceButton (final int row, final int col, final SelectedLabel listener) {
 		color = null;
 		this.row = row;
 		this.col = col;
@@ -30,32 +30,40 @@ public class PieceButton extends JLabel {
 		setBorderColor(Color.black);
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				listener.selectedLabel(row, col);
+				try {
+					 if(e.getButton() == MouseEvent.BUTTON1) {
+						 listener.selectedLabel(row, col);
+					 } else if(e.getButton() == MouseEvent.BUTTON3) {
+					     listener.desSelectLabel();
+					 }
+				} catch (Exception f) {}
 			}
-			});
+		});
 	}
 	
+	/**
+	 * Interfaz que contine los metodos a llamar cuando son pulsados los botones
+	 */
 	public interface SelectedLabel {
 		public void selectedLabel(int row, int col);
+		public void desSelectLabel();
 	}
 	
-	
-	public void setPieceButton (Color color, Piece piece) {
+	/**
+	 * Cambia el color a una celda
+	 * @param color
+	 * @param piece
+	 */
+	public void setPieceButton (Color color) {
 		this.color = color;
-		this.piece = piece;
 		setBackground(this.color);
 	}
 	
+	/**
+	 * Cambia el color del borde de una celda
+	 * @param color
+	 */
 	public void setBorderColor (Color color) {
 		setBorder(BorderFactory.createLineBorder(color));
 	}
-	
-	public int getRow() {
-		return row;
-	}
-	
-	public int getCol() {
-		return col;
-	}
-	
 }

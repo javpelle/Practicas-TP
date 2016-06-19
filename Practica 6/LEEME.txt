@@ -1,0 +1,32 @@
+Javier Pellejero Ortega y Luis Aguirre Galindo
+
+Cambios de la práctica 5:
+
+	- CAMBIO IMPORTANTE:
+		Eliminada la clase SwingControl. Esta solo la utilizábamos para almacenar los players
+	(de los cuales solo nos interesaban los SwingPlayers - jugadores manuales de las vistas).
+	Antes pedíamos desde la clase Swing al SwingControl al principio del programa el primer Player de
+	la lista de players almacenada en dicho controlador que por defecto era siempre manual. Ahora
+	simplemente pasamos este jugador manual a través de la constructora de Swing desde cada FactoryExt
+	de cada juego. Por tanto el controlador usado ahora para las vistas es Controller del basecode.
+
+	- Hemos completado el método evaluate en la clase AtaxxRules original de la práctica 4, además de haber añadido
+algunos métodos privados en la misma.
+
+	- Todo lo relacionado con los movimientos inteligentes en la práctica 5, estaba deshabilitado siempre.
+Algunas clases del paquete es.ucm.fdi.tp.practica5.swings han sido ligeramente modificadas para para la implementación
+de dichos movimientos.
+
+	- Nuestra práctica no cumplía con el requisito de que al ser cambiado el modo de juego de un jugador a
+inteligente o aleatorio, este seguía en manual el primer turno, sino que movía automáticamente tras ser cambiado.
+Esto está ya corregido.
+
+	- Corregido error attt. Cuando reiniciábamos la partida el jugador manual seguía pidiendo un
+movimiento de "dos clics" por lo tanto no se podía jugar manualmente después del reinicio.
+
+	- Eliminados dos parámetros int de la clase PieceButton innecesarios.
+
+	- La tabla de información de PlayerInfo no actualizaba el contador de piezas en modo online. Solucionado
+pasándole a nuestro método que actualiza la tabla el nuevo tablero enviado por el server.
+
+	- La clase Swing que albergaba la ventana de juego ha sido redenominada a PlayerUI.

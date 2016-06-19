@@ -33,7 +33,6 @@ public class ConsoleCtrlMVC extends ConsoleCtrl {
 		game.start(pieces);
 
 		while (game.getState() == State.InPlay) {
-
 			// get a line from the user
 			System.out.println();
 			System.out.print("Please type a command ('help' for usage info.): ");
